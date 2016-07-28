@@ -1,0 +1,29 @@
+---
+# file tasks/autoupgrade.yml
+
+- name: create autoupgrade clients dir
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items:
+    - /etc/burp/autoupgrade/server/win32/1.4.40
+    - /etc/burp/autoupgrade/server/win64/1.4.40
+
+# documentation from:
+# http://burp.grke.org/docs/autoupgrade.html
+
+- name: copy burp client exe files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - { src: "autoupgrade_script", dest: "/etc/burp/autoupgrade/server/win32/script" }
+    - { src: "autoupgrade_script", dest: "/etc/burp/autoupgrade/server/win64/script" }
+    - { src: "burp-win32-installer-1.4.40.exe", dest: "/etc/burp/autoupgrade/server/win32/1.4.40/package" }
+    - { src: "burp-win64-installer-1.4.40.exe", dest: "/etc/burp/autoupgrade/server/win64/1.4.40/package" }

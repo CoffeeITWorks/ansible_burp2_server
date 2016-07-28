@@ -1,0 +1,52 @@
+---
+# file: defaults/main.yml
+
+burp_server_version: 2
+burp_server_protocol: 1
+
+burp_server_repos: False
+#burp_server_repos:
+#  - { repo: "url", version: "branch", dir: "dest dir"}
+
+storage: /var/lib
+burp_server_root: "{{ storage }}/burp"
+burp_server_directory: "{{ burp_server_root }}/data"
+burp_server_trash: "{{ burp_server_root }}/trash"
+burp_server_logs: /var/log/burp
+
+burp_server_address: "0.0.0.0"
+burp_server_port: 4971
+burp_server_status_address: "127.0.0.1"
+burp_server_status_port: 4972
+
+burp_server_syslog: 1
+burp_server_max_children: 5
+burp_server_max_status_children: 5
+burp_server_hardlinked_archive: 0
+burp_server_working_dir_recovery_method: delete
+burp_server_resume_partial: 1
+burp_server_version_warn: 1
+burp_server_client_can_delete: 0
+burp_server_client_can_force_backup: 1
+burp_server_client_can_list: 1
+burp_server_client_can_restore: 1
+burp_server_client_can_verify: 1
+burp_server_ratelimit: 10
+burp_server_network_timeout: 300
+burp_server_keep:
+  - 3
+burp_server_timer_script: /usr/share/burp/scripts/timer_script
+burp_server_timer_args:
+  - 24h
+  - Mon,Tue,Wed,Thu,Fri,Sat,Sun,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23
+burp_server_script_pre: false
+burp_server_scripts_pre_args: []
+burp_server_script_post: false
+burp_server_script_post_args: []
+burp_server_send_from: example@domain.net
+burp_server_send_to: admin@domain.net
+
+burp_server_ssl_key_pass: False
+
+burp_server_dedup_group: win7
+burp_server_monitor_cache: 1

@@ -1,0 +1,13 @@
+exclude_regex = /lost+found
+exclude_regex = /media
+exclude_regex = /mnt
+exclude_regex = /proc
+exclude_regex = /run
+exclude_regex = /sys
+exclude_regex = /tmp
+
+exclude_fs = sysfs
+exclude_fs = tmpfs
+
+exclude_comp = bz2
+exclude_comp = gz

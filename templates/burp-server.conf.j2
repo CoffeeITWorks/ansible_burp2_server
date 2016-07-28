@@ -1,0 +1,103 @@
+# This is an example config file for the burp server.
+
+mode = server
+
+protocol = {{ burp_server_protocol }}
+
+address = {{ burp_server_address }}
+port = {{ burp_server_port }}
+status_address = {{ burp_server_status_address }}
+status_port = {{ burp_server_status_port }}
+max_children = {{ burp_server_max_children }}
+max_status_children = {{ burp_server_max_status_children }}
+
+syslog = {{ burp_server_syslog }}
+autoupgrade_dir = /etc/burp/autoupgrade/server
+version_warn = {{ burp_server_version_warn }}
+
+hardlinked_archive = {{ burp_server_hardlinked_archive }}
+working_dir_recovery_method = {{ burp_server_working_dir_recovery_method }}
+resume_partial = {{ burp_server_resume_partial }}
+
+client_can_delete = {{ burp_server_client_can_delete }}
+client_can_force_backup = {{ burp_server_client_can_force_backup }}
+client_can_list = {{ burp_server_client_can_list }}
+client_can_restore = {{ burp_server_client_can_restore }}
+client_can_verify = {{ burp_server_client_can_verify }}
+
+{% if burp_server_ratelimit != false %}
+ratelimit = {{ burp_server_ratelimit }}
+{% endif %}
+network_timeout = {{ burp_server_network_timeout }}
+
+{% for keep in burp_server_keep %}
+keep = {{ keep }}
+{% endfor %}
+
+timer_script = {{ burp_server_timer_script }}
+{% for timer_arg in burp_server_timer_args %}
+timer_arg = {{ timer_arg }}
+{% endfor %}
+
+clientconfdir = /etc/burp/clientconfdir
+pidfile = /var/run/burp-server.pid
+directory = {{ burp_server_directory }}
+user = root
+group = root
+umask = 0022
+
+{% if burp_server_trash %}
+manual_delete = {{ burp_server_trash }}
+{% endif %}
+
+ca_conf = /etc/burp/CA.cnf
+ca_name = burpCA
+ca_server_name = {{ ansible_nodename }}
+ca_burp_ca = /usr/sbin/burp_ca
+ssl_cert_ca = /etc/burp/ssl_cert_ca-server.pem
+ssl_cert = /etc/burp/ssl_cert-server.pem
+ssl_key = /etc/burp/ssl_cert-server.key
+ssl_key_password = {{ burp_server_ssl_key_pass }}
+ssl_dhfile = /etc/burp/dhfile.pem
+
+{% if burp_server_script_pre != false %}
+server_script_pre = {{ burp_server_script_pre }}
+    {% if burp_server_scripts_pre_args is defined %}
+        {% for script_arg in burp_server_scripts_pre_args %}
+server_script_pre_args = {{ script_args }}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+{% if burp_server_script_post != false %}
+server_script_post = {{ burp_server_script_post }}
+    {% if burp_server_script_post_args is defined %}
+        {% for script_arg in burp_server_script_post_args %}
+server_script_post_args = {{ script_args }}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+# Uncomment the following for email notifications of backups that succeeded.
+#notify_success_script = /usr/share/burp/scripts/notify_script
+#notify_success_arg = sendmail -t
+#notify_success_arg = To: youremail@example.com
+#notify_success_arg = From: burp
+#notify_success_arg = Subject: backup succeeded:
+# Uncomment the following to have success notifications only if there were
+# warnings.
+#notify_success_warnings_only = 1
+# Uncomment the following to have success notifications only if there were
+# new or changed files.
+#notify_success_changes_only = 1
+
+# Uncomment the following for email notifications of backups that failed.
+#notify_failure_script = /usr/share/burp/scripts/notify_script
+#notify_failure_arg = sendmail -t
+#notify_failure_arg = To: youremail@example.com
+#notify_failure_arg = From: burp
+#notify_failure_arg = Subject: backup failed:
+
+# Burp2 specific
+dedup_group = {{ burp_server_dedup_group }}
+monitor_browse_cache={{ burp_server_monitor_cache }}

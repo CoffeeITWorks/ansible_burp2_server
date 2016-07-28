@@ -1,0 +1,5 @@
+password = 8urpCl13nt2015
+
+# More configuration files can be read, using syntax like the following
+# (without the leading '# ').
+. incexc/profile_lnxsrv

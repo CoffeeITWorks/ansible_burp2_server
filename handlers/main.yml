@@ -1,0 +1,15 @@
+---
+# file: handlers/main.yml
+
+- name: restart burp server
+  service:
+    name: "{{ burp_server_service }}"
+    state: restarted
+
+- name: restart cron server
+  service:
+    name: cron
+    state: restarted
+    
+- name: Update cache
+  apt: 'update_cache=yes'

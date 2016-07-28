@@ -1,0 +1,23 @@
+---
+# file tasks/cron.yml
+
+### CRON CONFIGURATION ###
+# Adding > /dev/null to commands to supress stdout normal emails to root.
+# it will send only emails to root if there is some stderr
+
+- cron:
+    name: Delete files in burp trash
+    job: 'rm -rfv {{ burp_server_trash  }}/* > {{ burp_server_logs }}/manual_delete.log'
+    user: root
+    cron_file: burp_server
+    minute: 0
+    hour: 3
+    weekday: '*'
+    state: present
+  notify: restart cron server
+
+# Enable cron to start up on boot
+- name: ensure cron is enabled
+  service:
+    name: cron
+    enabled: yes
