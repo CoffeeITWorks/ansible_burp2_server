@@ -1,15 +1,31 @@
 ---
 # file: handlers/main.yml
 
-- name: restart burp server
+- name: restart supervisor
   service:
-    name: "{{ burp_server_service }}"
+    name: supervisor
+    state: restarted
+
+- name: restart burp server
+  supervisorctl:
+    name: burp-server
+    state: restarted
+
+- name: restart burp restore
+  supervisorctl:
+    name: burp-restore
+    state: restarted
+
+- name: restart buiagent
+  supervisorctl:
+    name: buiagent
     state: restarted
 
 - name: restart cron server
   service:
     name: cron
     state: restarted
-    
-- name: Update cache
-  apt: 'update_cache=yes'
+
+- name: update cache
+  apt:
+    update_cache: yes

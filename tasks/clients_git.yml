@@ -4,21 +4,21 @@
 - name: Clone configuration directories
   git:
     repo: "{{ item.repo }}"
-    dest: "/etc/burp/clientconfdir/{{ item.dir }}"
+    dest: "{{ burp_server_clientconfdir }}/{{ item.dir }}"
     version: "{{ item.version }}"
     update: yes
     force: yes
-  with_items: burp_server_repos
+  with_items: "{{ burp_repos }}"
 
 - name: Link client configuration files
   shell: "ln -fs {{ item.dir }}/* ./"
   args:
-    chdir: "/etc/burp/clientconfdir"
-  with_items: burp_server_repos
+    chdir: "{{ burp_server_clientconfdir }}"
+  with_items: "{{ burp_repos }}"
   changed_when: false
 
 - name: Remove deprecated links
   shell: 'find . -type l -xtype l -exec rm -rf {} \;'
   args:
-    chdir: "/etc/burp/clientconfdir"
+    chdir: "{{ burp_server_clientconfdir }}"
   changed_when: false

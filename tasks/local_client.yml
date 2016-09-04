@@ -1,0 +1,17 @@
+---
+# file tasks/local_client.yml
+
+- name: create CA-monitor folder
+  file:
+    path: "{{ burp_client_ca_csr_dir }}"
+    state: directory
+
+- name: configure burp client
+  template:
+    src: burp.conf.j2
+    dest: /etc/burp/burp.conf
+
+- name: add local client
+  template:
+    src: monitor.j2
+    dest: "{{ burp_server_clientconfdir }}/monitor"

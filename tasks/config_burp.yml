@@ -1,0 +1,40 @@
+---
+# file tasks/config_burp.yml
+
+- name: create burp folders
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ burp_home }}"
+    - "{{ burp_server_data }}"
+    - "{{ burp_logs }}"
+    - "{{ burp_server_clientconfdir }}/profiles"
+    - "{{ burp_server_clientconfdir }}/incexc"
+
+- name: remove burp example files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ burp_server_clientconfdir }}/testclient"
+    - "{{ burp_server_clientconfdir }}/incexc/example"
+
+- name: configure burp server
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "burp-server.conf.j2", dest: "/etc/burp/burp-server.conf"}
+  notify: restart burp server
+
+- name: copy clients configuration files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ burp_server_clientconfdir }}"
+    directory_mode: yes
+    force: yes
+  with_items:
+    - incexc
+    - profiles
+

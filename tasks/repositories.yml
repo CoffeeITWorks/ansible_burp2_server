@@ -4,20 +4,13 @@
   template:
     src: sources_burp.list.j2
     dest: /etc/apt/sources.list.d/sources_burp.list
-    owner: root
-    group: root
-    mode: 0644
-  notify: Update cache
+  notify: update cache
   register: add_burp_repo
 
 # Add an Apt signing key, uses key URL
 - name: Install gpg key for burp repository
   shell: 'wget -q "http://ziirish.info/repos/{{ ansible_distribution | lower }}.gpg" -O - | sudo apt-key add -'
-  environment: "{{ proxy_env }}"
   when: add_burp_repo.changed
-
-- name: Ensure old package is removed
-  apt: name="burp" state=absent
 
 - name: ensure handlers runs before continue
   meta: flush_handlers

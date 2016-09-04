@@ -1,0 +1,27 @@
+---
+# file defaults/config_agent.yml
+
+- name: install buiagent packages
+  package:
+    name: "{{ burp_agent_packages| join(',') }}"
+    state: latest
+
+- name: install buiagent pip packages
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ burp_agent_pip_present }}"
+
+- name: upgrade buiagent pip packages
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ burp_agent_pip_latest }}"
+
+- name: configure buiagent
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "buiagent.cfg.j2", dest: "/etc/burp/buiagent.cfg" }
+  notify: restart buiagent

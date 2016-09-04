@@ -1,10 +1,6 @@
 ---
 # file: vars/Ubuntu.yml
 
-# burp_server_packages:
-#  - libssl-dev
-#  - burp-core
-
 build_dependencies:
   - make
   - pkg-config
@@ -25,6 +21,3 @@ burp_agent_packages:
   - python-dev
   - supervisor
 
-# Repository information: http://ziirish.info/repos/README.txt
-# burp_apt_sources:
-#  - "deb http://ziirish.info/repos/ubuntu/{{ ansible_distribution_release }} zi-latest main"

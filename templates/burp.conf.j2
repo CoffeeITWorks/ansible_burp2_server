@@ -1,0 +1,29 @@
+mode = client
+server = 127.0.0.1
+
+##
+## port = {{ burp_restore_port }}
+## status_port = {{ burp_restore_status_port }}
+##
+## I have fixed the client to be on burp-server because the status showns better on burpui
+port = {{ burp_server_port }}
+status_port = {{ burp_server_status_port }}
+##
+
+pidfile = {{ burp_client_pidfile }}
+
+cname = monitor
+password = {{ burp_client_password }}
+
+protocol = {{ burp_server_protocol }}
+
+syslog = 0
+stdout = 0
+
+ca_burp_ca = {{ burp_server_ca_burp_ca }}
+ca_csr_dir = {{ burp_client_ca_csr_dir }}
+ssl_cert_ca = {{ burp_client_ssl_cert_ca }}
+ssl_cert = {{ burp_client_ssl_cert }}
+ssl_key = {{ burp_client_ssl_key }}
+ssl_key_password = {{ burp_server_ssl_key_password }}
+ssl_peer_cn = {{ ansible_nodename }}

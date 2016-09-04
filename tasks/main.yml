@@ -2,84 +2,34 @@
 # file: tasks/main.yml
 
 - include: multi_os.yml
-  tags:
-    - burp2_server_config
-    - burp2_server_profiles
-    - burp2_server_cron
-    - burp2_server_autoupgrade
-    - burp2_server_linux
 
-- include: repositories.yml
+# - include: repositories.yml
 
-- name: install role packages
-  package: name={{ burp_server_packages| join(',') }} state=present
+# - include: install_burp.yml
 
-- name: create burp server folders
-  file:
-    path: "{{ item}}"
-    owner: root
-    group: root
-    mode: 0755
-    state: directory
-  with_items:
-    - "{{ burp_server_root }}"
-    - "{{ burp_server_directory }}"
-    - "{{ burp_server_trash }}"
-    - "{{ burp_server_logs }}"
-    - /etc/burp/clientconfdir/profiles
-    - /etc/burp/clientconfdir/incexc
+- include: build-burp.yml
 
-- name: remove example files
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /etc/burp/clientconfdir/testclient
-    - /etc/burp/clientconfdir/incexc/example
+- include: clean.yml
 
-- name: setup burp configuration files
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - { src: "burp-server.conf.j2", dest: "/etc/burp/burp-server.conf" }
-    - { src: "burp.j2", dest: "/etc/default/burp" }
-  notify: restart burp server
-  tags:
-    - burp2_server_config
+- include: config_burp.yml
 
-- name: copy clients configuration files
-  copy:
-    src: "{{ item }}"
-    dest: /etc/burp/clientconfdir
-    owner: root
-    group: root
-    mode: 0644
-    directory_mode: yes
-    force: yes
-  with_items:
-    - incexc
-    - profiles
-  tags:
-    - burp2_server_profiles
-
-- name: ensure burp is enabled
-  service:
-    name: "{{ burp_server_service }}"
-    enabled: yes
-
-- include: cron.yml
-  tags:
-    - burp2_server_cron
+# Only for monitor and status purpose
+- include: manual_delete.yml
+  when: burp_manual_delete_enabled
 
 - include: autoupgrade.yml
-  tags:
-    - burp2_server_autoupgrade
+  when: burp_server_autoupgrade_enabled
 
-- include: linux.yml
-  when: burp_server_repos
-  tags:
-    - burp2_server_linux
+- include: clients_git.yml
+  when: burp_repos
+  tags: update_git_clients
+
+- include: config_restore.yml
+  when: burp_module_restore
+
+- include: local_client.yml
+
+- include: config_agent.yml
+  when: burp_module_agent
+
+- include: supervisor.yml

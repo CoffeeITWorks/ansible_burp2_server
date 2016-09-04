@@ -4,13 +4,13 @@ mode = server
 
 # The default addresses to listen on depend upon compile time options.
 # They may be overridden here.
-address = {{ burp_server_address }}
-port = {{ burp_server_port }}
+address = {{ burp_restore_address }}
+port = {{ burp_restore_port }}
 # Think carefully before changing the status port address, as it can be used
 # to view the contents of backups.
-status_address = {{ burp_server_status_address }}
+status_address = {{ burp_restore_status_address }}
 # If you do not wish to run a status server at all, comment status_port out.
-status_port = {{ burp_server_status_port }}
+status_port = {{ burp_restore_status_port }}
 
 directory = {{ burp_server_data }}
 dedup_group = {{ burp_server_dedup_group }}
@@ -22,7 +22,7 @@ clientconfdir = {{ burp_server_clientconfdir }}
 # Like many other settings, this can be set per client in the clientconfdir
 # files.
 protocol = {{ burp_server_protocol }}
-pidfile = {{ burp_server_pidfile }}
+pidfile = {{ burp_restore_pidfile }}
 hardlinked_archive = {{ burp_server_hardlinked_archive }}
 working_dir_recovery_method = {{ burp_server_working_dir_recovery_method }}
 max_children = {{ burp_server_max_children }}
@@ -32,31 +32,25 @@ syslog = {{ burp_server_syslog }}
 stdout = {{ burp_server_stdout }}
 # The following options can restrict what the client can do.
 # Restore clients can override all of these expect for force_backup.
-client_can_delete = {{ burp_server_client_can_delete }}
+client_can_delete = 0
 # Set client_can_force_backup to 0 to only allow timed backups.
-client_can_force_backup = {{ burp_server_client_can_force_backup }}
-client_can_list = {{ burp_server_client_can_list }}
+client_can_force_backup = 0
+client_can_list = 1
 # Set client_can_restore to 0 if you want restores to only be initialised by
 # the server.
-client_can_restore = {{ burp_server_client_can_restore }}
-client_can_verify = {{ burp_server_client_can_verify }}
+client_can_restore = 1
+client_can_verify = 1
 # Ratelimit throttles the send speed. Specified in Megabits per second (Mb/s).
 # ratelimit = 1.5
-{% if burp_server_ratelimit %}
-ratelimit = {{ burp_server_ratelimit }}
-{% endif %}
 # Network timeout defaults to 7200 seconds (2 hours).
 # network_timeout = 7200
-{% if burp_server_network_timeout %}
-network_timeout = {{ burp_server_network_timeout }}
-{% endif %}
 
 # Server storage compression. Default is zlib9. Set to zlib0 to turn it off.
 #compression = zlib9
 
 # When the client version does not match the server version, log a warning.
 # Set to 0 to turn it off.
-version_warn = {{ burp_server_version_warn }}
+version_warn = 0
 
 # More configuration files can be read, using syntax like the following
 # (without the leading '# ').
@@ -64,7 +58,7 @@ version_warn = {{ burp_server_version_warn }}
 
 # Location of autoupgrade files to serve to clients. Leave it commented out
 # to not autoupgrade clients.
-autoupgrade_dir = {{ burp_server_autoupgrade_dir }}
+#autoupgrade_dir = /etc/burp/autoupgrade/server
 
 # You can have as many 'keep' lines as you like.
 # For example, if running backups daily, setting 7, 4, 6 will keep
@@ -115,7 +109,7 @@ ssl_key_password = {{ burp_server_ssl_key_password }}
 # Server DH file.
 ssl_dhfile = {{ burp_server_ssl_dhfile }}
 
-timer_script = {{ burp_server_timer_script }}
+#timer_script = /usr/share/burp/scripts/timer_script
 # Ensure that 20 hours elapse between backups
 # Available units:
 # s (seconds), m (minutes), h (hours), d (days), w (weeks), n (months)
@@ -126,9 +120,6 @@ timer_script = {{ burp_server_timer_script }}
 #timer_arg = Sat,Sun,00,01,02,03,04,05,06,07,08,17,18,19,20,21,22,23
 # Note that, if you specify no timebands, the default timer script will never
 # allow backups.
-{% for timer_arg in burp_server_timer_args %}
-timer_arg = {{ timer_arg }}
-{% endfor %}
 
 # Uncomment the notify_success_* lines for email notifications of backups that
 # succeeded.
@@ -172,23 +163,6 @@ timer_arg = {{ timer_arg }}
 #server_script_post_run_on_fail=0
 # As for server_script_pre_notify, but for post.
 #server_script_post_notify = 0
-{% if burp_server_script_pre != false %}
-server_script_pre = {{ burp_server_script_pre }}
-    {% if burp_server_scripts_pre_args is defined %}
-        {% for script_arg in burp_server_scripts_pre_args %}
-server_script_pre_args = {{ script_args }}
-        {% endfor %}
-    {% endif %}
-{% endif %}
-
-{% if burp_server_script_post != false %}
-server_script_post = {{ burp_server_script_post }}
-    {% if burp_server_script_post_args is defined %}
-        {% for script_arg in burp_server_script_post_args %}
-server_script_post_args = {{ script_args }}
-        {% endfor %}
-    {% endif %}
-{% endif %}
 
 # Clients that are able to list and restore files belonging to any other
 # client. If this is too permissive, you may set a restore_client for
@@ -199,10 +173,6 @@ server_script_post_args = {{ script_args }}
 # Whether or not the server process should cache the tree when a monitor client
 # is browsing a backup. Advantage: speed. Disadvantage: more memory is used.
 monitor_browse_cache = {{ burp_server_monitor_cache }}
-
-{% if burp_manual_delete_enabled %}
-manual_delete = {{ burp_trash }}
-{% endif %}
 
 {% for client in burp_restore_clients %}
 restore_client = {{ client }}

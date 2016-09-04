@@ -1,0 +1,43 @@
+
+- name: Install supervisor
+  package: 
+    name: supervisor
+    state: latest
+
+- name: configure supervisor logrotate
+  template:
+    src: supervisor_logrotate.j2
+    dest: /etc/logrotate.d/supervisor
+
+- name: configure supervisor services
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "burp-server.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-server.conf" }
+    - { src: "burp-restore.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-restore.conf" }
+    - { src: "buiagent.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/buiagent.conf" }
+  notify: 
+    - restart supervisor
+    - restart burp server
+    - restart burp restore
+    - restart buiagent
+
+- name: ensure supervisor is running
+  service:
+    name: supervisor
+    state: started
+
+- name: ensure supervisor is enabled
+  service:
+    name: supervisor
+    enabled: yes
+
+# - name: disable SysV burp-server service
+#   service:
+#     name: burp-server
+#     state: stopped
+#     enabled: no
+ 
+- name: ensure handlers runs before continue
+  meta: flush_handlers
