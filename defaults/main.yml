@@ -21,8 +21,8 @@ burp_home: "/var/spool/burp"
 
 ## Build vars:
 
-burpurl: "https://github.com/grke/burp/archive/2.0.44.tar.gz"
-burpsrc: "burp-2.0.44"
+burpurl: "https://github.com/grke/burp/archive/2.0.46.tar.gz"
+burpsrc: "burp-2.0.46"
 # Directory that will be used as the location for the downloads§
 download_dir: "{{ ansible_env.HOME }}/burp"
 
