@@ -23,6 +23,7 @@
 
 - name: Unpack Burp source files
   shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.tar.gz creates={{ download_dir }}/{{ burpsrc }}
+  register: unpack_src
 
 - name: Autoreconf Burp source files
   shell: cd {{ download_dir }}/{{ burpsrc }} && autoreconf -vif creates={{ download_dir }}/{{ burpsrc }}/configure
@@ -39,7 +40,7 @@
 
 - name: Uninstall burp
   shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes=/usr/sbin/burp
-  when: stb.stat.exists
+  when: stb.stat.exists and unpack_src.changed
 
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
