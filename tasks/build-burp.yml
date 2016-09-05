@@ -35,6 +35,8 @@
 
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
+  notify:
+    - restart burp server
 
 - name: copy etc file
   template:
@@ -42,6 +44,7 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: "build/CA.cnf.j2", dest: "{{ burp_server_ca_conf }}" }
+
 
 
 

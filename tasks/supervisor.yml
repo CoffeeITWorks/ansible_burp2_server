@@ -38,6 +38,14 @@
 #     name: burp-server
 #     state: stopped
 #     enabled: no
- 
+
+# Supervisor must be restarted first
+- name: Read supervisor config
+  supervisorctl:
+    name: burp-server
+    state: present
+
 - name: ensure handlers runs before continue
   meta: flush_handlers
+  
+ 
