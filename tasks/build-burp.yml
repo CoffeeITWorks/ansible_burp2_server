@@ -33,6 +33,14 @@
 - name: Make
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
 
+- name: check if burp is installed
+  stat: path=/usr/sbin/burp
+  register: stb
+
+- name: Uninstall burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes=/usr/sbin/burp
+  when: stb.stat.exists
+
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
   notify:
