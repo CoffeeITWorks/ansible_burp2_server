@@ -25,3 +25,10 @@ script:
   - touch tests/host_vars/localhost
   - 'echo "burp_module_agent: true" > tests/host_vars/localhost'
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  - 'echo "burp_module_restore: true" > tests/host_vars/localhost'
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  - >
+  ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+  | grep -q 'changed=0.*failed=0'
+  && (echo 'Idempotence test: pass' && exit 0)
+  || (echo 'Idempotence test: fail' && exit 1)
