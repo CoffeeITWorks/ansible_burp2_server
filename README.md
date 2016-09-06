@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server)
+
 Procedimiento
 =============
 
