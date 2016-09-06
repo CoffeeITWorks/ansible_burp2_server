@@ -15,14 +15,23 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: "burp-server.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-server.conf" }
-    - { src: "burp-restore.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-restore.conf" }
     - { src: "buiagent.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/buiagent.conf" }
   notify: 
     - restart supervisor
     - restart burp server
-    - restart burp restore
     - restart buiagent
 
+# only run if burp_module_restore: true
+- name: configure supervisor services for burp-restore
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "burp-restore.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-restore.conf" }
+  notify: 
+    - restart burp restore
+  when: burp_module_restore
+    
 - name: ensure supervisor is running
   service:
     name: supervisor
@@ -45,6 +54,13 @@
     name: burp-server
     state: present
 
+# Only run if burp_module_restore: true
+- name: Read supervisor config
+  supervisorctl:
+    name: burp-restore
+    state: present
+  when: burp_module_restore
+    
 - name: ensure handlers runs before continue
   meta: flush_handlers
   
