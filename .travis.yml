@@ -22,5 +22,6 @@ script:
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
   - mkdir tests/host_vars
+  - touch tests/host_vars/localhost
   - echo "burp_module_agent: true" > tests/host_vars/localhost
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
