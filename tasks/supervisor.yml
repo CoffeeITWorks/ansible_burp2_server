@@ -9,17 +9,14 @@
     src: supervisor_logrotate.j2
     dest: /etc/logrotate.d/supervisor
 
-- name: configure supervisor services
+- name: configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
     - { src: "burp-server.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-server.conf" }
-    - { src: "buiagent.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/buiagent.conf" }
   notify: 
-    - restart supervisor
     - restart burp server
-    - restart buiagent
 
 # only run if burp_module_restore: true
 - name: configure supervisor services for burp-restore
@@ -31,6 +28,17 @@
   notify: 
     - restart burp restore
   when: burp_module_restore
+
+# only run if burp_module_agent: true
+- name: configure supervisor services for buiagent
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "buiagent.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/buiagent.conf" }
+  notify: 
+    - restart buiagent
+  when: burp_module_agent
     
 - name: ensure supervisor is running
   service:
@@ -49,18 +57,25 @@
 #     enabled: no
 
 # Supervisor must be restarted first
-- name: Read supervisor config
+- name: Read supervisor config burp-server
   supervisorctl:
     name: burp-server
     state: present
 
 # Only run if burp_module_restore: true
-- name: Read supervisor config
+- name: Read supervisor config burp_restore
   supervisorctl:
     name: burp-restore
     state: present
   when: burp_module_restore
-    
+
+# Only run if burp_module_agent: true
+- name: Read supervisor config buiagent
+  supervisorctl:
+    name: buiagent
+    state: present
+  when: burp_module_agent
+  
 - name: ensure handlers runs before continue
   meta: flush_handlers
   
