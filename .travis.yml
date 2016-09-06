@@ -1,4 +1,7 @@
 ---
+dist: trusty
+# sudo: required
+# https://docs.travis-ci.com/user/trusty-ci-environment/
 language: python
 python: "2.7"
 
