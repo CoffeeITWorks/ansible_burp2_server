@@ -13,4 +13,4 @@ galaxy_info:
     - devops
     - backup
 dependencies:
-  - []
+  - {}
