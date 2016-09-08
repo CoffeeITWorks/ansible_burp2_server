@@ -7,6 +7,7 @@ build_dependencies:
   - check
   - g++
   - librsync-dev
+  - libncurses5-dev
   - libz-dev
   - libssl-dev
   - uthash-dev
