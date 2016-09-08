@@ -20,6 +20,7 @@ build_dependencies:
   - automake
   - libtool
   - dh-autoreconf
+  - libffi-dev  # required for burpui cffi
 
 burp_agent_packages:
   - python-pip
