@@ -1,0 +1,23 @@
+---
+# file: vars/Ubuntu.yml
+
+build_dependencies:
+  - make
+  - pkg-config
+  - check
+  - g++
+  - librsync-dev
+  - libz-dev
+  - libssl-dev
+  - uthash-dev
+  - libyajl-dev
+  - autoconf
+  - automake
+  - libtool
+  - dh-autoreconf
+
+burp_agent_packages:
+  - python-pip
+  - python-dev
+  - supervisor
+
