@@ -11,10 +11,16 @@ Install the role on the system:
 
 Or clone the repo to you roles subdir (subidr of dir where you have your site.yml file), role folder name must be the same as specified in site.yml.
 
+Redhat support is not fully tested and there is some doubts with dependencies to build burp. 
+Please check vars/Redhat.yml file and help on it. Also check tasks/build-burp.yml to check compatiblity of the steps.
+
 Role Name
 =========
 
 ansible burp2_server deploy and maintenance role.
+
+This roles builds burp version specified on defaults/main.yml. 
+Also configures it to get it working and maintained in a centralized way.
 
 Requirements
 ------------
@@ -133,4 +139,13 @@ Author Information
 
 This role was main developed by Diego Daguerre with collaboration of Pablo Estigarribia (pablodav at gmail)
 
+Burp backup and restore
+=======================
+
+Main page: http://burp.grke.org/
+
+Burpui
+======
+
+Main page: https://git.ziirish.me/ziirish/burp-ui
 

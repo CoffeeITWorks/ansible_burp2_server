@@ -3,14 +3,16 @@
 
 build_dependencies:
   - make
-  - pkg-config
+  #- pkg-config
   - check
-  - g++
-  - librsync-dev
-  - libz-dev
-  - libssl-dev
-  - uthash-dev
-  - libyajl-dev
+  - gcc-c++
+  - librsync-devel
+  - zlib-devel
+  - openssl-devel
+  - ncurses-devel
+  - libacl-devel
+  - uthash-devel
+  - yajl-devel
   - autoconf
   - automake
   - libtool
