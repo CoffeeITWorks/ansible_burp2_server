@@ -24,6 +24,7 @@
   get_url:
     url: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    timeout: 30
     # use_proxy: yes
   with_items:
     - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
