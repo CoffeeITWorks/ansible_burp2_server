@@ -43,7 +43,7 @@ Inside it you can add a file with the name of the group or the host where you wa
 Check also all vars in `defaults/main.yml` you can override any default using your host/group_vars   
 
 Role Variables: Complete list of modules:
--------------------------
+-----------------------------------------
 
 ### Modules
 ##### Configure Burp UI Agent
