@@ -17,6 +17,14 @@ burp_repos: false
 # Example: 
 # burp_repos:
 #  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
+# You just need files per client, example: 
+# client1 file content: 
+# 
+# password = 8urpCl13nt2015
+# dedup_group = trusty
+# . incexc/profile_lnxsrv
+
+
 
 ### ---
 
