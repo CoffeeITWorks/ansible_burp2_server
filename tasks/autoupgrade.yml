@@ -6,18 +6,25 @@
     path: "{{ item }}"
     state: directory
   with_items:
-    - "{{ burp_server_autoupgrade_dir }}/win32/1.4.40"
-    - "{{ burp_server_autoupgrade_dir }}/win64/1.4.40"
+    - "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}"
+    - "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}"
 
 # documentation from:
 # http://burp.grke.org/docs/autoupgrade.html
 
-- name: copy burp client exe files
+- name: copy autoupgrade_script
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
     - { src: "autoupgrade_script", dest: "{{ burp_server_autoupgrade_dir }}/win32/script" }
     - { src: "autoupgrade_script", dest: "{{ burp_server_autoupgrade_dir }}/win64/script" }
-    - { src: "burp-win32-installer-1.4.40.exe", dest: "{{ burp_server_autoupgrade_dir }}/win32/1.4.40/package" }
-    - { src: "burp-win64-installer-1.4.40.exe", dest: "{{ burp_server_autoupgrade_dir }}/win64/1.4.40/package" }
+
+- name: Get autoupgrade package
+  get_url:
+    url: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    # use_proxy: yes
+  with_items:
+    - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
+    - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}/package" }
