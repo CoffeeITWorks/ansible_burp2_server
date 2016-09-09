@@ -31,10 +31,11 @@ burp_repos: false
 burp_home: "/var/spool/burp"
 
 ## Build vars:
+# uses 2.0.44 by default due to bug: https://github.com/grke/burp/issues/475
 
-burpurl: "https://github.com/grke/burp/archive/2.0.46.tar.gz"
-burpsrc: "burp-2.0.46"
-autoupgrade_version: "2.0.46"
+burpurl: "https://github.com/grke/burp/archive/2.0.44.tar.gz"
+burpsrc: "burp-2.0.44"
+autoupgrade_version: "2.0.44"
 # Directory that will be used as the location for the downloads§
 download_dir: "{{ ansible_env.HOME }}/burp"
 
