@@ -109,7 +109,8 @@ ssl_key_password = {{ burp_server_ssl_key_password }}
 # Server DH file.
 ssl_dhfile = {{ burp_server_ssl_dhfile }}
 
-#timer_script = /usr/share/burp/scripts/timer_script
+# ensure no backups run on burp-restore instance
+timer_script = /usr/share/burp/scripts/timer_script
 # Ensure that 20 hours elapse between backups
 # Available units:
 # s (seconds), m (minutes), h (hours), d (days), w (weeks), n (months)
