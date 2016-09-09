@@ -14,6 +14,9 @@ burp_server_autoupgrade_enabled: false
 burp_repos: false
 #burpsrv_repos:
 #  - { repo: "url", version: "branch", dir: "dest dir"}
+# Example: 
+# burp_repos:
+#  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
 
 ### ---
 

@@ -42,6 +42,43 @@ Inside it you can add a file with the name of the group or the host where you wa
 
 Check also all vars in `defaults/main.yml` you can override any default using your host/group_vars   
 
+Role Variables: Complete list of modules:
+-------------------------
+
+### Modules
+##### Configure Burp UI Agent
+	
+	burp_module_agent: true
+	
+##### Configure burp restore service
+	
+	burp_module_restore: true
+	
+##### Configure Burp manual delete
+
+	burp_manual_delete_enabled: true
+	
+##### Configure Burp Autoupgrade
+
+	burp_server_autoupgrade_enabled: true
+	
+##### Activate clients from git repository
+
+Example: 
+
+```yaml
+ burp_repos:
+  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
+```
+
+You just need files per client, example: 
+
+* client1 file content: *
+ 
+	 password = 8urpCl13nt2015
+	 dedup_group = trusty
+	 . incexc/profile_lnxsrv
+
 Dependencies
 ------------
 
