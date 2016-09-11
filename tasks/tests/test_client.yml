@@ -15,3 +15,18 @@
   template:
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
+    
+- shell: 'burp -c /etc/burp/test_client.conf -a t'
+  changed_when: false
+
+- shell: 'burp -c /etc/burp/test_client.conf -a l'
+  changed_when: false
+
+- shell: 'burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore' creates='/tmp/test_restore'
+  changed_when: false
+
+- name: check if restore exists
+  file:
+    path: /tmp/test_restore/etc/burp/burp.conf
+    state: file
+
