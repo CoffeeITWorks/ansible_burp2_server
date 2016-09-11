@@ -38,3 +38,10 @@
     - incexc
     - profiles
 
+# This task ensures we can create restore file for server initiated restores
+- name: create restore client's dir in spool dir
+  file:
+    path: "{{ burp_server_data }}/{{ item }}"
+    state: directory
+  with_items: "{{ burp_restore_clients }}"
+
