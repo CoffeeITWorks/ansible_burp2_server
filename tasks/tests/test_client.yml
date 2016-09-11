@@ -1,5 +1,5 @@
 ---
-# file tasks/local_client.yml
+# file tasks/tests/test.yml
 
 - name: create CA-test folder
   file:
@@ -16,13 +16,13 @@
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
     
-- shell: 'burp -c /etc/burp/test_client.conf -a t'
+- shell: "burp -c /etc/burp/test_client.conf -a t"
   changed_when: false
 
-- shell: 'burp -c /etc/burp/test_client.conf -a l'
+- shell: "burp -c /etc/burp/test_client.conf -a l"
   changed_when: false
 
-- shell: 'burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore' creates='/tmp/test_restore'
+- shell: '"burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore" creates="/tmp/test_restore"'
   changed_when: false
 
 - name: check if restore exists
