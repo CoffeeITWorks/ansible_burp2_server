@@ -1,0 +1,4 @@
+regex = ^\/etc\/burp\/burp.conf$
+backup = 1
+restoreprefix = /tmp/restore3
+orig_client = test_client
