@@ -152,7 +152,29 @@ Example of all directories created:
     │   ├── production
     │   └── stage
     ├── site.yml
-    
+
+
+Installed services
+==================
+
+It user http://supervisord.org/ for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
+
+So to restart installed services/daemons you should use: 
+
+	supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
+
+you can also just use: 
+
+	supervisorctl
+
+And then interactively use all options. 
+
+*Logs:* 
+
+Also supervisord allow proper stdout and stderror to logs redirection, so all logs are under `/var/logs/supervisor`
+
+Logs are also rotated by logrotate automatically.
+
 
 Behind proxy
 ============

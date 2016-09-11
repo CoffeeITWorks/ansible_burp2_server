@@ -1,0 +1,17 @@
+---
+# file tasks/local_client.yml
+
+- name: create CA-test folder
+  file:
+    path: "{{ burp_client_ca_csr_dir }}_test"
+    state: directory
+
+- name: configure test client
+  template:
+    src: tests/test_client.conf.j2
+    dest: /etc/burp/test_client.conf
+
+- name: add local client
+  template:
+    src: tests/test_client.j2
+    dest: "{{ burp_server_clientconfdir }}/test_client"

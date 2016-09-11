@@ -33,3 +33,6 @@
   when: burp_module_agent
 
 - include: supervisor.yml
+
+- include: tests/test_client.yml
+  when: burp_module_test_client
