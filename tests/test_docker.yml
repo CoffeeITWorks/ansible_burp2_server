@@ -1,0 +1,34 @@
+# http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
+
+---
+- hosts: localhost
+  roles:
+    - pauvos.docker-engine
+  tasks: 
+    - name: install docker-py
+      pip: name=docker-py
+
+- name: Bring up docker containers
+  hosts: all
+  vars:
+    inventory:
+      - name: install_burp2
+        image: ubuntu-upstart:14.04
+  roles:
+    - { role: chrismeyersfsu.provision_docker,
+      provision_docker_inventory: "{{inventory}}",
+      provision_docker_company: 'ansible' }
+  tasks:
+    - name: Group primary
+      add_host:
+        hostname: "{{item}}"
+        groups: primary
+      with_items:
+        - install_burp2
+      tags: provision_docker
+
+- name: Test Install burp2_server
+  hosts: primary:secondary
+  roles:
+     - { role: ansible_burp2_server
+        , tags: burp2_server }
