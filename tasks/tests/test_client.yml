@@ -3,7 +3,7 @@
 
 - name: create CA-test folder
   file:
-    path: "{{ burp_client_ca_csr_dir }}_test"
+    path: "/etc/burp/CA-test"
     state: directory
 
 - name: configure test client

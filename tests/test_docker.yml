@@ -29,6 +29,15 @@
 
 - name: Test Install burp2_server
   hosts: primary:secondary
+  user: root
+  pre_tasks:
+     - name: "Build hosts file"
+       #lineinfile: dest=/etc/hosts regexp='.*{{inventory_hostname}}$' line="{{ hostvars[inventory_hostname].ansible_default_ipv4.address }} {{inventory_hostname}}" state=present
+       shell: 'echo "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }} {{inventory_hostname}}" >> /etc/hosts'
+       when: hostvars[inventory_hostname].ansible_default_ipv4.address is defined
+
+     - debug: msg="Running on host {{inventory_hostname}}, {{hostvars[inventory_hostname]['ansible_ssh_host']}}"
+
   roles:
      - { role: ansible_burp2_server
         , tags: burp2_server }
