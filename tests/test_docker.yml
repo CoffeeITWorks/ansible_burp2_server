@@ -4,12 +4,16 @@
 - hosts: localhost
   roles:
     - pauvos.docker-engine
+  become: true
+  become_user: root
   tasks: 
     - name: install docker-py
       pip: name=docker-py
 
 - name: Bring up docker containers
   hosts: all
+  become: true
+  become_user: root
   vars:
     inventory:
       - name: install_burp2
