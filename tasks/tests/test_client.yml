@@ -27,7 +27,6 @@
 - command: burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore 
   args:
     creates: /tmp/test_restore
-  changed_when: false
 
 - name: check if restore exists
   file:
@@ -38,7 +37,6 @@
   command: burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "^\/etc\/burp\/burp.conf$"
   args:
     creates: /tmp/test_restore2
-  changed_when: false
 
 - name: check if restore exists
   file:
@@ -52,5 +50,6 @@
 
 - name: Test restore server initiated
   command: burp -c /etc/burp/burp.conf -a t
-  created: /tmp/restore3/etc/burp/burp.conf
+  args:
+    creates: /tmp/restore3/etc/burp/burp.conf
 
