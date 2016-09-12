@@ -1,7 +1,0 @@
-# http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
-
----
-- hosts: localhost
-  remote_user: root
-  roles:
-    - ansible_burp2_server
