@@ -9,6 +9,8 @@
   tasks: 
     - name: install docker-py
       pip: name=docker-py
+    - name: install sshpass
+      package: name=sshpass state=latest
 
 - name: Bring up docker containers
   hosts: all
