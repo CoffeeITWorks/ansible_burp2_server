@@ -9,7 +9,8 @@
     - "{{ burp_trash }}"
     - "{{ burp_logs }}"
 
-- cron:
+- name: Cron task to delete files in burp trash
+  cron:
     name: delete files in burp trash
     job: 'rm -rfv {{ burp_trash  }}/* >> {{ burp_logs }}/manual_delete.log'
     user: root

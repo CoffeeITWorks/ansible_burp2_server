@@ -3,7 +3,7 @@
 - name: install build dependencies
   package:
     name: "{{ build_dependencies | join(',') }}"
-    state: latest
+    state: present
 
 - name: Uninstall old burp
   package:
@@ -56,7 +56,7 @@
     - '/etc/burp/CA-Client'
     - '/etc/burp/clientconfdir/incexc'
     - '/etc/burp/clientconfdir/profiles'
- 
+
 - name: copy etc file
   template:
     src: "{{ item.src }}"
