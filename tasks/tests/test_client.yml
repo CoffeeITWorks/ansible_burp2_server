@@ -17,15 +17,12 @@
     dest: "{{ burp_server_clientconfdir }}/test_client"
     
 - command: burp -c /etc/burp/test_client.conf -a t
-  sudo: true
   changed_when: false
 
 - command: burp -c /etc/burp/test_client.conf -a l
-   sudo: true
   changed_when: false
 
 - command: burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore 
-  sudo: true
   args:
     creates: /tmp/test_restore
   changed_when: false
