@@ -1,0 +1,21 @@
+---
+driver:
+  name: docker
+
+docker:
+  containers:
+
+      - name: ansible_burp2_server-01
+        image: ubuntu
+        image_version: latest
+        ansible_groups:
+          - group1
+
+      - name: ansible_burp2_server-02
+        image: ubuntu
+        image_version: '14.04'
+        ansible_groups:
+          - group1
+
+verifier:
+  name: testinfra

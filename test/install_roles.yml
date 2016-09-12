@@ -1,7 +1,0 @@
-
-# Testing with docker
-# Install from galaxy
-- src: pauvos.docker-engine
-
-- src: https://github.com/pablodav/provision_docker.git
-  name: provision_docker

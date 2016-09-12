@@ -18,7 +18,7 @@
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
     
-- shell: /usr/sbin/burp -c /etc/burp/test_client.conf -a t
+- command: /usr/sbin/burp -c /etc/burp/test_client.conf -a t
   changed_when: false
 
 - command: /usr/sbin/burp -c /etc/burp/test_client.conf -a l
