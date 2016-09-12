@@ -1,6 +1,8 @@
 ---
 # file tasks/tests/test.yml
 
+meta: flush_handlers
+
 - name: create CA-test folder
   file:
     path: "/etc/burp/CA-test"
