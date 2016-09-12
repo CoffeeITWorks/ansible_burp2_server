@@ -31,6 +31,10 @@ script:
   # - 'echo "burp_module_test_client: true" > tests/host_vars/localhost'
   # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become -v
   - sudo ansible-playbook -i tests/inventory tests/test_docker.yml --connection=local -u root
+  - sudo ansible-playbook -i tests/inventory tests/test_docker.yml --connection=local -u root -e burp_module_test_client=true
+  - sudo ansible-playbook -i tests/inventory tests/test_docker.yml --connection=local -u root -e burp_module_agent=true
+  - sudo ansible-playbook -i tests/inventory tests/test_docker.yml --connection=local -u root -e burp_module_restore=true
+  #- sudo ansible-playbook -i tests/inventory tests/test_docker.yml --connection=local -u root -e burp_server_autoupgrade_enabled=true
   # - 'echo "burp_server_autoupgrade_enabled: true" > tests/host_vars/localhost' # Removed this test due to some timeout with sourceforge
   # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
   #- 'ansible-playbook -i tests/inventory tests/test.yml --connection=local --become  | grep -q "changed=0.*failed=0"  && (echo "Idempotence test: pass" && exit 0)  || (echo "Idempotence test: fail" && exit 1)'
