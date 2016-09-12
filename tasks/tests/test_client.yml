@@ -35,7 +35,7 @@
     state: file
 
 - name: test restore from different client
-  command: burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client 
+  command: burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "^\/etc\/burp\/burp.conf$"
   args:
     creates: /tmp/test_restore2
   changed_when: false
@@ -44,3 +44,13 @@
   file:
     path: /tmp/test_restore2/etc/burp/burp.conf
     state: file
+
+- name: template server initiated restore from different client
+  template:
+    src: tests/restore
+    dest: "{{ burp_server_data }}/monitor/restore"
+
+- name: Test restore server initiated
+  command: burp -c /etc/burp/burp.conf -a t
+  created: /tmp/restore3/etc/burp/burp.conf
+
