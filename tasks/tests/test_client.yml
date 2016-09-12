@@ -16,13 +16,18 @@
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
     
-- shell: "burp -c /etc/burp/test_client.conf -a t"
+- command: burp -c /etc/burp/test_client.conf -a t
+  sudo: true
   changed_when: false
 
-- shell: "burp -c /etc/burp/test_client.conf -a l"
+- command: burp -c /etc/burp/test_client.conf -a l
+   sudo: true
   changed_when: false
 
-- shell: '"burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore" creates="/tmp/test_restore"'
+- command: burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore 
+  sudo: true
+  args:
+    creates: /tmp/test_restore
   changed_when: false
 
 - name: check if restore exists

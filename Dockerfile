@@ -1,4 +1,4 @@
-FROM debian:7.7
+FROM ubuntu:trusty
 
 MAINTAINER Rob McQueen
 
