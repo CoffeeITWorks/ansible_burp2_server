@@ -32,3 +32,13 @@
     path: /tmp/test_restore/etc/burp/burp.conf
     state: file
 
+- name: test restore from different client
+  command: burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client 
+  args:
+    creates: /tmp/test_restore2
+  changed_when: false
+
+- name: check if restore exists
+  file:
+    path: /tmp/test_restore2/etc/burp/burp.conf
+    state: file
