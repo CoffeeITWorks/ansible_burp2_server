@@ -208,3 +208,7 @@ Burpui
 
 Main page: https://git.ziirish.me/ziirish/burp-ui
 
+Testing for developers
+======================
+
+https://molecule.readthedocs.io/en/latest/

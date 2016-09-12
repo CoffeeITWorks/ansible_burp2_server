@@ -3,4 +3,5 @@
 # Install from galaxy
 - src: pauvos.docker-engine
 
-- src: chrismeyersfsu.provision_docker
+- src: https://github.com/pablodav/provision_docker.git
+  name: provision_docker

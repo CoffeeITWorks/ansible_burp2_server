@@ -18,13 +18,13 @@
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
     
-- command: burp -c /etc/burp/test_client.conf -a t
+- shell: /usr/sbin/burp -c /etc/burp/test_client.conf -a t
   changed_when: false
 
-- command: burp -c /etc/burp/test_client.conf -a l
+- command: /usr/sbin/burp -c /etc/burp/test_client.conf -a l
   changed_when: false
 
-- command: burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore 
+- command: /usr/sbin/burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore
   args:
     creates: /tmp/test_restore
 
@@ -34,7 +34,7 @@
     state: file
 
 - name: test restore from different client
-  command: burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "^\/etc\/burp\/burp.conf$"
+  command: /usr/sbin/burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "^\/etc\/burp\/burp.conf$"
   args:
     creates: /tmp/test_restore2
 

@@ -19,11 +19,13 @@
   vars:
     inventory:
       - name: install_burp2
-        image: ubuntu-upstart:14.04
+        image: "chrismeyers/ubuntu12.04"
   roles:
-    - { role: chrismeyersfsu.provision_docker,
+    - { role: provision_docker,
       provision_docker_inventory: "{{inventory}}",
-      provision_docker_privileged: "{{ true }}" }
+      provision_docker_stop_timeout: "1200",
+      provision_docker_state: "started",
+      provision_docker_tty: "true"}
   tasks:
     - name: Group primary
       add_host:
@@ -35,12 +37,11 @@
 
 - name: Test Install burp2_server
   hosts: primary
-  roles:
-    - { role: ansible_burp2_server, tags: [ "burp2_server"] }
   pre_tasks:
     - name: "Build hosts file"
       #lineinfile: dest=/etc/hosts regexp='.*{{inventory_hostname}}$' line="{{ hostvars[inventory_hostname].ansible_default_ipv4.address }} {{inventory_hostname}}" state=present
       shell: 'echo "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }} {{inventory_hostname}}" >> /etc/hosts'
       when: hostvars[inventory_hostname].ansible_default_ipv4.address is defined
     - debug: "msg=Running on host {{inventory_hostname}}, {{hostvars[inventory_hostname]['ansible_ssh_host']}}"
-
+  roles:
+    - { role: ansible_burp2_server, tags: [ "burp2_server"] }
