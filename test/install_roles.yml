@@ -1,0 +1,6 @@
+
+# Testing with docker
+# Install from galaxy
+- src: pauvos.docker-engine
+
+- src: chrismeyersfsu.provision_docker
