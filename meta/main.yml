@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Diego Daguerre / Pablo Estigarribia 
+  author: "Diego Daguerre / Pablo Estigarribia"
   company: coffeeITWorks
   description: ansible role to deploy and maintain burp backup
 

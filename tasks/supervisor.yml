@@ -1,8 +1,9 @@
+---
 
 - name: Install supervisor
-  package: 
+  package:
     name: supervisor
-    state: latest
+    state: present
 
 - name: configure supervisor logrotate
   template:
@@ -15,7 +16,7 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: "burp-server.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-server.conf" }
-  notify: 
+  notify:
     - restart burp server
 
 # only run if burp_module_restore: true
@@ -25,7 +26,7 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: "burp-restore.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-restore.conf" }
-  notify: 
+  notify:
     - restart burp restore
   when: burp_module_restore
 
@@ -36,10 +37,10 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: "buiagent.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/buiagent.conf" }
-  notify: 
+  notify:
     - restart buiagent
   when: burp_module_agent
-    
+
 - name: ensure supervisor is running
   service:
     name: supervisor
@@ -75,8 +76,7 @@
     name: buiagent
     state: present
   when: burp_module_agent
-  
+
 - name: ensure handlers runs before continue
   meta: flush_handlers
-  
- 
+
