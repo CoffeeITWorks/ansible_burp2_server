@@ -28,7 +28,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "burp-server.conf_supervisor.j2", dest: "/{{ supervisoretc_dir }}/burp-server.{{ supervisor_ext }}" }
+    - { src: "burp-server.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-server.{{ supervisor_ext }}" }
   notify:
     - restart burp server
 
@@ -38,7 +38,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "burp-restore.conf_supervisor.j2", dest: "/{{ supervisoretc_dir }}/burp-restore.{{ supervisor_ext }}" }
+    - { src: "burp-restore.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-restore.{{ supervisor_ext }}" }
   notify:
     - restart burp restore
   when: burp_module_restore
@@ -49,7 +49,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "buiagent.conf_supervisor.j2", dest: "/{{ supervisoretc_dir }}/buiagent.{{ supervisor_ext }}" }
+    - { src: "buiagent.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/buiagent.{{ supervisor_ext }}" }
   notify:
     - restart buiagent
   when: burp_module_agent
