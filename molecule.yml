@@ -17,5 +17,11 @@ docker:
         ansible_groups:
           - group1
 
+      - name: ansible_burp2_server-03
+        image: centos
+        image_version: 7
+        ansible_groups:
+          - group1
+
 verifier:
   name: testinfra
