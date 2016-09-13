@@ -11,8 +11,8 @@ Install the role on the system:
 
 Or clone the repo to you roles subdir (subidr of dir where you have your site.yml file), role folder name must be the same as specified in site.yml.
 
-Redhat support is not fully tested and there is some doubts with dependencies to build burp. 
-Please check vars/Redhat.yml file and help on it. Also check tasks/build-burp.yml to check compatiblity of the steps.
+Redhat support is automatically tested with molecule docker centos 6 image.  
+Ubuntu support is automatically tested with molecule docker Ubuntu 14.04 and latest image. 
 
 Role Name
 =========
@@ -212,3 +212,10 @@ Testing for developers
 ======================
 
 https://molecule.readthedocs.io/en/latest/
+
+resume: 
+
+    clone this repo and move to that dir.
+    Install docker-engine
+    sudo pip install molecule
+    sudo molecule test
