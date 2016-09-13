@@ -60,10 +60,11 @@
     state: started
   when: ansible_os_family != "RedHat"
 
-- name: ensure supervisor is running RedHat
+- name: ensure supervisor is running and enabled RedHat
   service:
     name: supervisord
     state: started
+    enabled: True
   when: ansible_os_family == "RedHat"
 
 - name: ensure supervisor is enabled Debian
@@ -71,12 +72,6 @@
     name: supervisor
     enabled: yes
   when: ansible_os_family != "RedHat"
-
-- name: ensure supervisor is enabled RedHat
-  service:
-    name: supervisord
-    enabled: yes
-  when: ansible_os_family == "RedHat"
 
 # - name: disable SysV burp-server service
 #   service:

@@ -17,9 +17,10 @@ docker:
         ansible_groups:
           - group1
 
+      # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
       - name: ansible_burp2_server-03
         image: centos
-        image_version: 7
+        image_version: 6
         ansible_groups:
           - group1
 
