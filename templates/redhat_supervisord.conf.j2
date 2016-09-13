@@ -127,4 +127,5 @@ serverurl=unix:///var/run/supervisor/supervisor.sock ; use a unix:// URL  for a 
 ; include files themselves.
 
 [include]
-files = /etc/supervisord.d/*.ini
+files = {{ supervisoretc_dir }}/*.{{ supervisor_ext }}
+

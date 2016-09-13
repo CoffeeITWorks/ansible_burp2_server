@@ -23,5 +23,5 @@ burp_agent_packages:
   - python-dev
   - supervisor
 
-supervisoretc_dir: "/etc/supervisord.d"
-supervisor_ext: "ini"
+supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisor_ext: "conf"
