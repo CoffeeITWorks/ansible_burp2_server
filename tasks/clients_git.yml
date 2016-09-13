@@ -16,6 +16,8 @@
     chdir: "{{ burp_server_clientconfdir }}"
   with_items: "{{ burp_repos }}"
   changed_when: false
+  tags:
+    - skip_ansible_lint
 
 - name: Remove deprecated links
   shell: 'find . -type l -xtype l -exec rm -rf {} \;'

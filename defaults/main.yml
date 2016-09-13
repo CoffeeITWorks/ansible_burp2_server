@@ -112,15 +112,15 @@ burp_agent_backend_timeout: "60"
 burp_agent_pip_burpui: "burp-ui"
 burp_agent_pip_latest:
   - pip
+  - "{{ burp_agent_pip_burpui }}"
+burp_agent_pip_present:
   - cffi
+  - gevent
+  - ujson
   - urllib3
   - ndg-httpsclient
   - pyasn1
   - requests[security]
-  - "{{ burp_agent_pip_burpui }}"
-burp_agent_pip_present:
-  - gevent
-  - ujson
 ### ---
 
 ### Supervisor 
