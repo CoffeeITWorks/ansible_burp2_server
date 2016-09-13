@@ -10,6 +10,19 @@
     src: supervisor_logrotate.j2
     dest: /etc/logrotate.d/supervisor
 
+- name: configure supervisor for RedHat based release
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "redhat_supervisord.conf.j2", dest: "/etc/supervisord.conf" }
+  when: ansible_os_family == "RedHat"
+
+- name: ensure /etc/supervisor/conf.d exists
+  file:
+    path: "/etc/supervisor/conf.d"
+    state: "directory"
+
 - name: configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
@@ -41,15 +54,29 @@
     - restart buiagent
   when: burp_module_agent
 
-- name: ensure supervisor is running
+- name: ensure supervisor is running Debian
   service:
     name: supervisor
     state: started
+  when: ansible_os_family != "RedHat"
 
-- name: ensure supervisor is enabled
+- name: ensure supervisor is running RedHat
+  service:
+    name: supervisord
+    state: started
+  when: ansible_os_family == "RedHat"
+
+- name: ensure supervisor is enabled Debian
   service:
     name: supervisor
     enabled: yes
+  when: ansible_os_family != "RedHat"
+
+- name: ensure supervisor is enabled RedHat
+  service:
+    name: supervisord
+    enabled: yes
+  when: ansible_os_family == "RedHat"
 
 # - name: disable SysV burp-server service
 #   service:

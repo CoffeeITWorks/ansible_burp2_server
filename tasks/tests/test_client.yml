@@ -51,6 +51,7 @@
     src: tests/restore
     dest: "{{ burp_server_data }}/monitor/restore"
 
+# It was failing due to https://github.com/grke/burp/issues/476
 - name: Test restore server initiated
   command: burp -c /etc/burp/burp.conf -a t
   args:
