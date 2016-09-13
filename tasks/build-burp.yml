@@ -47,12 +47,11 @@
   notify:
     - restart burp server
 
+# Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
   file: path={{ item }} recurse=yes state=directory
   with_items:
     - '/etc/burp/autoupgrade'
-    - '/etc/burp/CA/certs'
-    - '/etc/burp/CA/newcerts'
     - '/etc/burp/CA-Client'
     - '/etc/burp/clientconfdir/incexc'
     - '/etc/burp/clientconfdir/profiles'
