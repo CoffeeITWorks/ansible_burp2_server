@@ -19,11 +19,17 @@
   file: path={{ download_dir }} state=directory
 
 - name: GET burp backup and restore
-  get_url: url={{ burpurl }} dest={{ download_dir }}/{{ burpsrc }}.tar.gz
+  get_url: url={{ burpurl }} dest={{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}
 
-- name: Unpack Burp source files
-  shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.tar.gz creates={{ download_dir }}/{{ burpsrc }}
+- name: Unpack Burp source files tar.gz
+  shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
   register: unpack_src
+  when: burpsrcext == 'tar.gz'
+
+- name: Unpack Burp source files zip
+  shell: cd {{ download_dir }} && unzip {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
+  register: unpack_src
+  when: burpsrcext == 'zip'
 
 - name: Autoreconf Burp source files
   shell: cd {{ download_dir }}/{{ burpsrc }} && autoreconf -vif creates={{ download_dir }}/{{ burpsrc }}/configure
