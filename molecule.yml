@@ -17,12 +17,34 @@ docker:
         ansible_groups:
           - group1
 
-      # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
-      - name: ansible_burp2_server-03
-        image: centos
-        image_version: 6
+      - name: ansible_burp2_server-master1
+        image: ubuntu
+        image_version: '14.04'
         ansible_groups:
-          - group1
+          - group_master
+
+      - name: ansible_burp2_server-master2
+        image: debian
+        image_version: '8'
+        ansible_groups:
+          - group_master
+
+      # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
+      # Some refactor is required for centos, it should actually work on centos 7 but we have some issue with supervisor
+      # for centos 6, maybe should be upgraded.
+      #- name: ansible_burp2_server-03
+      #  image: centos
+      #  image_version: 6
+      #  privileged: True
+      #  ansible_groups:
+      #    - group1
 
 verifier:
   name: testinfra
+
+ansible:
+  playbook: playbook.yml
+  group_vars:
+    group_master:
+      - burpsrcext: "zip"
+        burp_version: "master"
