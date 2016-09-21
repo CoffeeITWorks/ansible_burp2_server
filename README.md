@@ -11,8 +11,8 @@ Install the role on the system:
 
 Or clone the repo to you roles subdir (subidr of dir where you have your site.yml file), role folder name must be the same as specified in site.yml.
 
-Redhat support is automatically tested with molecule docker centos 6 image.  
-Ubuntu support is automatically tested with molecule docker Ubuntu 14.04 and latest image. 
+Ubuntu support is automatically tested with molecule docker Ubuntu 14.04 and latest image.
+Debian support is automatically tested with molecule docker Debian Jessie (8)
 
 Role Name
 =========
@@ -219,3 +219,33 @@ resume:
     Install docker-engine
     sudo pip install molecule
     sudo molecule test
+
+
+I have successfully automated test to master branch:
+
+Now there is only need to modify these to group or host vars:
+
+    burpsrcext: "zip"
+    burp_version: "master"
+    
+    ansible_burp2_server-master1 : ok=45 changed=28 unreachable=0 failed=0
+    ansible_burp2_server-master2 : ok=45 changed=28 unreachable=0 failed=0
+
+I have added those tests with molecule autotest provisioning tool:
+https://github.com/CoffeeITWorks/ansible_burp2_server/blob/master/molecule.yml
+
+Actually I'm also testing 2.0.46 as it's the default in defaults/main.yml file.
+
+So the build shows as failing until I update the default with newer version:
+
+    ansible_burp2_server-01 : ok=44 changed=27 unreachable=0 failed=1
+    ansible_burp2_server-02 : ok=37 changed=24 unreachable=0 failed=1
+
+So the ansible_burp2_server role will also show passing when the automatic testing will pass :)
+
+https://github.com/CoffeeITWorks/ansible_burp2_server
+
+Because I have activated the tests for all builds in playbook.yml file.
+
+Hope it will be welcome as more automated tests for burp2
+
