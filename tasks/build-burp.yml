@@ -1,5 +1,11 @@
 ---
 
+- name: ensure chache for apt is update
+  apt:
+    update_cache: yes
+    cache_valid_time: 43200
+    when: ansible_os_family == 'Debian'
+
 - name: install build dependencies
   package:
     name: "{{ build_dependencies | join(',') }}"

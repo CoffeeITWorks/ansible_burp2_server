@@ -44,17 +44,21 @@ vagrant:
         - network_name: private_network
           type: dhcp
           auto_config: true
-        - network_name: private_network
-          type: static
-          ip: 192.168.0.5
-          auto_config: true
+      #  - network_name: private_network
+      #    type: static
+      #    ip: 192.168.0.5
+      #    auto_config: true
       options:
         append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.provision 'shell', inline: 'sudo apt-get update'"
     - name: vagrant-master-01
       ansible_groups:
         - group_master
       options:
         append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.provision 'shell', inline: 'sudo apt-get update'"
 
 docker:
   containers:
