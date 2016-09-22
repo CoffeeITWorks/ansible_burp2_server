@@ -2,6 +2,52 @@
 driver:
   name: docker
 
+vagrant:
+  raw_config_args:
+    - "ssh.insert_key = false"
+    - "vm.network 'forwarded_port', guest: 80, host: 8080"
+
+  platforms:
+    - name: debian64
+      box: debian/jessie64
+    - name: rhel-7
+      box: rhel/rhel-7
+
+# https://github.com/vagrant-libvirt/vagrant-libvirt
+# http://molecule.readthedocs.io/en/stable-1.9/provider/index.html#providers
+# You must have latest vagrant and reinsall plugins if upgraded, see:
+# https://github.com/vagrant-libvirt/vagrant-libvirt/issues/618
+  providers:
+    - name: libvirt
+      type: libvirt
+      options:
+        memory: 512
+        cpus: 2
+        # There are two available drivers: kvm and qemu.
+        # Refer to the vagrant-libvirt docs for more info.
+        driver: kvm
+        video_type: vga
+
+  instances:
+    - name: vagrant-01
+      ansible_groups:
+        - group1
+      interfaces:
+        - network_name: private_network
+          type: dhcp
+          auto_config: true
+        - network_name: private_network
+          type: static
+          ip: 192.168.0.5
+          auto_config: true
+      options:
+        append_platform_to_hostname: no
+    - name: vagrant-master-01
+      ansible_groups:
+        - group_master
+      options:
+        append_platform_to_hostname: no
+
 docker:
   containers:
 
