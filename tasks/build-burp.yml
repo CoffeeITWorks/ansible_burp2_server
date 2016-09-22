@@ -25,7 +25,10 @@
   file: path={{ download_dir }} state=directory
 
 - name: GET burp backup and restore
-  get_url: url={{ burpurl }} dest={{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}
+  get_url:
+    url: "{{ burpurl }}"
+    dest: "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
+    validate_certs: no
 
 - name: Unpack Burp source files tar.gz
   shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
