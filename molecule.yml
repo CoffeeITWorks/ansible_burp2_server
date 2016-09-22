@@ -1,6 +1,9 @@
 ---
+# Use docker to test on travis
+# Use vagrant to create vms and access full OS on local testing
 driver:
   name: docker
+  #name: vagrant
 
 vagrant:
   raw_config_args:
@@ -13,7 +16,12 @@ vagrant:
     - name: rhel-7
       box: rhel/rhel-7
 
+# The tests with vagrant are done with libvirt, you can also use virtualbox
+# You need to prepare vagrant, vagrant-libvirt, nfs-kernel-server, and libvirt-bin.
+# https://wiki.debian.org/libvirt
 # https://github.com/vagrant-libvirt/vagrant-libvirt
+#     sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev
+#     sudo apt-get install nfs-kernel-server # required to mount local dir to vm
 # http://molecule.readthedocs.io/en/stable-1.9/provider/index.html#providers
 # You must have latest vagrant and reinsall plugins if upgraded, see:
 # https://github.com/vagrant-libvirt/vagrant-libvirt/issues/618
