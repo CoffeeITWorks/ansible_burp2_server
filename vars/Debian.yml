@@ -22,6 +22,14 @@ build_dependencies:
   - dh-autoreconf
   - libffi-dev  # required for burpui cffi
   - unzip       # required to unzip from master.zip archive for example
+  - openssl     # On debian 8 vagrant is not installed by default
+  - libncurses5 # from package dependencies
+  - libgcc1     # from package dependencies
+  - libc6       # from package dependencies
+  - libacl1     # from package dependencies
+  - libssl1.0.0 # from package dependencies
+  - libtinfo5   # from package dependencies
+  - zlib1g      # from package dependencies
 
 burp_agent_packages:
   - python-pip
