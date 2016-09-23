@@ -21,7 +21,6 @@ build_dependencies:
   - openssl     # ensure it is installed, if not burp_ca will not work
   - ncurses     # from package dependencies
   - libgcc      # from package dependencies
-  -
 
 burp_agent_packages:
   - python-pip

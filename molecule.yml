@@ -13,8 +13,10 @@ vagrant:
   platforms:
     - name: debian64
       box: debian/jessie64
-    - name: rhel-7
-      box: rhel/rhel-7
+    - name: centos7
+      box: centos/7
+    - name: ubuntuxenial64
+      box: nrclark/xenial64-minimal-libvirt
 
 # The tests with vagrant are done with libvirt, you can also use virtualbox
 # You need to prepare vagrant, vagrant-libvirt, nfs-kernel-server, and libvirt-bin.
@@ -35,6 +37,7 @@ vagrant:
         # Refer to the vagrant-libvirt docs for more info.
         driver: kvm
         video_type: vga
+        volume_cache: writeback
 
   instances:
     - name: vagrant-01
@@ -58,7 +61,21 @@ vagrant:
       options:
         append_platform_to_hostname: no
       raw_config_args:
-        - "vm.provision 'shell', inline: 'sudo apt-get update'"
+        - "vm.box = 'debian/jessie64'"
+    - name: vagrant-master-02
+      ansible_groups:
+        - group_master
+      options:
+        append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.box = 'centos/7'"
+    - name: vagrant-master-03
+      ansible_groups:
+        - group_master
+      options:
+        append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.box = 'nrclark/xenial64-minimal-libvirt'"
 
 docker:
   containers:
