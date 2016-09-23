@@ -13,6 +13,7 @@ Or clone the repo to you roles subdir (subidr of dir where you have your site.ym
 
 Ubuntu support is automatically tested with molecule docker Ubuntu 14.04 and latest image.
 Debian support is automatically tested with molecule docker Debian Jessie (8)
+Centos/7 support is tested locally, check molecule.yml file for more information
 
 Role Name
 =========
@@ -40,7 +41,10 @@ Inside it you can add a file with the name of the group or the host where you wa
     burp_module_agent: true # Will add buiagent and configure it properly to use on burpui-multiagent mode. 
     burp_module_restore: true # Will configure a second burp server with same spool, useful to configure one restore_client to get restores faster on large deployments.
 
-Check also all vars in `defaults/main.yml` you can override any default using your host/group_vars   
+Check also all va
+
+
+rs in `defaults/main.yml` you can override any default using your host/group_vars   
 
 Role Variables: Complete list of modules:
 -----------------------------------------

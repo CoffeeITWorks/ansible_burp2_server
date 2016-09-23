@@ -105,8 +105,6 @@ docker:
           - group_master
 
       # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
-      # Some refactor is required for centos, it should actually work on centos 7 but we have some issue with supervisor
-      # for centos 6, maybe should be upgraded.
       #- name: ansible_burp2_server-03
       #  image: centos
       #  image_version: 6
