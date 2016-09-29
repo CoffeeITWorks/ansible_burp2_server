@@ -15,6 +15,15 @@ Ubuntu support is automatically tested with molecule docker Ubuntu 14.04 and lat
 Debian support is automatically tested with molecule docker Debian Jessie (8)
 Centos/7 support is tested locally, check molecule.yml file for more information
 
+Environments
+============
+
+This role can be used in any environment, like: production, testing, development. 
+
+Also ansible allows you to use almost any platform, like: bare metals servers, VMs, containers, lxc, openstack, e2, etc. 
+
+For development there are more notes at [Testing for developers](#Testing for developers)
+
 Role Name
 =========
 
@@ -217,13 +226,52 @@ Testing for developers
 
 https://molecule.readthedocs.io/en/latest/
 
-resume: 
+The following examples are to test with molecule, but you can also use your own servers and setup an [Ansible inventory](http://docs.ansible.com/ansible/intro_inventory.html)
 
-    clone this repo and move to that dir.
-    Install docker-engine
+Molecule resolves some good things for a dev environment, like: automatic provision new hosts, automatic inventory for ansible, automatic deploy, automatic destroy, automatic test idempotence, etc. 
+
+* Install molecule
+
     sudo pip install molecule
+
+Testing with molecule+docker: 
+-----------------------------
+
+* clone this repo and move to that dir.
+* Install docker-engine
+
+
+
+Testing with molecule+vagrant: 
+------------------------------
+
+* have installed the role (see getting started)
+* [Install vagrant](https://www.vagrantup.com/docs/installation/)
+
+
+Choose your provider, example for libvirt: 
+
+[vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
+
+modify ´molecule.yml´ file and change driver, example: 
+
+    driver:
+      name: vagrant
+
+Also ensure you are using same provider as choosen:
+
+
+    providers:
+      - name: libvirt
+        type: libvirt
+
+Run molecule
+------------
+
     sudo molecule test
 
+Testing master branch:
+----------------------
 
 I have successfully automated test to master branch:
 
