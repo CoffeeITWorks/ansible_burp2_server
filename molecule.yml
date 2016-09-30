@@ -86,18 +86,6 @@ docker:
         ansible_groups:
           - group1
 
-      - name: ansible_burp2_server-02
-        image: ubuntu
-        image_version: '14.04'
-        ansible_groups:
-          - group1
-
-      - name: ansible_burp2_server-master1
-        image: ubuntu
-        image_version: '14.04'
-        ansible_groups:
-          - group_master
-
       - name: ansible_burp2_server-master2
         image: debian
         image_version: '8'
