@@ -40,11 +40,11 @@
 
 - name: configure clients profiles to {{ burp_server_clientconfdir }}/profiles
   template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: "profiles/{{ item.src }}"
+    dest: "{{burp_server_clientconfdir}}/profiles/{{ item.dest }}"
   with_items:
-    - { src: "profiles/lnxsrv.j2", dest: "{{ burp_server_clientconfdir }}/profiles/lnxsrv"}
-    - { src: "profiles/win6x.j2", dest: "{{ burp_server_clientconfdir }}/profiles/win6x"}
+    - { src: "lnxsrv.j2", dest: "lnxsrv"}
+    - { src: "win6x.j2", dest: "win6x"}
 
 # This task ensures we can create restore file for server initiated restores
 - name: create restore client's dir in spool dir
