@@ -86,9 +86,10 @@ Example:
 
 You just need files per client, example: 
 
-* client1 file content: *
+* client1 file content: 
  
-	 password = 8urpCl13nt2015
+ 
+	 password = clientpassword
 	 dedup_group = trusty
 	 . incexc/profile_lnxsrv
 
