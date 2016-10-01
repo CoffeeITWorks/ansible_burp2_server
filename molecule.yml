@@ -2,8 +2,8 @@
 # Use docker to test on travis
 # Use vagrant to create vms and access full OS on local testing
 driver:
-  #name: docker
-  name: vagrant
+  name: docker
+  #name: vagrant
 
 vagrant:
   raw_config_args:
