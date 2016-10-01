@@ -36,7 +36,6 @@
     force: yes
   with_items:
     - incexc
-    - profiles
     
 - name: configure profile lnxsrv to create new client
   template:
