@@ -1,9 +1,10 @@
 sudo: required
+dist: trusty
 
 language: python
 
 services:
-  - docker
+  #- docker
 
 before_install:
   - sudo apt-get -qq update
@@ -11,7 +12,11 @@ before_install:
   #- ansible-galaxy install -r requirements.yml
 
 install:
-  - pip install molecule
+  #- pip install molecule
+  - sudo pip install ansible
 
 script:
-  - molecule test
+  #- molecule test
+  # Check the role/playbook's syntax
+  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become"
