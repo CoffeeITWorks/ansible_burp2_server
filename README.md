@@ -5,6 +5,10 @@ Getting Started
 
 Install ansible http://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-pip
 
+Note for fedora:
+You need ´python2-cryptography python2-devel python2-cffi´ and use pip2 install
+Also use ´pip2 install --upgrade pip´ before install
+
 Install the role on the system: 
 
     $ ansible-galaxy install CoffeeITWorks.burp2_server
@@ -234,17 +238,21 @@ Molecule resolves some good things for a dev environment, like: automatic provis
 * Install molecule
 
     sudo pip install molecule
+    
 
 Testing with molecule+docker: 
 -----------------------------
+
+I have stopped using docker due to some strange issues with centos7 and systemd with docker. 
 
 * clone this repo and move to that dir.
 * Install docker-engine
 
 
-
 Testing with molecule+vagrant: 
 ------------------------------
+
+It's very useful for local test and ansible development, also to test burp with ansible in multiple environments/distribution. 
 
 * have installed the role (see getting started)
 * [Install vagrant](https://www.vagrantup.com/docs/installation/)
@@ -276,29 +284,18 @@ Testing master branch:
 
 I have successfully automated test to master branch:
 
-Now there is only need to modify these to group or host vars:
+Now there is only need to modify these to group/host vars:
 
     burpsrcext: "zip"
     burp_version: "master"
-    
-    ansible_burp2_server-master1 : ok=45 changed=28 unreachable=0 failed=0
-    ansible_burp2_server-master2 : ok=45 changed=28 unreachable=0 failed=0
+
 
 I have added those tests with molecule autotest provisioning tool:
 https://github.com/CoffeeITWorks/ansible_burp2_server/blob/master/molecule.yml
 
-Actually I'm also testing 2.0.46 as it's the default in defaults/main.yml file.
+Actually default installation is in defaults/main.yml file.
 
-So the build shows as failing until I update the default with newer version:
+I have activated the tests for all builds in playbook.yml file, (it's for those using molecule.yml).
 
-    ansible_burp2_server-01 : ok=44 changed=27 unreachable=0 failed=1
-    ansible_burp2_server-02 : ok=37 changed=24 unreachable=0 failed=1
-
-So the ansible_burp2_server role will also show passing when the automatic testing will pass :)
-
-https://github.com/CoffeeITWorks/ansible_burp2_server
-
-Because I have activated the tests for all builds in playbook.yml file.
-
-Hope it will be welcome as more automated tests for burp2
+Hope it will be welcome as more automated tests for burp2.
 
