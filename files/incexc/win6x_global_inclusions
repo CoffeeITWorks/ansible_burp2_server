@@ -8,15 +8,14 @@ include_glob=C:/Users/*/Favorites
 include_glob=C:/Users/*/Links
 include_glob=C:/Users/*/Desktop
 
-include_glob=C:/Users/*/AppData/Local/Mozilla
-include_glob=C:/Users/*/AppData/Local/Thunderbird
-include_glob=C:/Users/*/AppData/Local/Google/GoogleEarth
-include_glob=C:/Users/*/AppData/Local/Microsoft/Outlook
-include_glob=C:/Users/*/AppData/Local/Microsoft/OneNote
-include_glob=C:/Users/*/AppData/Roaming/Microsoft/Signatures
-include_glob=C:/Users/*/AppData/Roaming/Microsoft/Outlook
-include_glob=C:/Users/*/AppData/Roaming/Microsoft/OneNote
-include_glob=C:/Users/*/AppData/Roaming/Mozilla
-include_glob=C:/Users/*/AppData/Roaming/Thunderbird
+# include_glob=C:/Users/*/AppData/Local/Mozilla
+# include_glob=C:/Users/*/AppData/Local/Thunderbird
+# include_glob=C:/Users/*/AppData/Local/Google/GoogleEarth
+# include_glob=C:/Users/*/AppData/Local/Microsoft/Outlook
+# include_glob=C:/Users/*/AppData/Local/Microsoft/OneNote
+# include_glob=C:/Users/*/AppData/Roaming/Microsoft/Signatures
+# include_glob=C:/Users/*/AppData/Roaming/Microsoft/Outlook
+# include_glob=C:/Users/*/AppData/Roaming/Microsoft/OneNote
+# include_glob=C:/Users/*/AppData/Roaming/Mozilla
+# include_glob=C:/Users/*/AppData/Roaming/Thunderbird
 
-# Falta agregar el sticky notes
