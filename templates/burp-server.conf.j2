@@ -52,7 +52,7 @@ network_timeout = {{ burp_server_network_timeout }}
 {% endif %}
 
 # Server storage compression. Default is zlib9. Set to zlib0 to turn it off.
-#compression = zlib9
+compression = {{ burp_server_compression }}
 
 # When the client version does not match the server version, log a warning.
 # Set to 0 to turn it off.

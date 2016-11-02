@@ -63,6 +63,9 @@ burp_server_client_can_restore: "1"
 burp_server_client_can_verify: "1"
 burp_server_ratelimit: false
 burp_server_network_timeout: false
+# Changing default compression to lower level better for large deployments
+# due to less CPU usage and fasters backups
+burp_server_compression: zlib5
 burp_server_version_warn: "1"
 burp_server_ca_conf: "/etc/burp/CA.cnf"
 burp_server_ca_name: "burpCA"
