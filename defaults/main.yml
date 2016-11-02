@@ -24,7 +24,7 @@ burp_repos: false
 # dedup_group = trusty
 # . incexc/profile_lnxsrv
 
-
+burp_module_test_client: false
 
 ### ---
 
@@ -32,9 +32,15 @@ burp_home: "/var/spool/burp"
 
 ## Build vars:
 
-burpurl: "https://github.com/grke/burp/archive/2.0.46.tar.gz"
-burpsrc: "burp-2.0.46"
-autoupgrade_version: "2.0.46"
+# Add these vars to your hosts/groups to change version/tag (archive to download and compile)
+burpsrcext: "zip"              # must be tar.gz or zip
+autoupgrade_version: "2.0.48"  # master version is not compiled so added separately
+burp_version: "2.0.48"              # branch or tag, example: "master"  , example: "2.0.46"
+
+# previously:  burpsrc: "burp-2.0.46"
+burpsrc: "burp-{{ burp_version }}"
+# previously:  burpurl: "https://github.com/grke/burp/archive/2.0.46.tar.gz"
+burpurl: "https://github.com/grke/burp/archive/{{ burp_version }}.{{ burpsrcext }}"
 # Directory that will be used as the location for the downloads§
 download_dir: "{{ ansible_env.HOME }}/burp"
 
@@ -115,15 +121,15 @@ burp_agent_backend_timeout: "60"
 burp_agent_pip_burpui: "burp-ui"
 burp_agent_pip_latest:
   - pip
+  - "{{ burp_agent_pip_burpui }}"
+burp_agent_pip_present:
   - cffi
+  - gevent
+  - ujson
   - urllib3
   - ndg-httpsclient
   - pyasn1
   - requests[security]
-  - "{{ burp_agent_pip_burpui }}"
-burp_agent_pip_present:
-  - gevent
-  - ujson
 ### ---
 
 ### Supervisor 

@@ -1,0 +1,31 @@
+---
+# file: vars/Redhat.yml
+
+build_dependencies:
+  - make
+  #- pkg-config
+  - check
+  - gcc-c++
+  - librsync-devel
+  - zlib-devel
+  - openssl-devel
+  - ncurses-devel
+  - libacl-devel
+  - uthash-devel
+  - yajl-devel
+  - automake
+  - libtool
+  - autoconf # provides autoreconf
+  - libffi-devel # burpui dependency for cffi package
+  - unzip       # required to unzip from master.zip archive for example
+  - openssl     # ensure it is installed, if not burp_ca will not work
+  - ncurses     # from package dependencies
+  - libgcc      # from package dependencies
+
+burp_agent_packages:
+  - python-pip
+  - python-dev
+  - supervisor
+
+supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisor_ext: "conf"

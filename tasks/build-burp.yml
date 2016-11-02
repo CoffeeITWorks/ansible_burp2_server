@@ -1,9 +1,15 @@
 ---
 
+- name: ensure chache for apt is update
+  apt:
+    update_cache: yes
+    cache_valid_time: 43200
+  when: ansible_os_family == 'Debian'
+
 - name: install build dependencies
   package:
     name: "{{ build_dependencies | join(',') }}"
-    state: latest
+    state: present
 
 - name: Uninstall old burp
   package:
@@ -19,11 +25,20 @@
   file: path={{ download_dir }} state=directory
 
 - name: GET burp backup and restore
-  get_url: url={{ burpurl }} dest={{ download_dir }}/{{ burpsrc }}.tar.gz
+  get_url:
+    url: "{{ burpurl }}"
+    dest: "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
+    validate_certs: no
 
-- name: Unpack Burp source files
-  shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.tar.gz creates={{ download_dir }}/{{ burpsrc }}
+- name: Unpack Burp source files tar.gz
+  shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
   register: unpack_src
+  when: burpsrcext == 'tar.gz'
+
+- name: Unpack Burp source files zip
+  shell: cd {{ download_dir }} && unzip {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
+  register: unpack_src
+  when: burpsrcext == 'zip'
 
 - name: Autoreconf Burp source files
   shell: cd {{ download_dir }}/{{ burpsrc }} && autoreconf -vif creates={{ download_dir }}/{{ burpsrc }}/configure
@@ -47,16 +62,15 @@
   notify:
     - restart burp server
 
+# Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
   file: path={{ item }} recurse=yes state=directory
   with_items:
     - '/etc/burp/autoupgrade'
-    - '/etc/burp/CA/certs'
-    - '/etc/burp/CA/newcerts'
     - '/etc/burp/CA-Client'
     - '/etc/burp/clientconfdir/incexc'
     - '/etc/burp/clientconfdir/profiles'
-    
+
 - name: copy etc file
   template:
     src: "{{ item.src }}"

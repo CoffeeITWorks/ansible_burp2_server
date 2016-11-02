@@ -1,0 +1,44 @@
+---
+
+dist: trusty
+sudo: required
+# https://docs.travis-ci.com/user/trusty-ci-environment/
+language: python
+python: "2.7"
+
+before_install:
+  # Make sure everything's up to date.
+  # - sudo apt-get update -qq
+
+install:
+  # Install Ansible.
+  - sudo pip install ansible
+  - sudo pip install molecule
+
+  # Add ansible.cfg to pick up roles path.
+  #- "printf '[defaults]\nroles_path = ../' > ansible.cfg"
+
+script:
+  # We'll add some commands to test the role here.
+  - sudo ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  #- ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  # - mkdir tests/host_vars
+  # - touch tests/host_vars/localhost
+  # - 'echo "burp_module_agent: true" > tests/host_vars/localhost'
+  # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  # - 'echo "burp_module_restore: true" > tests/host_vars/localhost'
+  # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  # - 'echo "burp_module_test_client: true" > tests/host_vars/localhost'
+  # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become -v
+  - sudo ansible-playbook -i tests/inventory tests/main.yml --connection=local -u root
+  # - sudo ansible-playbook -i tests/inventory tests/main.yml --connection=local -u root -e burp_module_test_client=true
+  #- sudo ansible-playbook -i tests/inventory tests/main.yml --connection=local -u root -e burp_module_agent=true
+  #- sudo ansible-playbook -i tests/inventory tests/main.yml --connection=local -u root -e burp_module_restore=true
+  #- sudo ansible-playbook -i tests/inventory tests/main.yml --connection=local -u root -e burp_server_autoupgrade_enabled=true
+  # - 'echo "burp_server_autoupgrade_enabled: true" > tests/host_vars/localhost' # Removed this test due to some timeout with sourceforge
+  # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
+  #- 'ansible-playbook -i tests/inventory tests/test.yml --connection=local --become  | grep -q "changed=0.*failed=0"  && (echo "Idempotence test: pass" && exit 0)  || (echo "Idempotence test: fail" && exit 1)'
+
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/
+    

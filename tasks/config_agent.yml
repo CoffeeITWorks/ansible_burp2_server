@@ -4,7 +4,7 @@
 - name: install buiagent packages
   package:
     name: "{{ burp_agent_packages| join(',') }}"
-    state: latest
+    state: present
 
 - name: install buiagent pip packages
   pip:
@@ -12,11 +12,13 @@
     state: present
   with_items: "{{ burp_agent_pip_present }}"
 
-- name: upgrade buiagent pip packages
+- name: upgrade buiagent pip
   pip:
     name: "{{ item }}"
     state: latest
   with_items: "{{ burp_agent_pip_latest }}"
+  tags:
+    - skip_ansible_lint
 
 - name: configure buiagent
   template:

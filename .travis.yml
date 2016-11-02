@@ -1,36 +1,27 @@
----
-
-dist: trusty
+# http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
 sudo: required
-# https://docs.travis-ci.com/user/trusty-ci-environment/
+dist: trusty
+
 language: python
-python: "2.7"
+
+services:
+  #- docker
 
 before_install:
-  # Make sure everything's up to date.
-  # - sudo apt-get update -qq
+  - sudo apt-get -qq update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  #- ansible-galaxy install -r requirements.yml
 
 install:
-  # Install Ansible.
-  - pip install ansible
-
-  # Add ansible.cfg to pick up roles path.
-  #- "printf '[defaults]\nroles_path = ../' > ansible.cfg"
+  #- pip install molecule
+  - sudo pip install ansible
 
 script:
-  # We'll add some commands to test the role here.
+  #- molecule test
+  # Check the role/playbook's syntax
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
-  - mkdir tests/host_vars
-  - touch tests/host_vars/localhost
-  - 'echo "burp_module_agent: true" > tests/host_vars/localhost'
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
-  - 'echo "burp_module_restore: true" > tests/host_vars/localhost'
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
-  # - 'echo "burp_server_autoupgrade_enabled: true" > tests/host_vars/localhost' # Removed this test due to some timeout with sourceforge
-  # - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
-  - 'ansible-playbook -i tests/inventory tests/test.yml --connection=local --become  | grep -q "changed=0.*failed=0"  && (echo "Idempotence test: pass" && exit 0)  || (echo "Idempotence test: fail" && exit 1)'
-
-notifications:
-    webhooks: https://galaxy.ansible.com/api/v1/notifications/
-    
+  # Run the basic role
+  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become"
+  # Test client to test restores
+  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become -e burp_module_test_client=True"
+  

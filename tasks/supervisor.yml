@@ -1,21 +1,35 @@
+---
 
 - name: Install supervisor
-  package: 
+  package:
     name: supervisor
-    state: latest
+    state: present
 
 - name: configure supervisor logrotate
   template:
     src: supervisor_logrotate.j2
     dest: /etc/logrotate.d/supervisor
 
+# On centos 6 there is no include section by default
+- name: configure supervisor logrotate
+  template:
+    src: redhat_supervisord.conf.j2
+    dest: /etc/supervisord.conf
+  when: ansible_os_family == "RedHat"
+
+# On centos 6 this directory is not created by rpm package
+- name: Ensure "{{ supervisoretc_dir }}" dir exists
+  file:
+    path: "{{ supervisoretc_dir }}"
+    state: "directory"
+
 - name: configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "burp-server.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-server.conf" }
-  notify: 
+    - { src: "burp-server.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-server.{{ supervisor_ext }}" }
+  notify:
     - restart burp server
 
 # only run if burp_module_restore: true
@@ -24,8 +38,8 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "burp-restore.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/burp-restore.conf" }
-  notify: 
+    - { src: "burp-restore.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-restore.{{ supervisor_ext }}" }
+  notify:
     - restart burp restore
   when: burp_module_restore
 
@@ -35,48 +49,48 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "buiagent.conf_supervisor.j2", dest: "/etc/supervisor/conf.d/buiagent.conf" }
-  notify: 
+    - { src: "buiagent.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/buiagent.{{ supervisor_ext }}" }
+  notify:
     - restart buiagent
   when: burp_module_agent
-    
-- name: ensure supervisor is running
+
+- name: ensure supervisor is restarted  and enabled Debian
   service:
     name: supervisor
-    state: started
+    state: restarted
+    enabled: True
+  when: ansible_os_family != "RedHat"
+  changed_when: false
 
-- name: ensure supervisor is enabled
+- name: ensure supervisor is restarted and enabled RedHat
   service:
-    name: supervisor
-    enabled: yes
+    name: supervisord
+    state: restarted
+    enabled: True
+  when: ansible_os_family == "RedHat"
+  changed_when: false
 
-# - name: disable SysV burp-server service
-#   service:
-#     name: burp-server
-#     state: stopped
-#     enabled: no
-
+# state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first
-- name: Read supervisor config burp-server
-  supervisorctl:
-    name: burp-server
-    state: present
+#- name: Read supervisor config burp-server
+#  supervisorctl:
+#    name: burp-server
+#    state: present
 
 # Only run if burp_module_restore: true
-- name: Read supervisor config burp_restore
-  supervisorctl:
-    name: burp-restore
-    state: present
-  when: burp_module_restore
+#- name: Read supervisor config burp_restore
+#  supervisorctl:
+#    name: burp-restore
+#    state: present
+#  when: burp_module_restore
 
 # Only run if burp_module_agent: true
-- name: Read supervisor config buiagent
-  supervisorctl:
-    name: buiagent
-    state: present
-  when: burp_module_agent
-  
+#- name: Read supervisor config buiagent
+#  supervisorctl:
+#    name: buiagent
+#    state: present
+#  when: burp_module_agent
+
 - name: ensure handlers runs before continue
   meta: flush_handlers
-  
- 
+

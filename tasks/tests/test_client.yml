@@ -1,0 +1,59 @@
+---
+# file tasks/tests/test.yml
+
+- meta: flush_handlers
+
+- name: create CA-test folder
+  file:
+    path: "/etc/burp/CA-test"
+    state: directory
+
+- name: configure test client
+  template:
+    src: tests/test_client.conf.j2
+    dest: /etc/burp/test_client.conf
+
+- name: add local client
+  template:
+    src: tests/test_client.j2
+    dest: "{{ burp_server_clientconfdir }}/test_client"
+
+- name: test backup for test_client
+  command: /usr/sbin/burp -c /etc/burp/test_client.conf -a b
+  changed_when: false
+
+- name: test list backups from test_client
+  command: /usr/sbin/burp -c /etc/burp/test_client.conf -a l
+  changed_when: false
+
+- name: test restore backup 1 from test_client
+  command: /usr/sbin/burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore
+  args:
+    creates: /tmp/test_restore
+
+- name: check if restore exists
+  file:
+    path: /tmp/test_restore/etc/burp/burp.conf
+    state: file
+
+- name: test restore from different client
+  command: /usr/sbin/burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "^\/etc\/burp\/burp.conf$"
+  args:
+    creates: /tmp/test_restore2
+
+- name: check if restore exists
+  file:
+    path: /tmp/test_restore2/etc/burp/burp.conf
+    state: file
+
+- name: template server initiated restore from different client
+  template:
+    src: tests/restore
+    dest: "{{ burp_server_data }}/monitor/restore"
+
+# It was failing due to https://github.com/grke/burp/issues/476
+- name: Test restore server initiated
+  command: burp -c /etc/burp/burp.conf -a t
+  args:
+    creates: /tmp/restore3/etc/burp/burp.conf
+

@@ -3,13 +3,17 @@
 
 - include: multi_os.yml
 
+- include: redhat.yml
+  when: ansible_os_family == "RedHat"
+
 # - include: repositories.yml
 
 # - include: install_burp.yml
 
-- include: build-burp.yml
-
+# Clean any package distribution before start
 - include: clean.yml
+
+- include: build-burp.yml
 
 - include: config_burp.yml
 
@@ -33,3 +37,6 @@
   when: burp_module_agent
 
 - include: supervisor.yml
+
+- include: tests/test_client.yml
+  when: burp_module_test_client
