@@ -1,3 +1,8 @@
+# Due to issue: https://github.com/grke/burp/issues/501
+# I'm moving some inclusions and reducing the way I'm using nested files and also not including anything that is not 
+# on all clients. 
+# So this file is not used until we have fixed the issue with nested includes and server initiated restore with regex
+
 include=C:/Notes
 include=C:/notesid
 include=C:/CBackup
