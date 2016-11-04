@@ -1,6 +1,6 @@
 ---
 
-- name: ensure chache for apt is update
+- name: ensure chache for apt is updated
   apt:
     update_cache: yes
     cache_valid_time: 43200
@@ -67,7 +67,7 @@
   file: path={{ item }} recurse=yes state=directory
   with_items:
     - '/etc/burp/autoupgrade'
-    - '/etc/burp/CA-Client'
+    - '{{ burp_client_ca_csr_dir }}'
     - '/etc/burp/clientconfdir/incexc'
     - '/etc/burp/clientconfdir/profiles'
 

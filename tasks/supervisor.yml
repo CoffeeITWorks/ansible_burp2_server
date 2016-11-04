@@ -94,3 +94,5 @@
 - name: ensure handlers runs before continue
   meta: flush_handlers
 
+- wait_for: port={{ burp_server_port }} delay=5 timeout=30
+

@@ -31,7 +31,7 @@ vagrant:
     - name: libvirt
       type: libvirt
       options:
-        memory: 512
+        memory: 1024
         cpus: 2
         # There are two available drivers: kvm and qemu.
         # Refer to the vagrant-libvirt docs for more info.
@@ -62,6 +62,7 @@ vagrant:
       raw_config_args:
         - "vm.box = 'nrclark/xenial64-minimal-libvirt'"
 
+# It will not be used if you don't specify the driver: name: docker (see the beginning of the file)
 docker:
   containers:
 

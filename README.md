@@ -179,11 +179,11 @@ It user http://supervisord.org/ for better management of third-party  services o
 
 So to restart installed services/daemons you should use: 
 
-	supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
+	sudo supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
 
-you can also just use: 
+you can also use supervisorctl shell: 
 
-	supervisorctl
+	sudo supervisorctl
 
 And then interactively use all options. 
 
