@@ -6,8 +6,8 @@ Getting Started
 Install ansible http://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-pip
 
 Note for fedora:
-You need ´python2-cryptography python2-devel python2-cffi´ and use pip2 install
-Also use ´pip2 install --upgrade pip´ before install
+You need `python2-cryptography python2-devel python2-cffi` and use pip2 install
+Also use `pip2 install --upgrade pip` before install
 
 Install the role on the system: 
 
@@ -65,19 +65,19 @@ Role Variables: Complete list of modules:
 ### Modules
 ##### Configure Burp UI Agent
 	
-	burp_module_agent: true
+    burp_module_agent: true
 	
 ##### Configure burp restore service
 	
-	burp_module_restore: true
+     burp_module_restore: true
 	
 ##### Configure Burp manual delete
 
-	burp_manual_delete_enabled: true
+     burp_manual_delete_enabled: true
 	
 ##### Configure Burp Autoupgrade
 
-	burp_server_autoupgrade_enabled: true
+     burp_server_autoupgrade_enabled: true
 	
 ##### Activate clients from git repository
 
@@ -92,10 +92,10 @@ You just need files per client, example:
 
 * client1 file content: 
  
- 
-	 password = clientpassword
-	 dedup_group = trusty
-	 . incexc/profile_lnxsrv
+    password = clientpassword
+    dedup_group = trusty
+    . incexc/profile_lnxsrv
+
 
 Dependencies
 ------------
@@ -179,11 +179,11 @@ It user http://supervisord.org/ for better management of third-party  services o
 
 So to restart installed services/daemons you should use: 
 
-	sudo supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
+    sudo supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
 
 you can also use supervisorctl shell: 
 
-	sudo supervisorctl
+    sudo supervisorctl
 
 And then interactively use all options. 
 
