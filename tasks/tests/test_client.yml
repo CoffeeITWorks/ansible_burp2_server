@@ -25,7 +25,8 @@
     creates: '{{ burp_server_data }}/test_client/current'
   changed_when: false
 
-- wait_for: path='{{ burp_server_data }}/test_client/lockfile' state=absent
+- name: wait for client process backup finish
+  wait_for: path='{{ burp_server_data }}/test_client/lockfile' state=absent
 
 - name: test list backups from test_client
   command: /usr/sbin/burp -c /etc/burp/test_client.conf -a l

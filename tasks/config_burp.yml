@@ -36,7 +36,7 @@
     force: yes
   with_items:
     - incexc
-    
+
 - name: configure profile lnxsrv to create new client
   template:
     src: profiles/lnxsrv.j2
@@ -46,7 +46,7 @@
   template:
     src: profiles/win6x.j2
     dest: "{{burp_server_clientconfdir}}/profiles/win6x"
-    
+
 # This task ensures we can create restore file for server initiated restores
 - name: create restore client's dir in spool dir
   file:
