@@ -12,13 +12,13 @@
     state: present
   with_items: "{{ burp_agent_pip_present }}"
 
-- name: upgrade buiagent pip
+- name: Install buiagent pip
   pip:
-    name: "{{ item }}"
-    state: latest
-  with_items: "{{ burp_agent_pip_latest }}"
-  tags:
-    - skip_ansible_lint
+    name: "{{ item.name }}"
+    state: present
+    version: "{{ item.version}}"
+  with_items: "{{ burpui_pip_packages }}"
+
 
 - name: configure buiagent
   template:

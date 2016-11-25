@@ -119,10 +119,10 @@ burp_agent_backend_timeout: "60"
 # Install burpui from a different source
 # ex: burpsrv_pip_burpui: "https://burpui.ziirish.me/builds/burp-ui.dev.tar.gz"
 burp_agent_pip_burpui: "burp-ui"
-burp_agent_pip_latest:
-  - pip
-  - "{{ burp_agent_pip_burpui }}"
+burpui_pip_packages:
+  - { name: "{{ burp_agent_pip_burpui}}", version: 0.4.0 }
 burp_agent_pip_present:
+  - pip
   - cffi
   - gevent
   - ujson
