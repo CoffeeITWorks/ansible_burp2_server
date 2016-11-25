@@ -18,6 +18,7 @@
     state: present
     version: "{{ item.version}}"
   with_items: "{{ burpui_pip_packages }}"
+  notify: restart buiagent
 
 
 - name: configure buiagent
