@@ -162,7 +162,7 @@ burp_sv_server_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
 burp_sv_server_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
 ### ---
 
-# if burpsrv_manual_delete: true
+# if burp_manual_delete_enabled: true
 ### Manual Delete
 burp_trash: "{{ burp_home }}/trash"
 burp_logs: "/var/log/burp"
@@ -180,7 +180,7 @@ burp_client_ssl_cert: "/etc/burp/ssl_cert-monitor.pem"
 burp_client_ssl_key: "/etc/burp/ssl_cert-monitor.key"
 ### ---
 
-# if burpsrv_restore_service: true
+# if burp_module_restore: true
 ### Burp Restore
 burp_restore_address: "0.0.0.0"
 burp_restore_port: "4973"
