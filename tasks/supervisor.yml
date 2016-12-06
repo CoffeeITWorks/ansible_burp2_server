@@ -58,6 +58,7 @@
   service:
     name: supervisor
     state: restarted
+    sleep: 5
     enabled: True
   when: ansible_os_family != "RedHat"
   changed_when: false
@@ -66,6 +67,7 @@
   service:
     name: supervisord
     state: restarted
+    sleep: 5
     enabled: True
   when: ansible_os_family == "RedHat"
   changed_when: false
