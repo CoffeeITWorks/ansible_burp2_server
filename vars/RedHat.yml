@@ -24,7 +24,7 @@ build_dependencies:
 
 burp_agent_packages:
   - python-pip
-  - python-dev
+  - python-devel
   - supervisor
 
 supervisoretc_dir: "/etc/supervisor/conf.d"
