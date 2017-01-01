@@ -28,3 +28,11 @@
   with_items:
     - { src: "buiagent.cfg.j2", dest: "/etc/burp/buiagent.cfg" }
   notify: restart buiagent
+
+- name: ensure supervisor is restarted
+  service:
+    name: "{{ supervisor_service }}"
+    state: restarted
+    sleep: 5
+    enabled: True
+  changed_when: false

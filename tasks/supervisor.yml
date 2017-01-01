@@ -54,22 +54,12 @@
     - restart buiagent
   when: burp_module_agent
 
-- name: ensure supervisor is restarted  and enabled Debian
+- name: ensure supervisor is restarted
   service:
-    name: supervisor
+    name: "{{ supervisor_service }}"
     state: restarted
     sleep: 5
     enabled: True
-  when: ansible_os_family != "RedHat"
-  changed_when: false
-
-- name: ensure supervisor is restarted and enabled RedHat
-  service:
-    name: supervisord
-    state: restarted
-    sleep: 5
-    enabled: True
-  when: ansible_os_family == "RedHat"
   changed_when: false
 
 # state: present uses supervisorctl add which is not available on centos 6

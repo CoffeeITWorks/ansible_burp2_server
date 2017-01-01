@@ -136,7 +136,7 @@ burp_agent_pip_present:
 # Burp Agent
 burp_sv_agent_priority: "40"
 burp_sv_agent_directory: "/tmp"
-burp_sv_agent_command: "/usr/local/bin/bui-agent -v -c /etc/burp/buiagent.cfg"
+burp_sv_agent_command: "{{ pip_installed_exe_bin_path }}/bui-agent -v -c /etc/burp/buiagent.cfg"
 burp_sv_agent_user: "root"
 burp_sv_agent_autostart: "true"
 burp_sv_agent_autorestart: "true"
