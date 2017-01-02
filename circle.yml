@@ -1,10 +1,14 @@
 machine:
   python:
     version: 2.7.10
+
 dependencies:  
   pre:
-    - sudo pip install ansible
-    - sudo pip install --upgrade setuptools
+    - sudo apt-get install software-properties-common
+    - sudo apt-add-repository ppa:ansible/ansible -y
+    - sudo apt-get update
+    - sudo apt-get install ansible
+
 test:
   override:
     # Check the role/playbook's syntax
