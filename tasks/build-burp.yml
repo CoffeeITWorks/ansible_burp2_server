@@ -22,6 +22,12 @@
     - burp-server
     - burp-core
 
+- name: force reinstall burp
+  file:
+    path: "{{ download_dir }}"
+    state: absent
+  when: burp_force_reinstall | bool
+
 - name: Ensure download directory is present
   file: path={{ download_dir }} state=directory
 
@@ -31,20 +37,14 @@
     dest: "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
     validate_certs: no
 
-- name: for reinstall burp
-  file:
-    path: "{{ download_dir }}/{{ burpsrc }}"
-    state: absent
-  when: burp_force_reinstall | bool
-
 - name: Unpack Burp source files tar.gz
   shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
-  register: unpack_src
+  register: unpack_src_tar
   when: burpsrcext == 'tar.gz'
 
 - name: Unpack Burp source files zip
   shell: cd {{ download_dir }} && unzip {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
-  register: unpack_src
+  register: unpack_src_zip
   when: burpsrcext == 'zip'
 
 - name: Autoreconf Burp source files
@@ -62,12 +62,21 @@
 
 - name: Uninstall burp
   shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes=/usr/sbin/burp
-  when: stb.stat.exists and unpack_src.changed
+  when: stb.stat.exists and ( unpack_src_tar.changed or unpack_src_zip.changed )
 
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
   notify:
     - restart burp server
+
+- name: read burp installed version
+  shell: burp -v
+  changed_when: false
+  register: cmd_burp_version
+
+- name: failed when burp version is different than the one that must be installed
+  fail: msg="burp version is different than the one that must be installed"
+  when: cmd_burp_version.stdout != "burp-{{ burp_version }}"
 
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
