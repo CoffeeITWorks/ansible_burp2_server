@@ -4,6 +4,7 @@
   apt:
     update_cache: yes
     cache_valid_time: 43200
+  changed_when: false
   when: ansible_os_family == 'Debian'
 
 - name: install build dependencies
@@ -29,6 +30,12 @@
     url: "{{ burpurl }}"
     dest: "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
     validate_certs: no
+
+- name: for reinstall burp
+  file:
+    path: "{{ download_dir }}/{{ burpsrc }}"
+    state: absent
+  when: burp_force_reinstall | bool
 
 - name: Unpack Burp source files tar.gz
   shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
