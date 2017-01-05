@@ -19,6 +19,10 @@
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
 
+- name: pause 5 seconds after add local client
+  pause:
+    seconds: 5
+
 - name: test backup for test_client
   command: /usr/sbin/burp -c /etc/burp/test_client.conf -a b
   args:
