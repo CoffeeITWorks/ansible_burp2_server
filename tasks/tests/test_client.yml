@@ -37,6 +37,9 @@
   args:
     creates: /tmp/test_restore
 
+- name: wait for client process restore finish
+  wait_for: path='{{ burp_server_data }}/test_client/restorelog' state=absent
+
 - name: check if restore exists
   file:
     path: /tmp/test_restore/etc/burp/burp.conf
@@ -46,6 +49,9 @@
   command: /usr/sbin/burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "^\/etc\/burp\/burp.conf$"
   args:
     creates: /tmp/test_restore2
+
+- name: wait for client process restore finish
+  wait_for: path='{{ burp_server_data }}/test_client/restorelog' state=absent
 
 - name: check if restore exists
   file:

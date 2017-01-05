@@ -124,14 +124,14 @@ burp_agent_pip_burpui: "burp-ui"
 burpui_pip_packages:
   - { name: "{{ burp_agent_pip_burpui}}", version: 0.4.4 }
 burp_agent_pip_present:
-  - pip
-  - cffi
-  - gevent
-  - ujson
-  - urllib3
-  - ndg-httpsclient
-  - pyasn1
-  - requests[security]
+  - "pip>=9"
+  - "cffi>=1.9"
+  - "gevent>=1.2"
+  - "ujson>=1.35"
+  - "urllib3>=1.19"
+  - "ndg-httpsclient"
+  - "pyasn1"
+  - "requests[security]>=2.12"
 ### ---
 
 ### Supervisor 
