@@ -125,7 +125,7 @@ burpui_pip_packages:
   - { name: "{{ burp_agent_pip_burpui}}", version: 0.4.4 }
 burp_agent_pip_present:
   - "pip>=9"
-  - "cffi>=1.9"
+  - "cffi>=1.7"
   - "gevent>=1.2"
   - "ujson>=1.35"
   - "urllib3>=1.19"
