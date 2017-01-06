@@ -98,6 +98,47 @@ burp_server_keep:
   - 7
 ### ---
 
+## burp_server incexc profiles
+
+profile_lnxsrv:
+  - "#hard_quota No permitir backups a clientes con mas de xxGb en el backup total"
+  - "#hard_quota Do not allow to backup clients with more than xxGb in the whole backup"
+  - "hard_quota=65Gb"
+  - ""
+  - "#soft_quota enviar WARNING backups a de clientes con mas de xxGb en el backup total"
+  - "#soft_quota send WARNING to backups clients with more than xxGb in the whole backup"
+  - "soft_quota=50Gb"
+  - ""
+  - ". lnxsrv_global_inclusions"
+  - ". lnxsrv_global_exclusions"
+  - ""
+  - "dedup_group = lnxsrv"
+
+profile_win6x:
+  - "#hard_quota No permitir backups a clientes con mas de xxGb en el backup total"
+  - "#hard_quota Do not allow to backup clients with more than xxGb in the whole backup"
+  - "hard_quota=65Gb"
+  - ""
+  - "#soft_quota enviar WARNING backups a de clientes con mas de xxGb en el backup total"
+  - "#soft_quota send WARNING to backups clients with more than xxGb in the whole backup"
+  - "soft_quota=50Gb"
+  - ""
+  - "# Due to issue: https://github.com/grke/burp/issues/501"
+  - "# I'm moving some inclusions and reducing the way I'm using nested files and also not including anything that is not"
+  - "# on all clients."
+  - "# . win6x_global_inclusions"
+  - "include_glob=C:/Users/*/Contacts"
+  - "include_glob=C:/Users/*/Documents"
+  - "include_glob=C:/Users/*/Favorites"
+  - "include_glob=C:/Users/*/Links"
+  - "include_glob=C:/Users/*/Desktop"
+  - ""
+  - ". win6x_global_exclusions"
+  - ". video_exclusions"
+  - ". audio_exclusions"
+  - ""
+  - "dedup_group = win6x"
+
 # if burpsrv_agent: true
 ### Burp UI Agent
 #[Global]
@@ -192,3 +233,4 @@ burp_restore_pidfile: "/var/run/burp.restore.pid"
 burp_restore_clients:
   - monitor
 ### ---
+

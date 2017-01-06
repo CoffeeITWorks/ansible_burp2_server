@@ -28,6 +28,14 @@
     - { src: "burp-server.conf.j2", dest: "/etc/burp/burp-server.conf"}
   notify: restart burp server
 
+- name: generate template profiles from profile_vars
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "profile_lnxsrv.j2", dest: "{{ burp_server_clientconfdir }}/incexc/profile_lnxsrv" }
+    - { src: "profile_win6x.j2", dest: "{{ burp_server_clientconfdir }}/incexc/profile_win6x" }
+
 - name: copy clients configuration files
   copy:
     src: "{{ item }}"
