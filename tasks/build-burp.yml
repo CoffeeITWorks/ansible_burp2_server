@@ -74,6 +74,8 @@
   shell: burp -v
   changed_when: false
   register: cmd_burp_version
+  tags:
+    - skip_ansible_lint
 
 - name: failed when burp version is different than the one that must be installed
   fail: msg="burp version is different than the one that must be installed"

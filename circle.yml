@@ -13,6 +13,8 @@ test:
   override:
     # Check the role/playbook's syntax
     - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+    # Check with ansible-lint
+    - ansible-lint playbook.yml
     # Run the basic role
     - sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
     # Test client to test restores
