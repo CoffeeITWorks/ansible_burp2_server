@@ -32,8 +32,11 @@
   file: path={{ download_dir }} state=directory
 
 - name: GET burp backup and restore
-  shell: wget -c "{{ burpurl }}" -O "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
-  changed_when: false
+  get_url:
+    url: "{{ burpurl }}"
+    dest: "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
+    timeout: 30
+    validate_certs: no
 
 - name: Unpack Burp source files tar.gz
   shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
