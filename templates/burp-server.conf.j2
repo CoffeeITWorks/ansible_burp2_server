@@ -88,7 +88,7 @@ keep = {{ keep }}
 # overwritten. See docs/burp_ca.txt for more information.
 ca_conf = {{ burp_server_ca_conf }}
 ca_name = {{ burp_server_ca_name }}
-ca_server_name = {{ ansible_nodename }}
+ca_server_name = {{ ansible_hostname }}
 ca_burp_ca = {{ burp_server_ca_burp_ca }}
 
 # Check for revoked certificates in the certificate revocation list.
