@@ -3,7 +3,7 @@
 
 - name: restart supervisor
   service:
-    name: supervisor
+    name: "{{ supervisor_service }}"
     state: restarted
 
 - name: restart burp server

@@ -46,6 +46,9 @@ Role Variables: Complete list of modules:
 ##### Configure Burp UI Agent
 	
     burp_module_agent: true
+    # You can also change the password:
+    burp_agent_global_password: "password"
+
 	
 ##### Configure burp restore service
 	
