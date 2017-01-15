@@ -79,7 +79,53 @@ You just need files per client, example:
     dedup_group = trusty
     . incexc/profile_lnxsrv
 
+#### Add clients from a list
 
+ Optional list of clients to add on specific execution
+
+```yaml
+burp2_add_manual_clients:
+  - name: client_name
+    profile: profile name to use (optional), default: profile_lnxsrv (these files are in incexc/ dir).
+    password: client_password (optional), default: burp_client_password var
+  - name: second_client
+```
+
+You can use it as a fixed list or a dinamic specifying it during `ansible-playbook` command execution: 
+
+http://docs.ansible.com/ansible/playbooks_variables.html#passing-variables-on-the-command-line
+
+Example using json like var in command line: 
+
+    --extra-vars '{ "burp2_add_manual_clients": [ { "name": "test_manual" }, { "name": "test_manual2", "profile": "profile_win6x" } ] }'
+
+It will create the files: 
+
+```bash
+
+ansible@ubuntuburp2:~$ cat /etc/burp/clientconfdir/test_manual2
+# Ansible managed
+
+password = password
+
+# More configuration files can be read, using syntax like the following
+# (without the leading '# ').
+. incexc/profile_win6x
+ansible@ubuntuburp2:~$ cat /etc/burp/clientconfdir/test_manual
+# Ansible managed
+
+password = password
+
+# More configuration files can be read, using syntax like the following
+# (without the leading '# ').
+. incexc/profile_lnxsrv
+
+```
+
+#### Configure your own profiles
+
+Check `defaults/main.yml` file, to copy the content and create your own profiles with `profiles_templates var`
+  
 Dependencies
 ------------
 

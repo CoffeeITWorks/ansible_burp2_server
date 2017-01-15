@@ -17,6 +17,8 @@
 
 - include: config_burp.yml
 
+- include: manual_client.yml
+
 # Only for monitor and status purpose
 - include: manual_delete.yml
   when: burp_manual_delete_enabled

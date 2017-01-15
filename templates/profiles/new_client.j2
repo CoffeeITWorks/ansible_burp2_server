@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 
-password = {{ burp_client_password }}
+password = {{ item.password | default(burp_client_password) }}
 
 # More configuration files can be read, using syntax like the following
 # (without the leading '# ').
-. incexc/profile_win6x
+. incexc/{{ item.profile | default('profile_lnxsrv') }}
