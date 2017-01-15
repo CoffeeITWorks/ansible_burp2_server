@@ -70,12 +70,14 @@
   notify:
     - restart burp server
 
+# Run this task always to register the burp version
 - name: read burp installed version
   shell: burp -v
   changed_when: false
   register: cmd_burp_version
   tags:
     - skip_ansible_lint
+  check_mode: no
 
 - name: failed when burp version is different than the one that must be installed
   fail: msg="burp version is different than the one that must be installed"
