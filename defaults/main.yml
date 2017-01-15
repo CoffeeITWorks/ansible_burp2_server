@@ -143,6 +143,28 @@ profiles_templates:
       - ""
       - "dedup_group = win6x"
 
+  - name: profile_win6x_drp
+    content:
+      - 'include = C:/'
+      - ''
+      - '# temp stuff'
+      - 'exclude_regex = "[A-Z]:/Users/[^/]+/AppData/Local/Temp"'
+      - 'exclude_regex = "[A-Z]:/Documents and Settings/[^/]+/Cookies"'
+      - 'exclude_regex = "[A-Z]:/Documents and Settings/[^/]+/Recent"'
+      - 'exclude_regex = "[A-Z]:/Documents and Settings/[^/]+/Local Settings/Temp"'
+      - '# iometer test file'
+      - 'exclude_regex = "[A-Z]:/iobw.tst"'
+      - ''
+      - '# system stuff that is not important in a restored system'
+      - 'exclude_regex = "[A-Z]:/RECYCLER"'
+      - '# swap file (Windows XP, 7, 8)'
+      - 'exclude_regex = "[A-Z]:/pagefile.sys"'
+      - '# swap file?? (Windows 8)'
+      - 'exclude_regex = "[A-Z]:/swapfile.sys"'
+      - ''
+      - '# note that we are backing up C:/System Volume Information"'
+
+
 # See file tasks/manual_client.yml
 burp2_add_manual_clients: []
 
