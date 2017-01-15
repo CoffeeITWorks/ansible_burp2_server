@@ -54,3 +54,6 @@ fabric.properties
 # jetbrains
 .idea
 
+# kdevelop
+*.kdev4
+.kdev4
