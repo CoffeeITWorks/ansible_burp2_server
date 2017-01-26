@@ -2,8 +2,8 @@
 # Use docker to test on travis
 # Use vagrant to create vms and access full OS on local testing
 driver:
-  #name: docker
-  name: vagrant
+  name: docker
+  #name: vagrant
 
 vagrant:
   raw_config_args:
@@ -79,12 +79,12 @@ docker:
           - group_master
 
       # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
-      #- name: ansible_burp2_server-03
-      #  image: centos
-      #  image_version: 6
-      #  privileged: True
-      #  ansible_groups:
-      #    - group1
+      - name: ansible_burp2_server-03
+        image: centos
+        image_version: 7
+        privileged: True
+        ansible_groups:
+          - group1
 
 verifier:
   name: testinfra
