@@ -1,5 +1,16 @@
 ---
 
+- name: Add supervisor ppa for Ubuntu
+  apt_repository:
+    repo: ppa:iacobs/supervisor
+  when: ansible_distribution_release == 'trusty'
+  register: ppa_supervisor
+
+- name: update cache
+  apt: update-cache=yes cache_valid_time=43200
+  changed_when: false
+  when: ansible_os_family == 'Debian'
+
 - name: Install supervisor
   package:
     name: supervisor
