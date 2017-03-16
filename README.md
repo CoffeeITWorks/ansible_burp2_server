@@ -125,7 +125,12 @@ password = password
 #### Configure your own profiles
 
 Check `defaults/main.yml` file, to copy the content and create your own profiles with `profiles_templates var`
-  
+
+#### Add your own lines to burp-server.conf
+
+        burp_server_custom_lines:
+        - "someextra=line"
+
 Dependencies
 ------------
 

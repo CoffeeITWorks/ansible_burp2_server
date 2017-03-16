@@ -70,18 +70,23 @@
   notify:
     - restart burp server
 
-# Run this task always to register the burp version
-- name: read burp installed version
-  shell: burp -v
-  changed_when: false
-  register: cmd_burp_version
-  tags:
-    - skip_ansible_lint
-  check_mode: no
+- block: 
+  # Verify burp version if the burp_version is not master
 
-- name: failed when burp version is different than the one that must be installed
-  fail: msg="burp version is different than the one that must be installed"
-  when: cmd_burp_version.stdout != "burp-{{ burp_version }}"
+  # Run this task always to register the burp version
+  - name: read burp installed version
+    shell: burp -v
+    changed_when: false
+    register: cmd_burp_version
+    tags:
+      - skip_ansible_lint
+    check_mode: no
+
+  - name: failed when burp version is different than the one that must be installed
+    fail: msg="burp version is different than the one that must be installed"
+    when: cmd_burp_version.stdout != "burp-{{ burp_version }}"
+  
+  when: burp_version != "master"
 
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
