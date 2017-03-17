@@ -82,7 +82,7 @@ docker:
       - name: ansible_burp2_server-03
         image: centos/systemd
         image_version: latest
-        volume_mounts: 
+        volume_mounts:
           - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
         privileged: True
         ansible_groups:

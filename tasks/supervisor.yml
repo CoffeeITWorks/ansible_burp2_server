@@ -99,4 +99,3 @@
 
 - name: wait for burp_server port
   wait_for: port={{ burp_server_port }} delay=5 timeout=30
-

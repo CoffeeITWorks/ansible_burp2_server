@@ -64,13 +64,14 @@
 - name: Uninstall burp
   shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes=/usr/sbin/burp
   when: stb.stat.exists and ( unpack_src_tar.changed or unpack_src_zip.changed )
+  tags:
+    - skip_ansible_lint
 
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
-  notify:
-    - restart burp server
+  notify: restart burp server
 
-- block: 
+- block:
   # Verify burp version if the burp_version is not master
 
   # Run this task always to register the burp version
@@ -85,7 +86,7 @@
   - name: failed when burp version is different than the one that must be installed
     fail: msg="burp version is different than the one that must be installed"
     when: cmd_burp_version.stdout != "burp-{{ burp_version }}"
-  
+
   when: burp_version != "master"
 
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
@@ -103,7 +104,3 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: "build/CA.cnf.j2", dest: "{{ burp_server_ca_conf }}" }
-
-
-
-

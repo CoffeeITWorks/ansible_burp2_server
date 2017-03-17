@@ -2,7 +2,7 @@ machine:
   python:
     version: 2.7.10
 
-dependencies:  
+dependencies:
   pre:
     - sudo apt-get install software-properties-common
     - sudo apt-add-repository ppa:ansible/ansible -y
@@ -19,4 +19,3 @@ test:
     - sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
     # Test client to test restores
     - sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become -e burp_module_test_client=True
-    

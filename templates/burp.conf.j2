@@ -26,4 +26,6 @@ ssl_cert_ca = {{ burp_client_ssl_cert_ca }}
 ssl_cert = {{ burp_client_ssl_cert }}
 ssl_key = {{ burp_client_ssl_key }}
 ssl_key_password = {{ burp_server_ssl_key_password }}
+# This will break idempotence, so will be better
+# to use lineinfile for this file. 
 ssl_peer_cn = {{ ansible_hostname }}

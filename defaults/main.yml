@@ -14,12 +14,12 @@ burp_server_autoupgrade_enabled: false
 burp_repos: false
 #burpsrv_repos:
 #  - { repo: "url", version: "branch", dir: "dest dir"}
-# Example: 
+# Example:
 # burp_repos:
 #  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
-# You just need files per client, example: 
-# client1 file content: 
-# 
+# You just need files per client, example:
+# client1 file content:
+#
 # password = password
 # dedup_group = trusty
 # . incexc/profile_lnxsrv
@@ -225,7 +225,7 @@ burp_agent_pip_present:
   - "requests[security]>=2.12"  # required to avoid issues with get_url module
 ### ---
 
-### Supervisor 
+### Supervisor
 # Burp Agent
 burp_sv_agent_priority: "40"
 burp_sv_agent_directory: "/tmp"
@@ -283,4 +283,3 @@ burp_restore_pidfile: "/var/run/burp.restore.pid"
 burp_restore_clients:
   - monitor
 ### ---
-
