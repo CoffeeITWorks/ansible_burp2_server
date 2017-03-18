@@ -1,4 +1,22 @@
 
+v1.3
+
+* fixed idempotence, ansible-lint, centos7/systemd docker test to pass all tests with molecule.
+* Passing all tests with molecule test for: centos7/systemd, Ubuntu/latest, Debian/8. 
+* Added travis test with molecule
+* Molecule tests forced to be in serial: 1 to avoid performance issues with travisci
+* Added automated travis import to galaxy
+
+v1.2
+====
+
+* Add librsync option to burp-server.conf template
+* Add burp_server_custom_lines var
+* Added profile_lnxsrv_medium on defaults
+* Added cross_all_filesystems=1 on defaults profiles
+* Fixed testing centos7 with docker when running `molecule test`
+* Fixed testing master branch (not test burp version in this case)
+
 v1.0
 ====
 
@@ -14,12 +32,3 @@ v1.0
 * profiles_templates from defaults, so anyone can set their own, and also with good defaults profiles: profile_lnxsrv, profile_win6x, profile_win6x_drp
 * burp2_add_manual_clients to have possibility to add clients from a list, also from command line
 
-v1.2
-====
-
-* Add librsync option to burp-server.conf template
-* Add burp_server_custom_lines var
-* Added profile_lnxsrv_medium on defaults
-* Added cross_all_filesystems=1 on defaults profiles
-* Fixed testing centos7 with docker when running `molecule test`
-* Fixed testing master branch (not test burp version in this case)

@@ -1,10 +1,18 @@
 sudo: required
+dist: trusty
+#group: edge
+env:
+  global:
+  - DOCKER_VERSION="1.9.1-0~trusty"
+
 language: python
 services:
   - docker
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  #- sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - sudo apt-get remove docker-engine -yq
+  - sudo apt-get install docker-engine=$DOCKER_VERSION -yq --no-install-suggests --no-install-recommends --force-yes -o Dpkg::Options::="--force-confnew"
 install:
   - pip install molecule
   # - pip install required driver (e.g. docker, python-vagrant, shade)
