@@ -1,26 +1,12 @@
-# http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
 sudo: required
-dist: trusty
-
 language: python
-
 services:
-  #- docker
-
+  - docker
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
-  #- ansible-galaxy install -r requirements.yml
-
 install:
-  #- pip install molecule
-  - sudo pip install ansible
-
+  - pip install molecule
+  # - pip install required driver (e.g. docker, python-vagrant, shade)
 script:
-  #- molecule test
-  # Check the role/playbook's syntax
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-  # Run the basic role
-  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become"
-  # Test client to test restores
-  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become -e burp_module_test_client=True"
+  - molecule test
