@@ -18,19 +18,32 @@ ansible burp2_server deploy and maintenance role.
 This roles builds burp version specified on defaults/main.yml. 
 Also configures it to get it working and maintained in a centralized way.
 
+Installing this role
+--------------------
+
+Install the role on the system: 
+
+    $ ansible-galaxy install CoffeeITWorks.burp2_server
+
+Checkout more info at: https://github.com/CoffeeITWorks/ansible-generic-help#installing-roles
 
 Requirements
 ------------
 
 
-Role Variables
---------------
+Preparing the variables
+-----------------------
 
-### Add to your host/group_vars:
+We have an **inventory** and a **playbook** to call the roles, but we must customize the [variables](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) before running 
+ the playbook. 
  
-Create host_vars or group_vars dirs. 
+Here we will organize the variables files into the `group_vars` directory:
+
+    mkdir -p group_vars/burp2_servers
 
 Inside it you can add a file with the name of the group or the host where you want to add specific options of this role.
+
+example file `group_vars/burp2_servers/burp2_server_vars`
 
 *Options vars:* 
 
