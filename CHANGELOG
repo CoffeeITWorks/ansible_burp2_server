@@ -4,6 +4,7 @@ v1.3
 * fixed idempotence, ansible-lint, centos7/systemd docker test to pass all tests with molecule.
 * Passing all tests with molecule test for: centos7/systemd, Ubuntu/latest, Debian/8. 
 * Added travis test with molecule
+** Tests master branch of burp when run with debian/8 (ansible_burp_server-master2 name in molecule.yml)
 * Molecule tests forced to be in serial: 1 to avoid performance issues with travisci
 * Added automated travis import to galaxy
 
