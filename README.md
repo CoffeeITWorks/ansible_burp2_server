@@ -18,6 +18,8 @@ ansible burp2_server deploy and maintenance role.
 This roles builds burp version specified on defaults/main.yml. 
 Also configures it to get it working and maintained in a centralized way.
 
+See [FEATURES.md](FEATURES.md)
+
 Installing this role
 --------------------
 
@@ -151,11 +153,11 @@ Dependencies
 
 
 Installed services
-==================
+------------------
 
-It user http://supervisord.org/ for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
+It uses http://supervisord.org/ for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
 
-So to restart installed services/daemons you should use: 
+To restart installed services/daemons you should use: 
 
     sudo supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
 
@@ -184,12 +186,12 @@ This role was created by Diego Daguerre with collaboration of Pablo Estigarribia
 Actually main developer is Pablo Estigarribia.
 
 Burp backup and restore
-=======================
+-----------------------
 
 Main page: http://burp.grke.org/
 
 Burpui
-======
+------
 
 Main page: https://git.ziirish.me/ziirish/burp-ui
 
@@ -201,6 +203,3 @@ Now there is only need to modify these to group/host vars:
 
     burpsrcext: "zip"
     burp_version: "master"
-
-
-
