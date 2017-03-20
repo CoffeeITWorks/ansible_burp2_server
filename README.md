@@ -180,7 +180,8 @@ MIT
 Author Information
 ------------------
 
-This role was main developed by Diego Daguerre with collaboration of Pablo Estigarribia (pablodav at gmail)
+This role was created by Diego Daguerre with collaboration of Pablo Estigarribia (pablodav at gmail)
+Actually main developer is Pablo Estigarribia.
 
 Burp backup and restore
 =======================
