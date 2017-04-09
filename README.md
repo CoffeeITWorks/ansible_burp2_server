@@ -60,26 +60,26 @@ Role Variables: Complete list of modules:
 -----------------------------------------
 
 ### Modules
-##### Configure Burp UI Agent
+#### Configure Burp UI Agent
 	
     burp_module_agent: true
     # You can also change the password:
     burp_agent_global_password: "password"
 
 	
-##### Configure burp restore service
+#### Configure burp restore service
 	
      burp_module_restore: true
 	
-##### Configure Burp manual delete
+#### Configure Burp manual delete
 
      burp_manual_delete_enabled: true
 	
-##### Configure Burp Autoupgrade
+#### Configure Burp Autoupgrade
 
      burp_server_autoupgrade_enabled: true
 	
-##### Activate clients from git repository
+#### Activate clients from git repository
 
 Example: 
 
