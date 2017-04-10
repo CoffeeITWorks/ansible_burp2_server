@@ -42,3 +42,5 @@
 
 - include: tests/test_client.yml
   when: burp_module_test_client
+
+- include: remove_client.yml

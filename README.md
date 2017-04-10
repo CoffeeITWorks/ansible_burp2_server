@@ -148,6 +148,20 @@ Check `defaults/main.yml` file, to copy the content and create your own profiles
         burp_server_custom_lines:
         - "someextra=line"
 
+#### Remove clients from a list
+
+There is now a feature to allow you to remove a client from a list, variable used is: 
+
+```yaml
+burp_remove_clients:
+  - name: client_to_remove
+  - name: other_client_to_remove
+```
+
+You can use this variable in a static var file like:  `group_vars`, or at runtime. Example: 
+
+    ansible-playbook --extra-vars '{ "burp_remove_clients": [ { "name": "test_manual" }, { "name": "test_manual2" } ] }' -i inventory roles.burp_servers.yml -u user -k
+
 Dependencies
 ------------
 
