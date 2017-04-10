@@ -1,6 +1,6 @@
 ---
 
-# var burp_remove_clients format: 
+# var burp_remove_clients format:
 # burp_remove_clients:
 #   - name: client_name
 
