@@ -16,7 +16,7 @@ before_install:
 install:
   # avoid bug https://github.com/ansible/ansible/issues/23016 until 2.2.3 is released
   # ref: https://github.com/metacloud/molecule/issues/783
-  - pip install ansible==2.2.1 
+  - pip install ansible
   - pip install molecule
   # - pip install required driver (e.g. docker, python-vagrant, shade)
   - pip install docker
