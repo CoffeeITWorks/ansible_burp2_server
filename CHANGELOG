@@ -1,5 +1,11 @@
 
+v1.4
+====
+
+* Added burp_remove_clients as an option to remove clients from a list
+
 v1.3
+====
 
 * fixed idempotence, ansible-lint, centos7/systemd docker test to pass all tests with molecule.
 * Passing all tests with molecule test for: centos7/systemd, Ubuntu/latest, Debian/8. 
