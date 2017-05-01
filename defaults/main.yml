@@ -189,6 +189,9 @@ profiles_templates:
 # See file tasks/manual_client.yml
 burp2_add_manual_clients: []
 
+# See file tasks/remove_client.yml
+burp_remove_clients: []
+
 # if burpsrv_agent: true
 ### Burp UI Agent
 #[Global]

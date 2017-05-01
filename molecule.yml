@@ -97,3 +97,6 @@ ansible:
     group_master:
       burpsrcext: "zip"
       burp_version: "master"
+      burp_remove_clients:
+        - name: client_to_remove
+        - name: other_client_to_remove
