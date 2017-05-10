@@ -1,4 +1,29 @@
 
+v1.4
+====
+
+* Added burp_remove_clients as an option to remove clients from a list
+
+v1.3
+====
+
+* fixed idempotence, ansible-lint, centos7/systemd docker test to pass all tests with molecule.
+* Passing all tests with molecule test for: centos7/systemd, Ubuntu/latest, Debian/8. 
+* Added travis test with molecule
+** Tests master branch of burp when run with debian/8 (ansible_burp_server-master2 name in molecule.yml)
+* Molecule tests forced to be in serial: 1 to avoid performance issues with travisci
+* Added automated travis import to galaxy
+
+v1.2
+====
+
+* Add librsync option to burp-server.conf template
+* Add burp_server_custom_lines var
+* Added profile_lnxsrv_medium on defaults
+* Added cross_all_filesystems=1 on defaults profiles
+* Fixed testing centos7 with docker when running `molecule test`
+* Fixed testing master branch (not test burp version in this case)
+
 v1.0
 ====
 

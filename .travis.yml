@@ -1,27 +1,26 @@
-# http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
 sudo: required
 dist: trusty
+#group: edge
+env:
+  global:
+  - DOCKER_VERSION="1.9.1-0~trusty"
 
 language: python
-
 services:
-  #- docker
-
+  - docker
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
-  #- ansible-galaxy install -r requirements.yml
-
+  #- sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - sudo apt-get remove docker-engine -yq
+  - sudo apt-get install docker-engine=$DOCKER_VERSION -yq --no-install-suggests --no-install-recommends --force-yes -o Dpkg::Options::="--force-confnew"
 install:
-  #- pip install molecule
-  - sudo pip install ansible
-
+  # avoid bug https://github.com/ansible/ansible/issues/23016 until 2.2.3 is released
+  # ref: https://github.com/metacloud/molecule/issues/783
+  - pip install ansible
+  - pip install molecule
+  # - pip install required driver (e.g. docker, python-vagrant, shade)
+  - pip install docker
 script:
-  #- molecule test
-  # Check the role/playbook's syntax
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-  # Run the basic role
-  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become"
-  # Test client to test restores
-  - "sudo ansible-playbook -i tests/inventory tests/test.yml --connection=local --become -e burp_module_test_client=True"
-  
+  - molecule test
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/

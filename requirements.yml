@@ -2,5 +2,3 @@
 - src: https://github.com/lcacciagioni/supervisord
   version: master
   name: supervisord
-
-

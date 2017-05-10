@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/CoffeeITWorks/ansible_burp2_server.svg?style=svg)](https://circleci.com/gh/CoffeeITWorks/ansible_burp2_server)
 
+[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server)
+
 Getting Started
 ================
 
@@ -16,19 +18,34 @@ ansible burp2_server deploy and maintenance role.
 This roles builds burp version specified on defaults/main.yml. 
 Also configures it to get it working and maintained in a centralized way.
 
+See [FEATURES.md](FEATURES.md)
+
+Installing this role
+--------------------
+
+Install the role on the system: 
+
+    $ ansible-galaxy install CoffeeITWorks.burp2_server
+
+Checkout more info at: https://github.com/CoffeeITWorks/ansible-generic-help#installing-roles
 
 Requirements
 ------------
 
 
-Role Variables
---------------
+Preparing the variables
+-----------------------
 
-### Add to your host/group_vars:
+We have an **inventory** and a **playbook** to call the roles, but we must customize the [variables](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) before running 
+ the playbook. 
  
-Create host_vars or group_vars dirs. 
+Here we will organize the variables files into the `group_vars` directory:
+
+    mkdir -p group_vars/burp2_servers
 
 Inside it you can add a file with the name of the group or the host where you want to add specific options of this role.
+
+example file `group_vars/burp2_servers/burp2_server_vars`
 
 *Options vars:* 
 
@@ -43,26 +60,26 @@ Role Variables: Complete list of modules:
 -----------------------------------------
 
 ### Modules
-##### Configure Burp UI Agent
+#### Configure Burp UI Agent
 	
     burp_module_agent: true
     # You can also change the password:
     burp_agent_global_password: "password"
 
 	
-##### Configure burp restore service
+#### Configure burp restore service
 	
      burp_module_restore: true
 	
-##### Configure Burp manual delete
+#### Configure Burp manual delete
 
      burp_manual_delete_enabled: true
 	
-##### Configure Burp Autoupgrade
+#### Configure Burp Autoupgrade
 
      burp_server_autoupgrade_enabled: true
 	
-##### Activate clients from git repository
+#### Activate clients from git repository
 
 Example: 
 
@@ -125,17 +142,36 @@ password = password
 #### Configure your own profiles
 
 Check `defaults/main.yml` file, to copy the content and create your own profiles with `profiles_templates var`
-  
+
+#### Add your own lines to burp-server.conf
+
+        burp_server_custom_lines:
+        - "someextra=line"
+
+#### Remove clients from a list
+
+There is now a feature to allow you to remove a client from a list, variable used is: 
+
+```yaml
+burp_remove_clients:
+  - name: client_to_remove
+  - name: other_client_to_remove
+```
+
+You can use this variable in a static var file like:  `group_vars`, or at runtime. Example: 
+
+    ansible-playbook --extra-vars '{ "burp_remove_clients": [ { "name": "test_manual" }, { "name": "test_manual2" } ] }' -i inventory roles.burp_servers.yml -u user -k
+
 Dependencies
 ------------
 
 
 Installed services
-==================
+------------------
 
-It user http://supervisord.org/ for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
+It uses http://supervisord.org/ for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
 
-So to restart installed services/daemons you should use: 
+To restart installed services/daemons you should use: 
 
     sudo supervisorctl restart buiagent/burp-server/burp-restore  (depends on the service you want to restart)
 
@@ -160,15 +196,16 @@ MIT
 Author Information
 ------------------
 
-This role was main developed by Diego Daguerre with collaboration of Pablo Estigarribia (pablodav at gmail)
+This role was created by Diego Daguerre with collaboration of Pablo Estigarribia (pablodav at gmail)
+Actually main developer is Pablo Estigarribia.
 
 Burp backup and restore
-=======================
+-----------------------
 
 Main page: http://burp.grke.org/
 
 Burpui
-======
+------
 
 Main page: https://git.ziirish.me/ziirish/burp-ui
 
@@ -180,6 +217,3 @@ Now there is only need to modify these to group/host vars:
 
     burpsrcext: "zip"
     burp_version: "master"
-
-
-

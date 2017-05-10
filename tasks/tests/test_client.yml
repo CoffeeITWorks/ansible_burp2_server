@@ -91,4 +91,3 @@
   command: burp -c /etc/burp/burp.conf -a t
   args:
     creates: /tmp/restore3/etc/burp/burp.conf
-

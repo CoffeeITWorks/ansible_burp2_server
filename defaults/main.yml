@@ -14,12 +14,12 @@ burp_server_autoupgrade_enabled: false
 burp_repos: false
 #burpsrv_repos:
 #  - { repo: "url", version: "branch", dir: "dest dir"}
-# Example: 
+# Example:
 # burp_repos:
 #  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
-# You just need files per client, example: 
-# client1 file content: 
-# 
+# You just need files per client, example:
+# client1 file content:
+#
 # password = password
 # dedup_group = trusty
 # . incexc/profile_lnxsrv
@@ -47,6 +47,7 @@ burpurl: "https://github.com/grke/burp/archive/{{ burp_version }}.{{ burpsrcext 
 download_dir: "{{ ansible_env.HOME }}/burp"
 
 ### Burp Server
+### http://burp.grke.org/docs/manpage.html
 burp_server_data: "{{ burp_home }}/data"
 burp_server_clientconfdir: "/etc/burp/clientconfdir"
 burp_server_autoupgrade_dir: "/etc/burp/autoupgrade/server"
@@ -58,9 +59,10 @@ burp_server_dedup_group: "global"
 burp_server_protocol: "1"
 burp_server_pidfile: "/var/run/burp.server.pid"
 burp_server_hardlinked_archive: "0"
+burp_server_librsync: "1"
 burp_server_working_dir_recovery_method: "delete"
 burp_server_max_children: "4"
-burp_server_max_status_children: "6"
+burp_server_max_status_children: "15"
 burp_server_umask: "0022"
 burp_server_syslog: "0"
 burp_server_stdout: "1"
@@ -96,6 +98,8 @@ burp_server_timer_args:
   - Sat,Sun,00,01,02,03,04,05,06,07,08,17,18,19,20,21,22,23
 burp_server_keep:
   - 7
+burp_server_custom_lines: []
+#  - "someextra=line"
 ### ---
 
 ## burp_server incexc profiles
@@ -115,6 +119,23 @@ profiles_templates:
       - ". lnxsrv_global_inclusions"
       - ". lnxsrv_global_exclusions"
       - ""
+      - "cross_all_filesystems=1"
+      - "dedup_group = lnxsrv"
+
+  - name: profile_lnxsrv_medium
+    content:
+      - "#hard_quota No permitir backups a clientes con mas de xxGb en el backup total"
+      - "#hard_quota Do not allow to backup clients with more than xxGb in the whole backup"
+      - "hard_quota=150Gb"
+      - ""
+      - "#soft_quota enviar WARNING backups a de clientes con mas de xxGb en el backup total"
+      - "#soft_quota send WARNING to backups clients with more than xxGb in the whole backup"
+      - "soft_quota=120Gb"
+      - ""
+      - ". lnxsrv_global_inclusions"
+      - ". lnxsrv_global_exclusions"
+      - ""
+      - "cross_all_filesystems=1"
       - "dedup_group = lnxsrv"
 
   - name: profile_win6x
@@ -168,6 +189,9 @@ profiles_templates:
 # See file tasks/manual_client.yml
 burp2_add_manual_clients: []
 
+# See file tasks/remove_client.yml
+burp_remove_clients: []
+
 # if burpsrv_agent: true
 ### Burp UI Agent
 #[Global]
@@ -204,7 +228,7 @@ burp_agent_pip_present:
   - "requests[security]>=2.12"  # required to avoid issues with get_url module
 ### ---
 
-### Supervisor 
+### Supervisor
 # Burp Agent
 burp_sv_agent_priority: "40"
 burp_sv_agent_directory: "/tmp"
@@ -262,4 +286,3 @@ burp_restore_pidfile: "/var/run/burp.restore.pid"
 burp_restore_clients:
   - monitor
 ### ---
-

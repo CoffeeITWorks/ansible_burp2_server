@@ -1,5 +1,5 @@
 ---
-# file: tasks/manual_client.yml 
+# file: tasks/manual_client.yml
 
 # Optional list of clients to add on specific execution
 # - name: client_name
@@ -7,7 +7,7 @@
 #   password: client_password (optional), default: burp_client_password var
 
 - name: add local client from var burp2_add_manual_clients
-  template: 
+  template:
     src: profiles/new_client.j2
     dest: "{{ burp_server_clientconfdir }}/{{ item.name }}"
   with_items: "{{ burp2_add_manual_clients | default([]) }}"

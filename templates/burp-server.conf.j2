@@ -24,6 +24,7 @@ clientconfdir = {{ burp_server_clientconfdir }}
 protocol = {{ burp_server_protocol }}
 pidfile = {{ burp_server_pidfile }}
 hardlinked_archive = {{ burp_server_hardlinked_archive }}
+librsync={{ burp_server_librsync }}
 working_dir_recovery_method = {{ burp_server_working_dir_recovery_method }}
 max_children = {{ burp_server_max_children }}
 max_status_children = {{ burp_server_max_status_children }}
@@ -208,3 +209,10 @@ manual_delete = {{ burp_trash }}
 {% for client in burp_restore_clients %}
 restore_client = {{ client }}
 {% endfor %}
+
+{% if burp_server_custom_lines %}
+{% for l in burp_server_custom_lines %}
+{{ l }}
+{% endfor %}
+{% endif %}
+

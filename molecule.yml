@@ -80,8 +80,10 @@ docker:
 
       # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
       - name: ansible_burp2_server-03
-        image: centos
-        image_version: 7
+        image: centos/systemd
+        image_version: latest
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
         privileged: True
         ansible_groups:
           - group1
@@ -93,5 +95,8 @@ ansible:
   playbook: playbook.yml
   group_vars:
     group_master:
-      - burpsrcext: "zip"
-        burp_version: "master"
+      burpsrcext: "zip"
+      burp_version: "master"
+      burp_remove_clients:
+        - name: client_to_remove
+        - name: other_client_to_remove
