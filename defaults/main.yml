@@ -216,7 +216,7 @@ burp_agent_backend_timeout: "60"
 # ex: burpsrv_pip_burpui: "https://burpui.ziirish.me/builds/burp-ui.dev.tar.gz"
 burp_agent_pip_burpui: "burp-ui-agent"
 burpui_pip_packages:
-  - { name: "{{ burp_agent_pip_burpui }}", version: 0.5.0 }
+  - { name: "{{ burp_agent_pip_burpui }}", version: 0.5.1 }
 burp_agent_pip_present:
   - "pip>=9"
   - "cffi>=1.7"
