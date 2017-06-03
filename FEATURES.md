@@ -16,3 +16,5 @@ v1.3
 ** Tests master branch of burp when run with debian/8 (ansible_burp_server-master2 name in molecule.yml)
 * burp_server_custom_lines var (to manage your own lines in burp-server.conf)
 * Good defaults profiles with option to have your own profiles only copying profiles_templates var
+* Remove a client from a list burp_remove_clients
+* Ability to setup new port per operation
