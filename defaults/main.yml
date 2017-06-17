@@ -98,6 +98,13 @@ burp_server_timer_args:
   - Sat,Sun,00,01,02,03,04,05,06,07,08,17,18,19,20,21,22,23
 burp_server_keep:
   - 7
+
+# Modify these variables in you host/group vars 
+# to allow notification when a failure occurs
+burp_notify_failure: false
+burp_notify_failure_email_to: root@localhost
+burp_notify_failure_email_from: "burp@{{ ansible_nodename }}"
+
 burp_server_custom_lines: []
 #  - "someextra=line"
 ### ---

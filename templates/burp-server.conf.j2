@@ -156,6 +156,13 @@ timer_arg = {{ timer_arg }}
 #notify_failure_arg = To: youremail@example.com
 #notify_failure_arg = From: burp
 #notify_failure_arg = Subject: %b failed: %c %w
+{% if burp_notify_failure  %}
+notify_failure_script = /usr/share/burp/scripts/notify_script
+notify_failure_arg = sendmail -t
+notify_failure_arg = To: {{ burp_notify_failure_email_to }}
+notify_failure_arg = From: {{ burp_notify_failure_email_from }}
+notify_failure_arg = Subject: %b failed: %c %w
+{% endif %}
 
 # The server can run scripts on each connection after authentication and before
 # disconnecting.
