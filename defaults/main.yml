@@ -284,6 +284,10 @@ burp_client_ssl_key: "/etc/burp/ssl_cert-monitor.key"
 ### ---
 
 # if burp_module_restore: true
+# Burp Restore is another burp daemon with the unique purpose
+# to have possibility to restore when backups reach max_children
+# This was created before 2.1.10 added port per operation support
+# and will be deprecated once burp 2.1 becomes stable
 ### Burp Restore
 burp_restore_address: "0.0.0.0"
 burp_restore_port: "4973"
@@ -293,3 +297,32 @@ burp_restore_pidfile: "/var/run/burp.restore.pid"
 burp_restore_clients:
   - monitor
 ### ---
+
+#Since version 2.1.10
+#   + Add the ability for the client to connect to different server ports
+# according to whether it is doing backup/restore/verify/list/delete.
+# These ports are based on: https://github.com/CoffeeITWorks/ansible_burp2_server/issues/11
+# Compatible since burp 2.1.10
+burp_server_port_per_operation_bool: false
+burp_server_port_operation_restore: 4975
+burp_server_port_operation_verify: 4976
+burp_server_port_operation_list: 4977
+burp_server_port_operation_delete: 4978
+burp_server_ports_per_operation:
+  - '# port for restore'
+  - "port = {{ burp_server_port_operation_restore }}"
+  - 'max_children = 2'
+  - '# port for verify'
+  - "port = {{ burp_server_port_operation_verify }}"
+  - 'max_children = 1'
+  - '# port for list'
+  - "port = {{ burp_server_port_operation_list }}"
+  - 'max_children = 15'
+  - '# port for delete'
+  - "port = {{ burp_server_port_operation_delete }}"
+  - 'max_children = 2'
+burp_client_ports_per_operation:
+  - 'port_restore = {{ burp_server_port_operation_restore }}'
+  - 'port_verify = {{ burp_server_port_operation_verify }}'
+  - 'port_list = {{ burp_server_port_operation_list }}'
+  - 'port_delete = {{ burp_server_port_operation_delete }}'

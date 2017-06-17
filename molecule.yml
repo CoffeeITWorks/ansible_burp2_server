@@ -100,3 +100,4 @@ ansible:
       burp_remove_clients:
         - name: client_to_remove
         - name: other_client_to_remove
+      burp_server_port_per_operation_bool: true

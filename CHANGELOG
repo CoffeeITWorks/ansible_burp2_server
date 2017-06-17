@@ -1,3 +1,10 @@
+v1.7
+====
+
+* Since version 2.1.10
+   + Add the ability for the client to connect to different server ports
+   burp_server_port_per_operation_bool: true
+
 v1.6
 ====
 

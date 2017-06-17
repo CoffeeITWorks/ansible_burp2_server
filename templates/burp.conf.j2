@@ -29,3 +29,11 @@ ssl_key_password = {{ burp_server_ssl_key_password }}
 # This will break idempotence, so will be better
 # to use lineinfile for this file. 
 ssl_peer_cn = {{ ansible_hostname }}
+
+{% if burp_server_port_per_operation_bool %}
+# These ports are based on: https://github.com/CoffeeITWorks/ansible_burp2_server/issues/11
+# Compatible since burp 2.1.10
+{% for l in burp_client_ports_per_operation %}
+{{ l }}
+{% endfor %}
+{% endif %}

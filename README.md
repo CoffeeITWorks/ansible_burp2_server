@@ -23,6 +23,8 @@ See [FEATURES.md](FEATURES.md)
 Installing this role
 --------------------
 
+---
+
 Install the role on the system: 
 
     $ ansible-galaxy install CoffeeITWorks.burp2_server
@@ -35,6 +37,8 @@ Requirements
 
 Preparing the variables
 -----------------------
+
+---
 
 We have an **inventory** and a **playbook** to call the roles, but we must customize the [variables](http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) before running 
  the playbook. 
@@ -49,8 +53,10 @@ example file `group_vars/burp2_servers/burp2_server_vars`
 
 *Options vars:* 
 
-    burp_module_agent: true # Will add buiagent and configure it properly to use on burpui-multiagent mode. 
-    burp_module_restore: true # Will configure a second burp server with same spool, useful to configure one restore_client to get restores faster on large deployments.
+```yaml
+burp_module_agent: true # Will add buiagent and configure it properly to use on burpui-multiagent mode. 
+burp_module_restore: true # Will configure a second burp server with same spool, useful to configure one restore_client to get restores faster on large deployments.
+```
 
 Check also all vars in `defaults/main.yml` you can override any default using your host/group_vars
 
@@ -60,26 +66,72 @@ Role Variables: Complete list of modules:
 -----------------------------------------
 
 ### Modules
+
+---
+
 #### Configure Burp UI Agent
-	
+
+---
+
     burp_module_agent: true
     # You can also change the password:
     burp_agent_global_password: "password"
 
 	
 #### Configure burp restore service
-	
+
+---
+
+ Burp Restore is another burp daemon with the unique purpose
+ to have possibility to restore when backups reach max_children
+ This was created before 2.1.10 added port per operation support
+ and will be deprecated once burp 2.1 becomes stable	
+
      burp_module_restore: true
 	
 #### Configure Burp manual delete
+
+---
 
      burp_manual_delete_enabled: true
 	
 #### Configure Burp Autoupgrade
 
+---
+
      burp_server_autoupgrade_enabled: true
-	
+
+#### Port per operation
+
+--- 
+
+Since version 2.1.10
+   + Add the ability for the client to connect to different server ports
+
+ according to whether it is doing backup/restore/verify/list/delete.
+ These ports are based on: https://github.com/CoffeeITWorks/ansible_burp2_server/issues/11
+ Compatible since burp 2.1.10
+
+```yaml
+burp_server_port_per_operation_bool: true
+
+# Default optional vars to change:
+# These are not needed to be changed, but showing here the
+# defaults that we have in defaults/main.yml
+burp_server_port_operation_restore: 4975
+burp_server_port_operation_verify: 4976
+burp_server_port_operation_list: 4977
+burp_server_port_operation_delete: 4978
+```
+
+This option **will setup** `/etc/burp/burp.conf` for `burp-ui-agent` when used with `burp_module_agent: true` to benefit the performance of `burp-ui`
+
+Check also `burp_server_ports_per_operation:` on `defaults/main.yml` to change
+max_children per operation
+
 #### Activate clients from git repository
+
+---
 
 Example: 
 
@@ -97,6 +149,8 @@ You just need files per client, example:
     . incexc/profile_lnxsrv
 
 #### Add clients from a list
+
+---
 
  Optional list of clients to add on specific execution
 
@@ -141,14 +195,20 @@ password = password
 
 #### Configure your own profiles
 
+---
+
 Check `defaults/main.yml` file, to copy the content and create your own profiles with `profiles_templates var`
 
 #### Add your own lines to burp-server.conf
+
+---
 
         burp_server_custom_lines:
         - "someextra=line"
 
 #### Remove clients from a list
+
+---
 
 There is now a feature to allow you to remove a client from a list, variable used is: 
 
@@ -168,6 +228,8 @@ Dependencies
 
 Installed services
 ------------------
+
+---
 
 It uses http://supervisord.org/ for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
 
