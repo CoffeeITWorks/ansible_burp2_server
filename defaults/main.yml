@@ -99,10 +99,10 @@ burp_server_timer_args:
 burp_server_keep:
   - 7
 
-# Modify these variables in you host/group vars 
+# Modify these variables in you host/group vars
 # to allow notification when a failure occurs
-# You will need some setup done in your sendmail command, like local postfix/sendmail. 
-# It's easy for linux sysadmin or those using ansible like automation. 
+# You will need some setup done in your sendmail command, like local postfix/sendmail.
+# It's easy for linux sysadmin or those using ansible like automation.
 burp_notify_failure: false
 burp_notify_failure_email_to: root@localhost
 burp_notify_failure_email_from: "burp_{{ ansible_nodename }}@domain.net"
