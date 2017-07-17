@@ -41,7 +41,7 @@
   with_items:
     - { src: "burp-server.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-server.{{ supervisor_ext }}" }
   notify:
-    - restart burp server
+    - restart supervisor
 
 # only run if burp_module_restore: true
 - name: configure supervisor services for burp-restore
@@ -51,7 +51,7 @@
   with_items:
     - { src: "burp-restore.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-restore.{{ supervisor_ext }}" }
   notify:
-    - restart burp restore
+    - restart supervisor
   when: burp_module_restore
 
 # only run if burp_module_agent: true
@@ -62,16 +62,13 @@
   with_items:
     - { src: "buiagent.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/buiagent.{{ supervisor_ext }}" }
   notify:
-    - restart buiagent
+    - restart supervisor
   when: burp_module_agent
 
-- name: ensure supervisor is restarted
+- name: ensure supervisor is started
   service:
     name: "{{ supervisor_service }}"
-    state: restarted
-    sleep: 5
-    enabled: True
-  changed_when: false
+    state: started
 
 # state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first

@@ -23,6 +23,9 @@
 - include: manual_delete.yml
   when: burp_manual_delete_enabled
 
+- include: manual_delete_disabled.yml
+  when: not burp_manual_delete_enabled
+
 - include: autoupgrade.yml
   when: burp_server_autoupgrade_enabled
 
