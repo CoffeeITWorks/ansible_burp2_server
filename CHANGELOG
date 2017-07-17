@@ -1,3 +1,9 @@
+Current
+=======
+
+* Clean files and tasks when disabled manual_delete
+* Improve idempotence tasks for supervisor
+
 v1.8
 ====
 
