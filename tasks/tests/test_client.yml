@@ -4,82 +4,73 @@
 - meta: flush_handlers
 
 # If folder is not created the test-client will fail
-- name: create CA-test folder
+- name: test_client | create CA-test folder
   file:
     path: "/etc/burp/CA-test"
     state: directory
 
-- name: configure test client
+- name: test_client | configure test client
   template:
     src: tests/test_client.conf.j2
     dest: /etc/burp/test_client.conf
 
-- name: add local client
+- name: test_client | add local test_client
   template:
     src: tests/test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
 
-- name: pause 10 seconds after add local client
+- name: test_client | pause 10 seconds after add local client
   pause:
     seconds: 10
 
-- name: wait for burpca to get all server certificates
-  wait_for:
-    path: "{{ item }}"
-    state: present
-  with_items:
-    - '/etc/burp/ssl_cert_ca-server.pem'
-    - '/etc/burp/ssl_cert-server.key'
-    - '/etc/burp/ssl_cert-server.pem'
-
-- name: test backup for test_client
+- name: test_client | test backup for test_client
   command: /usr/sbin/burp -c /etc/burp/test_client.conf -a b
   args:
     creates: '{{ burp_server_data }}/test_client/current'
   changed_when: false
 
-- name: wait for client process backup finish
+- name: test_client | wait for client process backup finish
   wait_for: path='{{ burp_server_data }}/test_client/lockfile' state=absent
 
-- name: test list backups from test_client
+- name: test_client | test list backups from test_client
   command: /usr/sbin/burp -c /etc/burp/test_client.conf -a l
   changed_when: false
 
-- name: test restore backup 1 from test_client
+- name: test_client | test restore backup 1 from test_client
   command: /usr/sbin/burp -c /etc/burp/test_client.conf -a r -b 1 -d /tmp/test_restore
   args:
     creates: /tmp/test_restore
 
-- name: wait for client process restore finish
+- name: test_client | wait for client process restore finish
   wait_for: path='{{ burp_server_data }}/test_client/restorelog' state=absent
 
-- name: pause 15 seconds after test restore client
+- name: test_client | pause 15 seconds after test restore client
   pause:
     seconds: 15
 
-- name: check if restore exists
+- name: test_client | check if restore exists
   file:
     path: /tmp/test_restore/etc/burp/burp.conf
     state: file
 
-- name: test restore from different client
+- name: test_client | test restore from different client
   command: /usr/sbin/burp -c /etc/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "/etc/burp/burp.conf"
   args:
     creates: /tmp/test_restore2
 
-- name: wait for client process restore finish
+- name: test_client | wait for client process restore finish
   wait_for: path='{{ burp_server_data }}/test_client/restorelog' state=absent
 
-- name: pause 5 seconds after test restore client
+- name: test_client | pause 5 seconds after test restore client
   pause:
     seconds: 5
 
-- name: check if restore exists
+- name: test_client | check if restore exists
   file:
     path: /tmp/test_restore2/etc/burp/burp.conf
     state: file
 
-- name: template server initiated restore from different client
+- name: test_client | template server initiated restore from different client
   template:
     src: tests/restore
     dest: "{{ burp_server_data }}/monitor/restore"
@@ -87,7 +78,7 @@
   tags:
     - skip_ansible_lint
 
-- name: Test restore server initiated
+- name: test_client | Test restore server initiated
   command: burp -c /etc/burp/burp.conf -a t
   args:
     creates: /tmp/restore3/etc/burp/burp.conf

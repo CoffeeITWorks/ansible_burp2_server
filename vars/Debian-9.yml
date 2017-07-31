@@ -1,0 +1,49 @@
+---
+# file: vars/Ubuntu.yml
+
+# burp_server_packages:
+#  - libssl-dev
+#  - burp-core
+
+#TASK [ansible_burp2_server : install build dependencies] ***********************
+#fatal: [ansible_burp2_debian_9]: FAILED! => {"changed": false, "failed": true, "msg": "No package matching 'libssl1.0.0' is available"}
+
+build_dependencies:
+  - make
+  - pkg-config
+  - check
+  - g++
+  - librsync-dev
+  - libncurses5-dev
+  - libz-dev
+  - libssl-dev
+  - uthash-dev
+  - libyajl-dev
+  - autoconf
+  - automake
+  - libtool
+  - dh-autoreconf
+  - libffi-dev  # required for burpui cffi
+  - unzip       # required to unzip from master.zip archive for example
+  - openssl     # On debian 8 vagrant is not installed by default
+  - libncurses5 # from package dependencies
+  - libgcc1     # from package dependencies
+  - libc6       # from package dependencies
+  - libacl1     # from package dependencies
+  - libssl1.1   # from package dependencies (debian9)
+  - libtinfo5   # from package dependencies
+  - zlib1g      # from package dependencies
+
+burp_agent_packages:
+  - python-pip
+  - python-dev
+  - supervisor
+
+# Repository information: http://ziirish.info/repos/README.txt
+# burp_apt_sources:
+#  - "deb http://ziirish.info/repos/ubuntu/{{ ansible_distribution_release }} zi-latest main"
+
+supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisor_ext: "conf"
+supervisor_service: supervisor
+pip_installed_exe_bin_path: '/usr/local/bin'

@@ -3,6 +3,17 @@ Current
 
 * Clean files and tasks when disabled manual_delete
 * Improve idempotence tasks for supervisor
+* Added support for debian9 (vars/Debian-9.yml added) some change in libssl dependency
+* Molecule tests for debian8, debian9, centos7, ubuntu latest, ubuntu trusty
+* Improved check for new install, it will ensure certificates required for burp are created: 
+  - name: supervisor | wait for burpca to get all server certificates
+    wait_for:
+      path: "{{ item }}"
+      state: present
+    with_items:
+      - '/etc/burp/ssl_cert_ca-server.pem'
+      - '/etc/burp/ssl_cert-server.key'
+      - '/etc/burp/ssl_cert-server.pem'
 
 v1.8
 ====

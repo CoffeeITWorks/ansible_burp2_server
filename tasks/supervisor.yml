@@ -1,40 +1,40 @@
 ---
 
-- name: Add supervisor ppa for Ubuntu
+- name: supervisor | Add supervisor ppa for Ubuntu
   apt_repository:
     repo: ppa:iacobs/supervisor
   when: ansible_distribution_release == 'trusty'
   register: ppa_supervisor
 
-- name: update cache
+- name: supervisor | update cache
   apt: update-cache=yes cache_valid_time=43200
   changed_when: false
   when: ansible_os_family == 'Debian'
 
-- name: Install supervisor
+- name: supervisor | Install supervisor
   package:
     name: supervisor
     state: present
 
-- name: configure supervisor logrotate
+- name: supervisor | configure supervisor logrotate
   template:
     src: supervisor_logrotate.j2
     dest: /etc/logrotate.d/supervisor
 
 # On centos 6 there is no include section by default
-- name: configure supervisor logrotate
+- name: supervisor | configure supervisor logrotate
   template:
     src: redhat_supervisord.conf.j2
     dest: /etc/supervisord.conf
   when: ansible_os_family == "RedHat"
 
 # On centos 6 this directory is not created by rpm package
-- name: Ensure "{{ supervisoretc_dir }}" dir exists
+- name: supervisor | Ensure "{{ supervisoretc_dir }}" dir exists
   file:
     path: "{{ supervisoretc_dir }}"
     state: "directory"
 
-- name: configure supervisor service for burp-server
+- name: supervisor | configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -44,7 +44,7 @@
     - restart supervisor
 
 # only run if burp_module_restore: true
-- name: configure supervisor services for burp-restore
+- name: supervisor | configure supervisor services for burp-restore
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -55,7 +55,7 @@
   when: burp_module_restore
 
 # only run if burp_module_agent: true
-- name: configure supervisor services for buiagent
+- name: supervisor | configure supervisor services for buiagent
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -65,10 +65,31 @@
     - restart supervisor
   when: burp_module_agent
 
-- name: ensure supervisor is started
+- name: supervisor | ensure supervisor is started
   service:
     name: "{{ supervisor_service }}"
     state: started
+  register: supervisor_started
+
+- name: supervisor | start burp server
+  supervisorctl:
+    name: burp-server
+    state: started
+
+- name: supervisor | pause 10 seconds when supervisor started
+  pause:
+    seconds: 10
+  when: supervisor_started.changed
+
+- name: supervisor | wait for burpca to get all server certificates
+  wait_for:
+    path: "{{ item }}"
+    state: present
+  with_items:
+    - '/etc/burp/ssl_cert_ca-server.pem'
+    - '/etc/burp/ssl_cert-server.key'
+    - '/etc/burp/ssl_cert-server.pem'
+
 
 # state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first
@@ -91,8 +112,8 @@
 #    state: present
 #  when: burp_module_agent
 
-- name: ensure handlers runs before continue
+- name: supervisor | ensure handlers runs before continue
   meta: flush_handlers
 
-- name: wait for burp_server port
+- name: supervisor | wait for burp_server port
   wait_for: port={{ burp_server_port }} delay=5 timeout=30
