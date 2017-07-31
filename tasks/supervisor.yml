@@ -71,21 +71,25 @@
     state: started
   register: supervisor_started
 
+- name: supervisor | ensure supervisor is restarted
+  service:
+    name: "{{ supervisor_service }}"
+    state: restarted
+  register: supervisor_restarted
+  when: not supervisor_started.changed
+
 - name: supervisor | pause 10 seconds when supervisor started
   pause:
     seconds: 10
-  when: supervisor_started.changed
-
-- name: supervisor | ensure handlers runs before continue
-  meta: flush_handlers
-
-- name: supervisor | wait for burp_server port
-  wait_for: port={{ burp_server_port }} delay=5 timeout=30
+  when: supervisor_started.changed or supervisor_restarted.changed
 
 - name: supervisor | start burp server
   supervisorctl:
     name: burp-server
     state: started
+
+- name: supervisor | wait for burp_server port
+  wait_for: port={{ burp_server_port }} delay=5 timeout=30
 
 - name: supervisor | wait for burpca to get all server certificates
   wait_for:
@@ -95,7 +99,6 @@
     - '/etc/burp/ssl_cert_ca-server.pem'
     - '/etc/burp/ssl_cert-server.key'
     - '/etc/burp/ssl_cert-server.pem'
-
 
 # state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first
