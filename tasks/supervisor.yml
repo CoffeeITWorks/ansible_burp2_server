@@ -71,15 +71,21 @@
     state: started
   register: supervisor_started
 
-- name: supervisor | start burp server
-  supervisorctl:
-    name: burp-server
-    state: started
-
 - name: supervisor | pause 10 seconds when supervisor started
   pause:
     seconds: 10
   when: supervisor_started.changed
+
+- name: supervisor | ensure handlers runs before continue
+  meta: flush_handlers
+
+- name: supervisor | wait for burp_server port
+  wait_for: port={{ burp_server_port }} delay=5 timeout=30
+
+- name: supervisor | start burp server
+  supervisorctl:
+    name: burp-server
+    state: started
 
 - name: supervisor | wait for burpca to get all server certificates
   wait_for:
@@ -112,8 +118,3 @@
 #    state: present
 #  when: burp_module_agent
 
-- name: supervisor | ensure handlers runs before continue
-  meta: flush_handlers
-
-- name: supervisor | wait for burp_server port
-  wait_for: port={{ burp_server_port }} delay=5 timeout=30
