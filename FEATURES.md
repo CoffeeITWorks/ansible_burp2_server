@@ -17,4 +17,5 @@ v1.3
 * burp_server_custom_lines var (to manage your own lines in burp-server.conf)
 * Good defaults profiles with option to have your own profiles only copying profiles_templates var
 * Remove a client from a list burp_remove_clients
-* Ability to setup new port per operation
+* Ability to setup new port per operation (available since burp 2.1.10)
+* Use notify failure by email

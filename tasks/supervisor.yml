@@ -42,6 +42,7 @@
     - { src: "burp-server.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-server.{{ supervisor_ext }}" }
   notify:
     - restart supervisor
+  register: supervisor_burp_service_config_status
 
 # only run if burp_module_restore: true
 - name: supervisor | configure supervisor services for burp-restore
@@ -76,7 +77,7 @@
     name: "{{ supervisor_service }}"
     state: restarted
   register: supervisor_restarted
-  when: not supervisor_started.changed
+  when: supervisor_started.changed == False and supervisor_burp_service_config_status.changed
   tags:
     - skip-ansible-lint
 

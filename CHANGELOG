@@ -1,6 +1,19 @@
 Current
 =======
 
+v1.9.2
+======
+
+Some idempotence fix for supervisor
+
+v1.9.1
+======
+
+Small lint fixes
+
+v1.9
+====
+
 * Clean files and tasks when disabled manual_delete
 * Improve idempotence tasks for supervisor
 * Added support for debian9 (vars/Debian-9.yml added) some change in libssl dependency
