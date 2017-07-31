@@ -1,7 +1,7 @@
 ---
 # file: tasks/multi_os.yml
 
-- debug: 
+- debug:
     msg: "distribution-version: {{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
 
 - name: Gather OS Specific Variables

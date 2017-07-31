@@ -77,6 +77,8 @@
     state: restarted
   register: supervisor_restarted
   when: not supervisor_started.changed
+  tags:
+    - skip-ansible-lint
 
 - name: supervisor | pause 10 seconds when supervisor started
   pause:
