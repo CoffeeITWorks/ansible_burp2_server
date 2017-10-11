@@ -17,10 +17,10 @@ install:
   #- pip install docker-py # Important: docker-py is not compatible anymore, use docker instead
   # avoid bug https://github.com/ansible/ansible/issues/23016 until 2.2.3 is released
   # ref: https://github.com/metacloud/molecule/issues/783
-  - pip install ansible
-  - pip install molecule==1.25.0 # needs to be ported to molecule 2 http://molecule.readthedocs.io/en/latest/porting.html
+  - sudo pip install ansible
+  - sudo pip install molecule==1.25.0 # needs to be ported to molecule 2 http://molecule.readthedocs.io/en/latest/porting.html
   # - pip install required driver (e.g. docker, python-vagrant, shade)
-  - pip install docker
+  - sudo pip install docker
 script:
   - molecule create
   - molecule converge

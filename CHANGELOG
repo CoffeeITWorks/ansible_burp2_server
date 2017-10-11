@@ -1,5 +1,7 @@
-Current
-=======
+v1.9.3
+======
+
+* change to python3 for buiagent to fix https://git.ziirish.me/ziirish/burp-ui/issues/233
 
 v1.9.2
 ======
