@@ -226,6 +226,7 @@ burp_agent_backend_timeout: "60"
 burp_agent_pip_burpui: "burp-ui-agent"
 burpui_pip_packages:
   - { name: "{{ burp_agent_pip_burpui }}", version: 0.5.1 }
+python_pip_executable: "pip3" # options pip3 / pip2
 burp_agent_pip_present:
   - "pip>=9"
   - "cffi>=1.7"
