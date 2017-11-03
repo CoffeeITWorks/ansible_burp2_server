@@ -2,6 +2,7 @@
 - hosts: all
   #serial: 1
   #strategy: free # improve parallelism but pause module doesn't works with it.
+  #accelerate: true
   vars:
     burp_module_test_client: true
   roles:
