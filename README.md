@@ -252,6 +252,16 @@ Also supervisord allow proper stdout and stderror to logs redirection, so all lo
 
 Logs are also rotated by logrotate automatically.
 
+Upgrading your OS
+-----------------
+
+Please note when using compiled version of burp with this role, after you upgrade your linux distribution is very recommended to run recompile and install of burp. 
+
+Example to run it once:
+
+    ansible-playbook -i production burp-client.yml -l client -e "burp_force_reinstall=yes"
+
+The variable `burp_force_reinstall: yes` will do it for you.
 
 License
 -------
