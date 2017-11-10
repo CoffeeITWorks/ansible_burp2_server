@@ -259,7 +259,7 @@ Please note when using compiled version of burp with this role, after you upgrad
 
 Example to run it once:
 
-    ansible-playbook -i production burp-client.yml -l client -e "burp_force_reinstall=yes"
+    ansible-playbook -i production burp-servers.yml -l client -e "burp_force_reinstall=yes"
 
 The variable `burp_force_reinstall: yes` will do it for you.
 
