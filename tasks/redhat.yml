@@ -21,4 +21,5 @@
   with_items:
     - 'python-devel'
     - 'python-pip'
+    - 'redhat-rpm-config'
   when: ansible_distribution == "Fedora"
