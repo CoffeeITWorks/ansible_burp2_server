@@ -1,18 +1,35 @@
 ---
-- name: redhat | installing epel repo (RedHat)
+
+- name: redhat | install EPEL release package for RHEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+    state: latest
+  when: ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: redhat | install EPEL release package for Centos
   yum:
     name: "epel-release"
     state: present
-  when: ansible_distribution != "Fedora"
+  when: ansible_distribution == 'CentOS'
 
-- name: redhat | installing dependencies
+- set_fact:
+    ius_distribution_abbrev: "{{ (ansible_distribution == 'CentOS') | ternary('centos', 'rhel') }}"
+
+# Must be state: present due to deficiency in ansible. See:
+# https://github.com/ansible/ansible-modules-core/issues/948 
+- name: redhat | install IUS release package
   yum:
-    name: "{{ item }}"
+    name: "https://{{ ius_distribution_abbrev }}{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
     state: present
-  with_items:
-    - 'python-devel'
-    - 'python-pip'
-  when: ansible_distribution != "Fedora"
+  when: ansible_os_family == 'RedHat' and ansible_distribution != "Fedora" and python_pip_executable == 'pip3'
+
+- name: redhat | set pip3.6 as pip_executable
+  set_fact:
+    burp_agent_py3_packages:
+      - python34
+      - python34-devel
+      - python34-pip
+  when: ansible_distribution != "Fedora" and python_pip_executable == 'pip3'
 
 - name: redhat | installing dependencies
   dnf:
@@ -22,4 +39,3 @@
     - 'python-devel'
     - 'python-pip'
     - 'redhat-rpm-config'
-  when: ansible_distribution == "Fedora"
