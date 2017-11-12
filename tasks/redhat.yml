@@ -29,13 +29,5 @@
       - python34
       - python34-devel
       - python34-pip
+      - redhat-rpm-config
   when: ansible_distribution != "Fedora" and python_pip_executable == 'pip3'
-
-- name: redhat | installing dependencies
-  dnf:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - 'python-devel'
-    - 'python-pip'
-    - 'redhat-rpm-config'
