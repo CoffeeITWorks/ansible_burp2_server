@@ -23,7 +23,7 @@
     state: present
   when: ansible_os_family == 'RedHat' and ansible_distribution != "Fedora" and python_pip_executable == 'pip3'
 
-- name: redhat | set pip3.6 as pip_executable
+- name: redhat | set pip3 packages for redhat and centos
   set_fact:
     burp_agent_py3_packages:
       - python34
