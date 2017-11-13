@@ -1,3 +1,9 @@
+v1.10
+=====
+
+* Install python3 to centos or Redhat when using pip3 as executable for burpui-agent (default)
+* Added fedora tests with molecule
+
 v1.9.3
 ======
 

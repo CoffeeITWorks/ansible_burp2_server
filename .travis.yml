@@ -25,7 +25,7 @@ script:
   - molecule create
   - molecule converge
   - molecule syntax
-  - molecule idempotence
+  #- molecule idempotence
 
 notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/

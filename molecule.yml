@@ -98,6 +98,13 @@ docker:
         ansible_groups:
           - group1
 
+      - name: ansible_test-04
+        image: fedora/systemd-systemd
+        image_version: latest
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: True
+
 verifier:
   name: testinfra
 

@@ -34,6 +34,16 @@
     path: "{{ supervisoretc_dir }}"
     state: "directory"
 
+- name: supervisor | check bui-agent path
+  stat:
+    path: /usr/local/bin/bui-agent
+  register: bui_agent_local_bin
+
+- name: change pip_installed_exe_bin_path when using local bin
+  set_fact:
+    pip_installed_exe_bin_path: /usr/local/bin
+  when: bui_agent_local_bin.stat.exists
+
 - name: supervisor | configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
