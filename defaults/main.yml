@@ -1,5 +1,6 @@
 ---
 # file: defaults/main.yml
+# New default options based on: https://github.com/grke/burp/wiki/Performance-Tips
 
 ### Modules
 # Configure Burp UI Agent
@@ -7,7 +8,7 @@ burp_module_agent: false
 # Configure burp restore service
 burp_module_restore: false
 # Configure Burp manual delete
-burp_manual_delete_enabled: false
+burp_manual_delete_enabled: true
 # Configure Burp Autoupgrade
 burp_server_autoupgrade_enabled: false
 # Activate clients from git repository
@@ -61,7 +62,7 @@ burp_server_pidfile: "/var/run/burp.server.pid"
 burp_server_hardlinked_archive: "0"
 burp_server_librsync: "1"
 burp_server_working_dir_recovery_method: "delete"
-burp_server_max_children: "4"
+burp_server_max_children: "2"  # See https://github.com/grke/burp/wiki/Performance-Tips
 burp_server_max_status_children: "10000"
 burp_server_umask: "0022"
 burp_server_syslog: "0"
@@ -179,6 +180,9 @@ profiles_templates:
       - ''
       - '# temp stuff'
       - 'exclude_regex = "[A-Z]:/Users/[^/]+/AppData/Local/Temp"'
+      - 'exclude_regex = "[A-Z]:/Users/[^/]+/AppData/Local/Microsoft/Windows/Temporary Internet Files"'
+      - 'exclude_regex = "[A-Z]:/Users/[^/]+/AppData/Local/Microsoft/Office/15.0/OfficeFileCache"'
+      - 'exclude_regex = "[A-Z]:/Users/[^/]+/Onedrive[^/]+"'
       - 'exclude_regex = "[A-Z]:/Documents and Settings/[^/]+/Cookies"'
       - 'exclude_regex = "[A-Z]:/Documents and Settings/[^/]+/Recent"'
       - 'exclude_regex = "[A-Z]:/Documents and Settings/[^/]+/Local Settings/Temp"'
@@ -191,6 +195,10 @@ profiles_templates:
       - 'exclude_regex = "[A-Z]:/pagefile.sys"'
       - '# swap file?? (Windows 8)'
       - 'exclude_regex = "[A-Z]:/swapfile.sys"'
+      - '# system temp files'
+      - 'exclude_regex = "[A-Z]:/Windows/Temp"'
+      - 'exclude_regex = "[A-Z]:/Programdata/Microsoft/Search"'
+      - 'exclude_regex = "[A-Z]:/Programdata/Microsoft/ClickToRun"'
       - ''
       - '# note that we are backing up C:/System Volume Information"'
 
