@@ -1,6 +1,11 @@
 ---
 # file tasks/manual_delete.yml
 
+- name: install cron packages
+  package:
+    name: "{{ cron_packages | join(',') }}"
+    state: present
+
 - name: create burp folders
   file:
     path: "{{ item }}"
@@ -28,7 +33,8 @@
     src: burp_logrotate.j2
     dest: /etc/logrotate.d/burp
 
-- name: ensure cron is enabled
+- name: Enable crond service
   service:
-    name: cron
+    name: "{{ cron_service }}"
+    state: started
     enabled: yes

@@ -38,3 +38,8 @@ supervisoretc_dir: "/etc/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisord
 pip_installed_exe_bin_path: '/usr/bin'
+
+cron_packages:
+  - cronie      # To enable crontab jobs
+
+cron_service: crond
