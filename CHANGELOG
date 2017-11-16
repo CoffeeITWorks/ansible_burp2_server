@@ -1,8 +1,12 @@
 v1.10
 =====
 
-* Install python3 to centos or Redhat when using pip3 as executable for burpui-agent (default)
+* #16 Install python3 to centos or Redhat when using pip3 as executable for burpui-agent (default)
 * Added fedora tests with molecule
+* Install cron/cronie if it is not installed
+* use crond as service name when it is on Redhat based systemd
+* #15 change defaults based on https://github.com/grke/burp/wiki/Performance-Tips
+* burp_manual_delete_enabled: true by default based on #15 (saves lot of time for phase4 on big backups or when having hundred of services)
 
 v1.9.3
 ======
