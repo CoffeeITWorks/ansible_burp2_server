@@ -24,7 +24,7 @@
 
 - name: restart cron server
   service:
-    name: cron
+    name: "{{ cron_service }}"
     state: restarted
 
 - name: update cache
