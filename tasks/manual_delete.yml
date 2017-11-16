@@ -8,6 +8,7 @@
   with_items:
     - "{{ burp_trash }}"
     - "{{ burp_logs }}"
+    - /etc/cron.d
 
 - name: Cron task to delete files in burp trash
   cron:
