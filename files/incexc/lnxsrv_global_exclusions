@@ -5,7 +5,11 @@ exclude_regex = /proc
 exclude_regex = /run
 exclude_regex = /sys
 exclude_regex = /tmp
+exclude_regex = /dev
 exclude_regex = /var/lib/lxcfs
+exclude_regex = /var/lib/docker/devicemapper
+exclude_regex = /var/lib/docker/containers
+
 
 exclude_fs = sysfs
 exclude_fs = tmpfs
