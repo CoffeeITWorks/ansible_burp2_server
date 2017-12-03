@@ -7,11 +7,11 @@ services:
 env:
   global:
     - PATH="/usr/bin:$PATH"
-before_install:
+#before_install:
     # Ansible doesn't play well with virtualenv
-  - deactivate
-  - sudo apt-get update -qq
-  - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
+#  - deactivate
+#  - sudo apt-get update -qq
+#  - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
 
 install:
   #- pip install docker-py # Important: docker-py is not compatible anymore, use docker instead
