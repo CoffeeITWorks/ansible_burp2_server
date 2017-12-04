@@ -78,13 +78,12 @@ docker:
         ansible_groups:
           - group1
 
-      - name: ansible_burp2_debian_8
-        image: debian
-        image_version: '8'
-
-      - name: ansible_burp2_debian_9
-        image: debian
-        image_version: '9'
+      - name: ansible_test-master2
+        image: dramaturg/debian-systemd
+        image_version: 'latest'
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: False
         ansible_groups:
           - group_master
 
