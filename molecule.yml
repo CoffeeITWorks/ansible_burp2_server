@@ -1,0 +1,119 @@
+---
+# Use docker to test on travis
+# Use vagrant to create vms and access full OS on local testing
+driver:
+  name: docker
+  #name: vagrant
+
+vagrant:
+  raw_config_args:
+    - "ssh.insert_key = false"
+    - "vm.network 'forwarded_port', guest: 80, host: 8080"
+
+  platforms:
+    - name: debian64
+      box: debian/jessie64
+    - name: centos7
+      box: centos/7
+    - name: ubuntuxenial64
+      box: nrclark/xenial64-minimal-libvirt
+
+# The tests with vagrant are done with libvirt, you can also use virtualbox
+# You need to prepare vagrant, vagrant-libvirt, nfs-kernel-server, and libvirt-bin.
+# https://wiki.debian.org/libvirt
+# https://github.com/vagrant-libvirt/vagrant-libvirt
+#     sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev
+#     sudo apt-get install nfs-kernel-server # required to mount local dir to vm
+# http://molecule.readthedocs.io/en/stable-1.9/provider/index.html#providers
+# You must have latest vagrant and reinsall plugins if upgraded, see:
+# https://github.com/vagrant-libvirt/vagrant-libvirt/issues/618
+  providers:
+    - name: libvirt
+      type: libvirt
+      options:
+        memory: 1024
+        cpus: 2
+        # There are two available drivers: kvm and qemu.
+        # Refer to the vagrant-libvirt docs for more info.
+        driver: kvm
+        video_type: vga
+        volume_cache: writeback
+
+  instances:
+    - name: vagrant-master-01
+      ansible_groups:
+        - group_master
+      options:
+        append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.box = 'debian/jessie64'"
+    - name: vagrant-master-02
+      ansible_groups:
+        - group_master
+      options:
+        append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.box = 'centos/7'"
+    - name: vagrant-master-03
+      ansible_groups:
+        - group_master
+      options:
+        append_platform_to_hostname: no
+      raw_config_args:
+        - "vm.box = 'nrclark/xenial64-minimal-libvirt'"
+
+# It will not be used if you don't specify the driver: name: docker (see the beginning of the file)
+docker:
+  containers:
+
+      - name: ansible_burp2_ubuntu_latest
+        image: ubuntu
+        image_version: latest
+        ansible_groups:
+          - group1
+
+      - name: ansible_burp2_ubuntu_trusty
+        image: ubuntu
+        image_version: trusty
+        ansible_groups:
+          - group1
+
+      - name: ansible_test-master2
+        image: dramaturg/debian-systemd
+        image_version: 'latest'
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: False
+        ansible_groups:
+          - group_master
+
+      # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
+      - name: ansible_burp2_centos_7
+        image: centos/systemd
+        image_version: latest
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: True
+        ansible_groups:
+          - group1
+
+      - name: ansible_test-04
+        image: fedora/systemd-systemd
+        image_version: latest
+        volume_mounts:
+          - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        privileged: True
+
+verifier:
+  name: testinfra
+
+ansible:
+  playbook: playbook.yml
+  group_vars:
+    group_master:
+      burpsrcext: "zip"
+      burp_version: "master"
+      burp_remove_clients:
+        - name: client_to_remove
+        - name: other_client_to_remove
+      burp_server_port_per_operation_bool: true
