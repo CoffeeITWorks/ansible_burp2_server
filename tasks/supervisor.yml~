@@ -29,31 +29,18 @@
     src: supervisor_logrotate.j2
     dest: "{{ etc_dir}}/logrotate.d/supervisor"
 
-# On centos 6 and FreeBSD there is no include section by default
+# On centos 6 there is no include section by default
 - name: supervisor | configure supervisor logrotate
   template:
     src: redhat_supervisord.conf.j2
-    dest: "{{ etc_dir }}/supervisord.conf"
+    dest: {{ etc_dir }}/supervisord.conf
   when: ansible_os_family == "RedHat"
 
-# On FreeBSD 11 there is no include section by default
-- name: supervisor | configure supervisor logrotate
-  template:
-    src: freebsd_supervisord.conf.j2
-    dest: "{{ etc_dir }}/supervisord.conf"
-  when: ansible_os_family == "FreeBSD"
-  
 # On centos 6 this directory is not created by rpm package
 - name: supervisor | Ensure "{{ supervisoretc_dir }}" dir exists
   file:
     path: "{{ supervisoretc_dir }}"
     state: "directory"
-    
-# On FreeBSD 11 the supervisor log directory us not created by the port
-- name: supervisor | Ensure "burp_sv_server_stdout_logfile" dir exists
-  file:
-    path: "{{ burp_sv_server_stdout_logfile |basename }}"
-    state: "directory"    
 
 - name: supervisor | check bui-agent path
   stat:
@@ -130,9 +117,9 @@
     path: "{{ item }}"
     state: present
   with_items:
-    - "{{ etc_dir }}/burp/ssl_cert_ca-server.pem"
-    - "{{ etc_dir }}/burp/ssl_cert-server.key"
-    - "{{ etc_dir }}/burp/ssl_cert-server.pem"
+    - '{{ etc_dir }}/burp/ssl_cert_ca-server.pem'
+    - '{{ etc_dir }}/burp/ssl_cert-server.key'
+    - '{{ etc_dir }}/burp/ssl_cert-server.pem'
 
 # state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first

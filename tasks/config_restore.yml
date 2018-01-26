@@ -6,5 +6,5 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "burp-restore.conf.j2", dest: "/etc/burp/burp-restore.conf"}
+    - { src: "burp-restore.conf.j2", dest: "{{ etc_dir }}/burp/burp-restore.conf"}
   notify: restart burp restore

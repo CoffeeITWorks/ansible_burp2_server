@@ -84,13 +84,6 @@
     - { src: "buiagent.cfg.j2", dest: "{{ etc_dir }}/burp/buiagent.cfg" }
   notify: restart buiagent
 
-# On FreeBSD 11 there is no /var/log/supervisor directory by default
-- name: supervisor | create /var/log/supervisor on FreeBSD
-  file:
-    path: "{{ burp_sv_server_stdout_logfile | basename }}"
-    state: directory
-  when: ansible_os_family == "FreeBSD"
-
 - name: ensure supervisor is restarted
   service:
     name: "{{ supervisor_service }}"

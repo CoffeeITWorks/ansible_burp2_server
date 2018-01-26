@@ -2,10 +2,6 @@
 # file: defaults/main.yml
 # New default options based on: https://github.com/grke/burp/wiki/Performance-Tips
 
-### General
-# used for eg FreeBSD which has a deviating path
-etc_dir: "/etc"
-
 ### Modules
 # Configure Burp UI Agent
 burp_module_agent: false

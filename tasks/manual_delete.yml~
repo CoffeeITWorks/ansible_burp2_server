@@ -13,7 +13,7 @@
   with_items:
     - "{{ burp_trash }}"
     - "{{ burp_logs }}"
-    - "{{ etc_dir }}/cron.d"
+    - {{ etc_dir }}/cron.d
 
 - name: Cron task to delete files in burp trash
   cron:

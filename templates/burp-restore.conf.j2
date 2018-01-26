@@ -58,7 +58,7 @@ version_warn = 0
 
 # Location of autoupgrade files to serve to clients. Leave it commented out
 # to not autoupgrade clients.
-#autoupgrade_dir = /etc/burp/autoupgrade/server
+#autoupgrade_dir = "{{ etc_dir }}/burp/autoupgrade/server"
 
 # You can have as many 'keep' lines as you like.
 # For example, if running backups daily, setting 7, 4, 6 will keep
@@ -151,8 +151,8 @@ timer_script = /usr/share/burp/scripts/timer_script
 # The server can run scripts on each connection after authentication and before
 # disconnecting.
 #server_script_pre = /usr/share/burp/scripts/ssl_extra_checks_script
-#server_script_pre_arg = /etc/burp/crl
-#server_script_pre_arg = /etc/burp/burp-server.conf
+#server_script_pre_arg = "{{ etc_dir }}/burp/crl"
+#server_script_pre_arg = "{{ etc_dir }}/burp/burp-server.conf"
 #server_script_pre_arg = /usr/share/burp/scripts/server-pre-script.local
 # Set server_script_pre_notify to 1 to have notifications on server_script_pre
 # returning non-zero. Most people will want to leave this off - it could

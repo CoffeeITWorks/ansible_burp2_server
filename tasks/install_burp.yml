@@ -5,3 +5,12 @@
   package:
     name: "{{ burp_server_packages| join(',') }}"
     state: latest
+  when: ( ansible_os_family != "FreeBSD" or burp_use_portinstall == False )
+
+- name: install burp packages
+  portinstall:
+    name: "{{ item }}"
+    state: present
+    use_packages: no
+  with_items: "{{ burp_server_packages }}"
+  when: ( ansible_os_family == "FreeBSD" and burp_use_portinstall == True )

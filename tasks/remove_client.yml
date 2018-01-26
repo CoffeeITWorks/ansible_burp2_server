@@ -18,12 +18,12 @@
 
 - name: "Delete client's certificates .crt"
   file:
-    path: "/etc/burp/CA/{{ item.name }}.crt"
+    path: "{{ etc_dir }}/burp/CA/{{ item.name }}.crt"
     state: absent
   with_items: "{{ burp_remove_clients }}"
 
 - name: "Delete client's certificates .csr"
   file:
-    path: "/etc/burp/CA/{{ item.name }}.csr"
+    path: "{{ etc_dir }}/burp/CA/{{ item.name }}.csr"
     state: absent
   with_items: "{{ burp_remove_clients }}"

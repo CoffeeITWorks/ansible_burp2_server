@@ -1,0 +1,32 @@
+---
+# file: vars/FreeBSD-11.yml
+
+# etc - different path for all userinstalled sw
+etc_dir: "/usr/local/etc"
+
+burp_server_packages:
+  - py-supervisor 
+  - logrotate
+
+build_dependencies:
+  - uthash
+  - librsync2
+
+burp_agent_packages:
+  - python27
+  - devel/py-pip
+  - py27-supervisor
+   
+burp_agent_py3_packages:
+  - python36
+  - devel/py-pip
+
+supervisoretc_dir: "/usr/local/etc/supervisor/conf.d"
+supervisor_ext: "conf"
+supervisor_service: supervisor
+pip_installed_exe_bin_path: '/usr/local/bin'
+
+cron_packages:
+  - logrotate
+  
+cron_service: cron

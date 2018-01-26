@@ -116,10 +116,9 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-  - name: FreeBSD
-    versions:
+  #- name: FreeBSD
+  #  versions:
   #  - all
-     - 11.4
   #  - 10.0
   #  - 10.1
   #  - 10.2

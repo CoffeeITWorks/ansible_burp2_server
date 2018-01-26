@@ -52,7 +52,7 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && autoreconf -vif creates={{ download_dir }}/{{ burpsrc }}/configure
 
 - name: ./configure
-  shell: cd {{ download_dir }}/{{ burpsrc }} && ./configure --prefix=/usr --sysconfdir={{ etc_dir }}/burp --localstatedir=/var creates={{ download_dir }}/{{ burpsrc }}/Makefile
+  shell: cd {{ download_dir }}/{{ burpsrc }} && ./configure --prefix=/usr --sysconfdir="{{ etc_dir }}/burp --localstatedir=/var creates={{ download_dir }}/{{ burpsrc }}/Makefile
 
 - name: Make
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
@@ -89,14 +89,14 @@
 
   when: burp_version != "master"
 
-# Ensure to not create {{ etc_dir }}/bur/CA manually because it will break auto generated certificate
+# Ensure to not create "{{ etc_dir }}/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
   file: path={{ item }} recurse=yes state=directory
   with_items:
-    - '{{ etc_dir }}/burp/autoupgrade'
+    - '"{{ etc_dir }}/burp/autoupgrade'
     - '{{ burp_client_ca_csr_dir }}'
-    - '{{ etc_dir }}/burp/clientconfdir/incexc'
-    - '{{ etc_dir }}/burp/clientconfdir/profiles'
+    - '"{{ etc_dir }}/burp/clientconfdir/incexc'
+    - '"{{ etc_dir }}/burp/clientconfdir/profiles'
 
 - name: copy etc file
   template:

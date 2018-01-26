@@ -49,13 +49,13 @@ burpbin = {{ burp_agent_backend_burpbin }}
 ## vss_strip binary
 stripbin = {{ burp_agent_backend_stripbin }}
 ## burp client configuration file used for the restoration (Default: None)
-bconfcli = /etc/burp/burp.conf
+bconfcli = "{{ etc_dir }}/burp/burp.conf"
 ## burp server configuration file used for the setting page
 ##
-## bconfsrv = /etc/burp/burp-restore.conf
+## bconfsrv = "{{ etc_dir }}/burp/burp-restore.conf"
 ##
 ## I have fixed the client to be on burp-server because the status showns better on burpui
-bconfsrv = /etc/burp/burp-server.conf
+bconfsrv = "{{ etc_dir }}/burp/burp-server.conf"
 ##
 ## temporary directory to use for restoration
 tmpdir = {{ burp_agent_backend_tmpdir }}

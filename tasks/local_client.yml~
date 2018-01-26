@@ -9,7 +9,7 @@
 - name: configure burp client
   template:
     src: burp.conf.j2
-    dest: "{{ etc_dir }}/burp/burp.conf"
+    dest: {{ etc_dir }}/burp/burp.conf
 
 - name: add local client
   template:

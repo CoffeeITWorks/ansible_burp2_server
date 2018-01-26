@@ -12,7 +12,7 @@
 - name: test_client | configure test client
   template:
     src: tests/test_client.conf.j2
-    dest: "{{ etc_dir }}/burp/test_client.conf"
+    dest: {{ etc_dir }}/burp/test_client.conf
 
 - name: test_client | add local test_client
   template:
@@ -50,7 +50,7 @@
 
 - name: test_client | check if restore exists
   file:
-    path: "/tmp/test_restore/{{ etc_dir }}/burp/burp.conf"
+    path: /tmp/test_restore{{ etc_dir }}/burp/burp.conf
     state: file
 
 - name: test_client | test restore from different client
@@ -67,7 +67,7 @@
 
 - name: test_client | check if restore exists
   file:
-    path: "/tmp/test_restore2/{{ etc_dir }}/burp/burp.conf"
+    path: /tmp/test_restore2{{ etc_dir }}/burp/burp.conf
     state: file
 
 - name: test_client | template server initiated restore from different client
@@ -81,4 +81,4 @@
 - name: test_client | Test restore server initiated
   command: burp -c {{ etc_dir }}/burp/burp.conf -a t
   args:
-    creates: /tmp/restore3/{{ etc_dir }}/burp/burp.conf
+    creates: /tmp/restore3{{ etc_dir }}/burp/burp.conf
