@@ -55,9 +55,8 @@
     name: "{{ burp_agent_pip_burpui }}"
     state: absent
     executable: "pip2"
-  when: python_pip_executable == "pip3"
+  when: ( python_pip_executable == "pip3" and ansible_os_family != "FreeBSD" )
   # ports for py-pip are built for current python version
-  when: ansible_os_family != "FreeBSD"
   
 - name: install buiagent pip packages
   pip:
