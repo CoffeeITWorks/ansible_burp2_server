@@ -57,3 +57,8 @@ fabric.properties
 # kdevelop
 *.kdev4
 .kdev4
+
+# emacs tmp files
+.#*
+*#
+
