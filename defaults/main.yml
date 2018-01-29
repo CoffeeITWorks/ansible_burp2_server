@@ -258,8 +258,8 @@ burp_sv_agent_command: "{{ pip_installed_exe_bin_path }}/bui-agent -v -c /etc/bu
 burp_sv_agent_user: "root"
 burp_sv_agent_autostart: "true"
 burp_sv_agent_autorestart: "true"
-burp_sv_agent_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
-burp_sv_agent_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
+burp_sv_agent_stdout_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
+burp_sv_agent_stderr_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
 # Burp Restore
 burp_sv_restore_priority: "30"
 burp_sv_restore_directory: "/tmp"
@@ -267,8 +267,8 @@ burp_sv_restore_command: "/usr/sbin/burp -F -c /etc/burp/burp-restore.conf"
 burp_sv_restore_user: "root"
 burp_sv_restore_autostart: "true"
 burp_sv_restore_autorestart: "true"
-burp_sv_restore_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
-burp_sv_restore_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
+burp_sv_restore_stdout_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
+burp_sv_restore_stderr_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
 # Burp Server
 burp_sv_server_priority: "20"
 burp_sv_server_directory: "/tmp"
@@ -276,8 +276,8 @@ burp_sv_server_command: "/usr/sbin/burp -F -c /etc/burp/burp-server.conf"
 burp_sv_server_user: "root"
 burp_sv_server_autostart: "true"
 burp_sv_server_autorestart: "true"
-burp_sv_server_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
-burp_sv_server_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
+burp_sv_server_stdout_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
+burp_sv_server_stderr_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
 ### ---
 
 # if burp_manual_delete_enabled: true

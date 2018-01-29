@@ -75,7 +75,6 @@
   with_items: "{{ burpui_pip_packages }}"
   notify: restart buiagent
 
-
 - name: configure buiagent
   template:
     src: "{{ item.src }}"
@@ -84,10 +83,10 @@
     - { src: "buiagent.cfg.j2", dest: "{{ etc_dir }}/burp/buiagent.cfg" }
   notify: restart buiagent
 
-# On FreeBSD 11 there is no /var/log/supervisor directory by default
-- name: supervisor | create /var/log/supervisor on FreeBSD
+# On FreeBSD 11 there is no /var/log/supervisord directory by default
+- name: supervisor | create /var/log/supervisord on FreeBSD
   file:
-    path: "{{ burp_sv_server_stdout_logfile | basename }}"
+    path: "{{ burp_sv_server_log_dir }}"
     state: directory
   when: ansible_os_family == "FreeBSD"
 

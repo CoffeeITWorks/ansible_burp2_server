@@ -21,9 +21,7 @@ burp_agent_py3_packages:
 supervisoretc_dir: "{{ etc_dir }}/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisord
-
-burp_sv_server_stdout_logfile: "/var/log/supervisord/%(program_name)s.log"
-burp_sv_server_stderr_logfile: "/var/log/supervisord/%(program_name)s.log"
+burp_sv_server_log_dir: "/var/log/supervisor"
 
 pip_installed_exe_bin_path: '/usr/local/bin'
 
@@ -33,3 +31,8 @@ cron_service: cron
 
 autoupgrade_version: "2.0.54"  # master version is not compiled so added separately
 burp_version: "2.0.54"         # branch or tag, example: "master"  , example: "2.0.46"
+
+# ssl cert locations
+burp_server_ssl_cert_ca: "{{ etc_dir }}/burp/CA/CA_burpCA.crt"
+burp_server_ssl_cert: "{{ etc_dir }}/burp/CA/{{ ansible_hostname }}.crt"
+burp_server_ssl_key: "{{ etc_dir }}/burp/CA/{{ ansible_hostname }}.key"

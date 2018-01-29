@@ -52,7 +52,7 @@
 # On FreeBSD 11 the supervisor log directory us not created by the port
 - name: supervisor | Ensure "burp_sv_server_stdout_logfile" dir exists
   file:
-    path: "{{ burp_sv_server_stdout_logfile |basename }}"
+    path: "{{ burp_sv_server_log_dir }}"
     state: "directory"    
 
 - name: supervisor | check bui-agent path
@@ -124,7 +124,7 @@
 
 - name: supervisor | wait for burp_server port
   wait_for: port={{ burp_server_port }} delay=5 timeout=30
-
+  
 - name: supervisor | wait for burpca to get all server certificates
   wait_for:
     path: "{{ item }}"
