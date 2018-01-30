@@ -34,10 +34,10 @@ burp_agent_py3_packages:
   - python3-pip
   - redhat-rpm-config
 
-supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisoretc_dir: "{{ etc_dir}}/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisord
-pip_installed_exe_bin_path: '/usr/bin'
+pip_installed_exe_bin_path: '{{ usr_dir }}/bin'
 
 cron_packages:
   - cronie      # To enable crontab jobs

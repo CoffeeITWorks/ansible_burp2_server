@@ -3,6 +3,7 @@
 
 # etc - different path for all additional sw
 etc_dir: "/usr/local/etc"
+usr_dir: "/usr/local/"
 
 burp_server_packages:
   - py-supervisor 
@@ -23,7 +24,7 @@ supervisor_ext: "conf"
 supervisor_service: supervisord
 burp_sv_server_log_dir: "/var/log/supervisor"
 
-pip_installed_exe_bin_path: '/usr/local/bin'
+pip_installed_exe_bin_path: "{{ usr_dir }}/bin"
 
 cron_packages:
   - logrotate

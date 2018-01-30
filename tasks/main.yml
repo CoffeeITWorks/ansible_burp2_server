@@ -10,7 +10,7 @@
 
 # - include: install_burp.yml
 
-# Clean any package distribution before start
+  # Clean any package distribution before start
 - include: clean.yml
 
 - include: build-burp.yml
@@ -18,8 +18,11 @@
 - include: config_burp.yml
 
 - include: manual_client.yml
-
-# Only for monitor and status purpose
+  # tags should be declared at include level see https://www.ansible.com/blog/ansible-2.0-launchb
+  tags:
+    - add_manual_clients
+    
+  # Only for monitor and status purpose
 - include: manual_delete.yml
   when: burp_manual_delete_enabled
 

@@ -12,3 +12,5 @@
     dest: "{{ burp_server_clientconfdir }}/{{ item.name }}"
   with_items: "{{ burp2_add_manual_clients | default([]) }}"
   # Ansible will not run the task if the var is empty
+  tags:
+    - add_manual_clients

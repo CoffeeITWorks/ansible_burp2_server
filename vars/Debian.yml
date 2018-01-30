@@ -45,10 +45,10 @@ burp_agent_py3_packages:
 # burp_apt_sources:
 #  - "deb http://ziirish.info/repos/ubuntu/{{ ansible_distribution_release }} zi-latest main"
 
-supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisoretc_dir: "{{ etc_dir }}/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisor
-pip_installed_exe_bin_path: '/usr/local/bin'
+pip_installed_exe_bin_path: '{{ usr_dir }}/local/bin'
 
 cron_packages:
   - cron      # To enable crontab jobs
