@@ -35,8 +35,8 @@ burp_home: "/var/spool/burp"
 
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
-autoupgrade_version: "2.0.54"  # master version is not compiled so added separately
-burp_version: "2.0.54"         # branch or tag, example: "master"  , example: "2.0.46"
+autoupgrade_version: "2.1.28"  # master version is not compiled so added separately
+burp_version: "2.1.28"         # branch or tag, example: "master"  , example: "2.0.46"
 
 burp_force_reinstall: false
 
