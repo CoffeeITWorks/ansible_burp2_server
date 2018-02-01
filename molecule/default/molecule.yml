@@ -30,17 +30,6 @@ platforms:
     groups:
       - group1
 
-  - name: ansible_test-master1
-    image: dramaturg/debian-systemd
-    command: /sbin/init
-    capabilities:
-      - SYS_ADMIN    
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    privileged: True
-    groups:
-      - master
-
   - name: ansible_test-04
     image: fedora/systemd-systemd
     command: /sbin/init
