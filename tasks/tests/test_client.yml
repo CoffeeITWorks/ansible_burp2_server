@@ -82,3 +82,10 @@
   command: burp -c /etc/burp/burp.conf -a t
   args:
     creates: /tmp/restore3/etc/burp/burp.conf
+
+# https://github.com/grke/burp/blob/master/test/test_main#L232 
+# Test verify
+
+# Add encryption
+
+# 

@@ -31,7 +31,8 @@ platforms:
       - group1
 
   - name: ansible_test-04
-    image: fedora/systemd-systemd
+    image: fedora-rawhide
+    #dockerfile: Dockerfile.fedora_rawhide
     command: /sbin/init
     capabilities:
       - SYS_ADMIN    
