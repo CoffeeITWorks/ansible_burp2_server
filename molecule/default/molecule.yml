@@ -8,7 +8,7 @@ lint:
 platforms:
 
   - name: ansible_test-04
-    image: molecule_local/fedora-rawhide2
+    image: fedora:rawhide
     command: /sbin/init
     capabilities:
       - SYS_ADMIN    

@@ -5,7 +5,7 @@ services:
   - docker
 before_install:
   - sudo apt-get -qq update
-  - docker build --tag molecule_local/fedora-rawhide2:latest -f molecule/default/fedorar/Dockerfile molecule/default/fedorar
+  #- docker build --tag molecule_local/fedora-rawhide2:latest -f molecule/default/fedorar/Dockerfile molecule/default/fedorar
 
 install:
   - sudo apt-get install -y python-pip libssl-dev libffi-dev
