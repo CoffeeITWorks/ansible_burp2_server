@@ -7,6 +7,15 @@ lint:
   name: yamllint
 platforms:
 
+  - name: ansible_test-04
+    image: molecule_local/fedora-rawhide2
+    command: /sbin/init
+    capabilities:
+      - SYS_ADMIN    
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    privileged: True
+
   - name: ansible_test-01
     image: solita/ubuntu-systemd:16.04
     privileged: True
@@ -29,17 +38,6 @@ platforms:
     privileged: True
     groups:
       - group1
-
-  - name: ansible_test-04
-    image: fedora-rawhide
-    #dockerfile: Dockerfile.fedora_rawhide
-    command: /sbin/init
-    capabilities:
-      - SYS_ADMIN    
-    image_version: latest
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    privileged: True
 
 provisioner:
   name: ansible
