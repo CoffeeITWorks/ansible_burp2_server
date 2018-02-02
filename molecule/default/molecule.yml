@@ -7,15 +7,6 @@ lint:
   name: yamllint
 platforms:
 
-  - name: ansible_test-04
-    image: fedora:rawhide
-    command: /sbin/init
-    capabilities:
-      - SYS_ADMIN    
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    privileged: True
-
   - name: ansible_test-01
     image: solita/ubuntu-systemd:16.04
     privileged: True
@@ -26,8 +17,12 @@ platforms:
       - "/sys/fs/cgroup:/sys/fs/cgroup:ro"        
     groups:
       - group1
-  # In docker cannot be tested with centos 7 due to https://github.com/ansible/ansible-modules-core/issues/593
-  
+
+  - name: ansible_test-02
+    image: ubuntu:trusty     
+    groups:
+      - groupold
+
   - name: ansible_test-03
     image: centos/systemd
     command: /sbin/init
