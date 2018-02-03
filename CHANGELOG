@@ -1,6 +1,11 @@
-current
+v1.11
 =======
+
 * updated lnxsrv_global_exclusions
+* Update default burp to 2.1.28 (current stable)
+* Migrate molecule tests to molecule v2 closes #18
+* fix #19 fixes testing for fedora on molecule
+
 
 v1.10
 =====
