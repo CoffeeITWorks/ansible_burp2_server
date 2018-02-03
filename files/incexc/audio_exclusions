@@ -1,7 +1,6 @@
 # Due to an issue in log burp that seems to be limited to 166 lines
 # for incexc file, I have decided to include only most popular extensions
 exclude_ext=mp3
-exclude_ext=wav
 exclude_ext=wma
 exclude_ext=ogg
 exclude_ext=mkf

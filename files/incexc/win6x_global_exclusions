@@ -9,6 +9,18 @@ exclude_regex="C:/Users/All Users"
 #exclude_regex="C:/Users/[^/]+/AppData/Local/Temporary Internet Files"
 #exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Windows/Temporary Internet Files"
 #exclude_regex="C:/Users/[^/]+/Downloads"
+exclude_regex="[A-Z]:/RECYCLER"
+exclude_regex=^[A-Z]:/\$recycle\.bin$
+exclude_regex="[A-Z]:/System Volume Information"
+# swap file (Windows XP, 7, 8)
+exclude_regex="[A-Z]:/pagefile.sys"
+# swap file?? (Windows 8)
+exclude_regex="[A-Z]:/swapfile.sys"
+exclude_regex=^[A-Z]:/hiberfil\.sys$
+# Windows temp installer
+exclude_regex="[A-Z]:/$WINDOWS.~BT"
+# Windows 10 Upgrade previous install
+exclude_regex=[A-Z]:/Windows.old$
 exclude_ext=exe
 exclude_ext=msi
 exclude_ext=msu

@@ -9,7 +9,7 @@ exclude_regex = /dev
 exclude_regex = /var/lib/lxcfs
 exclude_regex = /var/lib/docker/devicemapper
 exclude_regex = /var/lib/docker/containers
-
+exclude_regex = \.cache/
 
 exclude_fs = sysfs
 exclude_fs = tmpfs
