@@ -5,7 +5,7 @@
   package:
     name: "{{ burp_agent_packages| join(',') }}"
     state: present
-  when: ( ansible_os_family != "FreeBSD" or burp_use_portinstall == False )
+  when: ( ansible_os_family != "FreeBSD" or burp_freebsd_use_portinstall == False )
 
 - name: install buiagent packages
   portinstall:
@@ -13,7 +13,7 @@
     state: present
     use_packages: no
   with_items: "{{ burp_agent_packages}}"
-  when: ( ansible_os_family == "FreeBSD" and burp_use_portinstall == True )
+  when: ( ansible_os_family == "FreeBSD" and burp_freebsd_use_portinstall == True )
 
 - name: install pip on FreeBSD with pythonic solution as ports are only pip2 ...
   command: python3.6 -m ensurepip
@@ -41,14 +41,14 @@
   package:
     name: "{{ burp_agent_py3_packages| join(',') }}"
     state: present
-  when: python_pip_executable == "pip3" and ( ansible_os_family != "FreeBSD" or burp_use_portinstall == False )
+  when: python_pip_executable == "pip3" and ( ansible_os_family != "FreeBSD" or burp_freebsd_use_portinstall == False )
 
 - name: install buiagent packages for pip3
   portinstall:
     name: "{{ burp_agent_py3_packages| join(',') }}"
     state: present
     use_packages: no
-  when: ( ansible_os_family == "FreeBSD" and burp_use_portinstall == True )  
+  when: ( ansible_os_family == "FreeBSD" and burp_freebsd_use_portinstall == True )  
   
 - name: Uninstall buiagent pip2 packages when using pip3 as pip executable
   pip:

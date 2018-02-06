@@ -11,14 +11,14 @@
   package:
     name: "{{ build_dependencies | join(',') }}"
     state: present
-  when: ( ansible_os_family != "FreeBSD" and not burp_freebsd_use_portinstall )
+  when: ansible_os_family != "FreeBSD"
 
 - name: install build dependencies on FreeBSD
   portinstall:
     name: "{{ item }}"
     state: present
   with_items: "{{ build_dependencies }}"
-  when: ansible_os_family == "FreeBSD"
+  when: ( ansible_os_family == "FreeBSD" and burp_freebsd_use_portinstall )
 
 - name: Uninstall old burp
   package:
@@ -60,23 +60,23 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && autoreconf -vif creates={{ download_dir }}/{{ burpsrc }}/configure
 
 - name: ./configure
-  shell: cd {{ download_dir }}/{{ burpsrc }} && ./configure --prefix=/usr --sysconfdir={{ etc_dir }}/burp --localstatedir=/var creates={{ download_dir }}/{{ burpsrc }}/Makefile
+  shell: cd {{ download_dir }}/{{ burpsrc }} && ./configure --prefix={{ usr_dir }} --sysconfdir={{ etc_dir }}/burp --localstatedir=/var creates={{ download_dir }}/{{ burpsrc }}/Makefile
 
 - name: Make
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
 
 - name: check if burp is installed
-  stat: path=/usr/sbin/burp
+  stat: path="{{ usr_dir }}/sbin/burp"
   register: stb
 
 - name: Uninstall burp
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes=/usr/sbin/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes={{ usr_dir }}/sbin/burp
   when: stb.stat.exists and ( unpack_src_tar.changed or unpack_src_zip.changed )
   tags:
     - skip_ansible_lint
 
 - name: Make install
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates={{ usr_dir }}/sbin/burp
   notify: restart burp server
 
 - block:

@@ -15,14 +15,14 @@
   package:
     name: supervisor
     state: present
-  when: ( ansible_os_family != "FreeBSD" or burp_use_portinstall == False )
+  when: ( ansible_os_family != "FreeBSD" or burp_freebsd_use_portinstall == False )
 
 - name: supervisor | Install supervisor
   portinstall:
     name: sysutils/py-supervisor
     state: present
     use_packages: no
-  when: ( ansible_os_family == "FreeBSD" and burp_use_portinstall == True )
+  when: ( ansible_os_family == "FreeBSD" and burp_freebsd_use_portinstall == True )
     
 - name: supervisor | configure supervisor logrotate
   template:
@@ -121,7 +121,9 @@
   supervisorctl:
     name: burp-server
     state: started
-
+  # bad solution to ERROR (already started)
+  ignore_errors: yes
+  
 - name: supervisor | wait for burp_server port
   wait_for: port={{ burp_server_port }} delay=5 timeout=30
   

@@ -24,7 +24,7 @@
     seconds: 10
 
 - name: test_client | test backup for test_client
-  command: /usr/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a b
+  command: "{{ usr_dir }}sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a b"
   args:
     creates: '{{ burp_server_data }}/test_client/current'
   changed_when: false
@@ -33,11 +33,11 @@
   wait_for: path='{{ burp_server_data }}/test_client/lockfile' state=absent
 
 - name: test_client | test list backups from test_client
-  command: /usr/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a l
+  command: "{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a l"
   changed_when: false
 
 - name: test_client | test restore backup 1 from test_client
-  command: /usr/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a r -b 1 -d /tmp/test_restore
+  command: "{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a r -b 1 -d /tmp/test_restore"
   args:
     creates: /tmp/test_restore
 
@@ -54,7 +54,7 @@
     state: file
 
 - name: test_client | test restore from different client
-  command: /usr/sbin/burp -c {{ etc_dir }}/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "{{ etc_dir }}/burp/burp.conf"
+  command: '{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "{{ etc_dir }}/burp/burp.conf"'
   args:
     creates: /tmp/test_restore2
 
