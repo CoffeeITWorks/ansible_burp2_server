@@ -2,5 +2,4 @@
 - name: Converge
   hosts: all
   roles:
-    # force becoming root as molecule doesnt do it anymore
-    - { role: ansible_burp2_server, become: yes }
+    - role: ansible_burp2_server

@@ -1,34 +1,20 @@
 ---
-
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: centos:7
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-    enabled: False
-  inventory:
-    links:
-      # include global variables as well for testing
-      group_vars: ../../../../../../group_vars/
-      host_vars: ../../../../../../host_vars/
-  env:
-    # dont let molecule guess
-    ANSIBLE_ROLES_PATH: ../../../../internal:../../../../external/
-    ANSIBLE_LIBRARY: ../../../../../library/
-    ANSIBLE_FILTER_PLUGINS: ../../../../../plugins
-    # if not set wants to use libvirt on my box
-    VAGRANT_DEFAULT_PROVIDER: virtualbox
-driver:
-  name: vagrant
-  provider:
-    name: virtualbox
-platforms:
-  - name: freebsd11
-    box: ../../../../../testboxes/vagrant-freebsd11.1-ansibletarget.box
-    memory: 4096
-    cpus: 4
-    # https://www.vagrantup.com/docs/synced-folders/basic_usage.html
-    instance_raw_config_args:
-      - "vm.synced_folder '.', '/vagrant', disabled: true"
+scenario:
+  name: default
 verifier:
   name: testinfra
-  
+  lint:
+    name: flake8
