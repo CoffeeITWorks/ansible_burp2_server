@@ -11,12 +11,12 @@
 
 - name: test_client | configure test client
   template:
-    src: tests/test_client.conf.j2
+    src: test_client.conf.j2
     dest: "{{ etc_dir }}/burp/test_client.conf"
 
 - name: test_client | add local test_client
   template:
-    src: tests/test_client.j2
+    src: test_client.j2
     dest: "{{ burp_server_clientconfdir }}/test_client"
 
 - name: test_client | pause 10 seconds after add local client
@@ -24,7 +24,7 @@
     seconds: 10
 
 - name: test_client | test backup for test_client
-  command: "{{ usr_dir }}sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a b"
+  command: "{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a b"
   args:
     creates: '{{ burp_server_data }}/test_client/current'
   changed_when: false

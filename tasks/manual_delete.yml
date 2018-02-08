@@ -5,7 +5,8 @@
   package:
     name: "{{ cron_packages | join(',') }}"
     state: present
-    
+  when: ( ansible_os_family != "FreeBSD" or burp_freebsd_use_portinstall == False )
+  
 - name: create burp folders
   file:
     path: "{{ item }}"
@@ -28,6 +29,11 @@
   with_items: "{{ burp_cron_delete }}"
   notify: restart cron server
 
+- name: create logrotate.d folder
+  file:
+    path: "{{ etc_dir }}/logrotate.d"
+    state: directory          
+  
 - name: configure burp logrotate
   template:
     src: burp_logrotate.j2
