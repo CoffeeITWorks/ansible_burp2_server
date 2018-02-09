@@ -117,11 +117,17 @@
     seconds: 10
   when: supervisor_started.changed or supervisor_restarted.changed
 
+- name: supervisor | burp generate CA upfront as it somehow breaks supervisor startup on first run on FreeBSD11
+  command: "{{ burp_sv_server_cagen_command }}"
+  args:
+    creates: "{{ burp_server_ssl_dhfile }}"
+  when: ansible_os_family == "FreeBSD"
+    
 - name: supervisor | start burp server
   supervisorctl:
     name: burp-server
     state: started
-  # bad solution to ERROR (already started)
+  # bad solution to ERROR (already started)... at least on FreeBSD
   ignore_errors: yes
   
 - name: supervisor | wait for burp_server port

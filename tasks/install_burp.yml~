@@ -1,7 +1,0 @@
----
-# file tasks/install_burp.yml
-
-- name: install burp packages
-  package:
-    name: "{{ burp_server_packages| join(',') }}"
-    state: latest
