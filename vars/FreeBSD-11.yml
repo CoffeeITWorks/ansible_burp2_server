@@ -32,8 +32,3 @@ cron_service: cron
 
 autoupgrade_version: "2.0.54"  # master version is not compiled so added separately
 burp_version: "2.0.54"         # branch or tag, example: "master"  , example: "2.0.46"
-
-# ssl cert locations
-burp_server_ssl_cert_ca: "{{ etc_dir }}/burp/CA/CA_burpCA.crt"
-burp_server_ssl_cert: "{{ etc_dir }}/burp/CA/{{ ansible_hostname }}.crt"
-burp_server_ssl_key: "{{ etc_dir }}/burp/CA/{{ ansible_hostname }}.key"

@@ -1,9 +1,6 @@
 ---
 # file: vars/Redhat.yml
 
-# different path on different OS
-etc_dir: "/etc"
-usr_dir: "/usr"
 
 build_dependencies:
   - make

@@ -1,11 +1,6 @@
 ---
 # file: vars/Ubuntu.yml
 
-# different path on different OS
-etc_dir: "/etc"
-usr_dir: "/usr"
-
-
 # burp_server_packages:
 #  - libssl-dev
 #  - burp-core

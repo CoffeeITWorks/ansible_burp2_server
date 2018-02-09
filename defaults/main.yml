@@ -3,6 +3,11 @@
 # New default options based on: https://github.com/grke/burp/wiki/Performance-Tips
 
 
+# default paths for non FreeBSD systems
+etc_dir: "/etc"
+usr_dir: "/usr"
+
+
 ### Modules
 # Configure Burp UI Agent
 burp_module_agent: false
@@ -15,7 +20,7 @@ burp_server_autoupgrade_enabled: false
 # Activate clients from git repository
 burp_repos: false
 #burpsrv_repos:
-#  - { repo: "url", version: "branch", dir: "dest dir"}
+#  - { repo: "url", versiong: "branch", dir: "dest dir"}
 # Example:
 # burp_repos:
 #  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
@@ -270,6 +275,7 @@ burp_sv_restore_stderr_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.l
 burp_sv_server_priority: "20"
 burp_sv_server_directory: "/tmp"
 burp_sv_server_command: "{{ usr_dir }}/sbin/burp -F -c {{ etc_dir }}/burp/burp-server.conf"
+burp_sv_server_cagen_command: "{{ usr_dir }}/sbin/burp -g -c {{ etc_dir }}/burp/burp-server.conf"
 burp_sv_server_user: "root"
 burp_sv_server_autostart: "true"
 burp_sv_server_autorestart: "true"
