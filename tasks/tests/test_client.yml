@@ -23,6 +23,11 @@
   pause:
     seconds: 10
 
+#- name: test_client | generate CA for test_client
+#  command: "{{ usr_dir }}/sbin/burp -g -c {{ etc_dir }}/burp/test_client.conf"
+#  args:
+#    creates: "{{ etc_dir }}/burp/ssl_cert-test.pem"
+      
 - name: test_client | test backup for test_client
   command: "{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/test_client.conf -a b"
   args:
@@ -54,7 +59,7 @@
     state: file
 
 - name: test_client | test restore from different client
-  command: '{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r "{{ etc_dir }}/burp/burp.conf"'
+  command: "{{ usr_dir }}/sbin/burp -c {{ etc_dir }}/burp/burp.conf -a r -b 1 -d /tmp/test_restore2 -C test_client -r {{ etc_dir }}/burp/burp.conf"
   args:
     creates: /tmp/test_restore2
 
