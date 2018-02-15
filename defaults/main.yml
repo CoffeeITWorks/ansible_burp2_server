@@ -253,6 +253,8 @@ burp_agent_pip_present:
 ### ---
 
 ### Supervisor
+# General
+burp_sv_server_log_dir: "/var/log/supervisor"
 # Burp Agent
 burp_sv_agent_priority: "40"
 burp_sv_agent_directory: "/tmp"

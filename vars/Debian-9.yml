@@ -1,5 +1,5 @@
 ---
-# file: vars/Ubuntu.yml
+# file: vars/Debian-9.yml
 
 # burp_server_packages:
 #  - libssl-dev

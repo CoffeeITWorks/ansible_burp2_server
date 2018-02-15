@@ -22,7 +22,6 @@ burp_agent_py3_packages:
 supervisoretc_dir: "{{ etc_dir }}/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisord
-burp_sv_server_log_dir: "/var/log/supervisor"
 
 pip_installed_exe_bin_path: "{{ usr_dir }}/bin"
 
