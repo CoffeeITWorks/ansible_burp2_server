@@ -6,7 +6,8 @@
 # default paths for non FreeBSD systems
 etc_dir: "/etc"
 usr_dir: "/usr"
-
+# use the pkg tool to use binaries and be faster
+burp_freebsd_use_portinstall: false
 
 ### Modules
 # Configure Burp UI Agent
@@ -38,7 +39,8 @@ burp_module_test_client: false
 burp_home: "/var/spool/burp"
 
 ## Build vars:
-
+# freeBSD need gmake
+make: "make"
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
 autoupgrade_version: "2.0.54"  # master version is not compiled so added separately

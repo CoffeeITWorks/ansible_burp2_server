@@ -1,6 +1,6 @@
 ---
 
-- name: ensure chache for apt is updated
+- name: ensure cache for apt is updated
   apt:
     update_cache: yes
     cache_valid_time: 43200
@@ -11,7 +11,7 @@
   package:
     name: "{{ build_dependencies | join(',') }}"
     state: present
-  when: ansible_os_family != "FreeBSD"
+  when: ansible_os_family != "FreeBSD" or burp_freebsd_use_portinstall == True
 
 - name: install build dependencies on FreeBSD
   portinstall:
@@ -20,6 +20,12 @@
   with_items: "{{ build_dependencies }}"
   when: ( ansible_os_family == "FreeBSD" and burp_freebsd_use_portinstall )
 
+- name: download base system sources on FreeBSD to compile burp and use the systems openssl
+  shell: svnlite checkout https://svn.freebsd.org/base/releng/`uname -r | cut -d'-' -f1,1` /usr/src
+  args:
+     creates: /usr/src/.svn
+  when: ansible_os_family == "FreeBSD"
+  
 - name: Uninstall old burp
   package:
     name: "{{ item }}"
@@ -63,20 +69,20 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && ./configure --prefix={{ usr_dir }} --sysconfdir={{ etc_dir }}/burp --localstatedir=/var creates={{ download_dir }}/{{ burpsrc }}/Makefile
 
 - name: Make
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && {{ make }} creates={{ download_dir }}/{{ burpsrc }}/burp
 
 - name: check if burp is installed
   stat: path="{{ usr_dir }}/sbin/burp"
   register: stb
 
 - name: Uninstall burp
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes={{ usr_dir }}/sbin/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && {{ make }} uninstall removes={{ usr_dir }}/sbin/burp
   when: stb.stat.exists and ( unpack_src_tar.changed or unpack_src_zip.changed )
   tags:
     - skip_ansible_lint
 
 - name: Make install
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates={{ usr_dir }}/sbin/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && {{ make }} install creates={{ usr_dir }}/sbin/burp
   notify: restart burp server
 
 - block:

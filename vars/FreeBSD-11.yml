@@ -5,19 +5,27 @@
 etc_dir: "/usr/local/etc"
 usr_dir: "/usr/local"
 
+make: "gmake"
+
 burp_server_packages:
   - py-supervisor 
   - logrotate
+  - bash
 build_dependencies:
   - uthash
   - librsync2
+  - autotools
+  - yajl
+  - gmake
+  # enables svn co
+  - ca_root_nss
 burp_agent_packages:
   - python27
   - devel/py-pip
   - py27-supervisor
 burp_agent_py3_packages:
   - python36
-  - devel/py-pip
+  - py-pip
 
 supervisoretc_dir: "{{ etc_dir }}/supervisor/conf.d"
 supervisor_ext: "conf"

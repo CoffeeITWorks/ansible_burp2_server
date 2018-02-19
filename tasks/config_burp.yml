@@ -28,18 +28,6 @@
     - { src: "burp-server.conf.j2", dest: "{{ etc_dir }}/burp/burp-server.conf"}
   notify: restart burp server
   
-# - name: symlink ssl server certificates on FreeBSD
-#   file:
-#     src: "{{ item.src }}"
-#     dest: "{{ item.dest }}"
-#     state: link
-#     force: yes
-#   with_items:
-#     - { src: "{{ etc_dir }}/burp/CA/CA_burpCA.crt", dest: "{{ etc_dir }}/burp/ssl_cert_ca-server.pem" }
-#     - { src: "{{ etc_dir }}/burp/CA/{{ ansible_hostname }}.key", dest: "{{ etc_dir }}/burp/ssl_cert-server.key" }
-#     - { src: "{{ etc_dir }}/burp/CA/{{ ansible_hostname }}.crt", dest: "{{ etc_dir }}/burp/ssl_cert-server.pem" }
-#   when: ansible_os_family == "FreeBSD"
-
 - name: config_burp | configure profiles configured in profiles_templates
   template:
     src: profiles/profile_template.j2

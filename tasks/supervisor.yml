@@ -97,10 +97,11 @@
     - restart supervisor
   when: burp_module_agent
 
-- name: supervisor | ensure supervisor is started
+- name: supervisor | ensure supervisor is started and enabled
   service:
     name: "{{ supervisor_service }}"
     state: started
+    enabled: yes
   register: supervisor_started
 
 - name: supervisor | ensure supervisor is restarted
@@ -117,12 +118,24 @@
     seconds: 10
   when: supervisor_started.changed or supervisor_restarted.changed
 
-#- name: supervisor | burp generate CA upfront as it somehow breaks supervisor startup on first run on #FreeBSD11
-#  command: "{{ burp_sv_server_cagen_command }}"
-#  args:
-#    creates: "{{ burp_server_ssl_dhfile }}"
-#  when: ansible_os_family == "FreeBSD"
+- name: supervisor | check if dhparams have already been generated
+  stat:
+    path: "{{ burp_server_ssl_dhfile }}"
+  register: burp_dhfile_stat
+  when: ansible_os_family == "FreeBSD"
+
+- name: supervisor | stop burp-server to genereate CA - idempotency
+  supervisorctl:
+    name: burp-server
+    state: stopped
+  when: ( ansible_os_family == "FreeBSD" and burp_dhfile_stat.stat.exists == False )
     
+- name: supervisor | burp generate CA upfront as it somehow breaks supervisor startup on first run on FreeBSD11
+  command: "{{ burp_sv_server_cagen_command }}"
+  args:
+    creates: "{{ burp_server_ssl_dhfile }}"
+  when: ( ansible_os_family == "FreeBSD" and burp_dhfile_stat.stat.exists == False )
+  
 - name: supervisor | start burp server
   supervisorctl:
     name: burp-server

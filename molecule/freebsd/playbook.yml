@@ -4,7 +4,6 @@
   vars:
     burp_module_test_client: yes
     burp_force_reinstall: True
-    burp_version: 2.1.28
   roles:
-    # force becoming root as molecule doesn't do it anymore
+    # force becoming root
     - { role: ansible_burp2_server, become: yes }
