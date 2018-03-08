@@ -123,7 +123,7 @@ burp_server_custom_lines: []
 ## burp_server incexc profiles
 
 profiles_templates:
-
+  
   - name: profile_lnxsrv
     content:
       - "#hard_quota No permitir backups a clientes con mas de xxGb en el backup total"

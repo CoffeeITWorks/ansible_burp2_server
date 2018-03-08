@@ -2,6 +2,8 @@
 # file: tasks/main.yml
 
 - include: multi_os.yml
+  tags:
+    - add_manual_clients
 
 - include: redhat.yml
   when: ansible_os_family == "RedHat"
@@ -25,10 +27,14 @@
   # Only for monitor and status purpose
 - include: manual_delete.yml
   when: burp_manual_delete_enabled
-
+  tags:
+    - add_manual_clients
+    
 - include: manual_delete_disabled.yml
   when: not burp_manual_delete_enabled
-
+  tags:
+    - add_manual_clients
+    
 - include: autoupgrade.yml
   when: burp_server_autoupgrade_enabled
 

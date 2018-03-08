@@ -17,6 +17,7 @@ build_dependencies:
   - autotools
   - yajl
   - gmake
+  - openssl
   # enables svn co
   - ca_root_nss
 burp_agent_packages:
