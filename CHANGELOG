@@ -1,7 +1,8 @@
-current
+v1.12
 =======
 
 * added more windows exclusions by @deajan on github. Thanks!
+* default to burp 2.1.32 as it is the current stable
 
 v1.11
 =======
