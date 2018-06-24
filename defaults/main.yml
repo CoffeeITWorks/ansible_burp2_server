@@ -336,3 +336,10 @@ burp_client_ports_per_operation:
   - 'port_verify = {{ burp_server_port_operation_verify }}'
   - 'port_list = {{ burp_server_port_operation_list }}'
   - 'port_delete = {{ burp_server_port_operation_delete }}'
+
+# VARS to install backup_tool_script
+# https://burp.grke.org/docs/backup_tool_script.html
+backup_tool_script_url: 'https://github.com/grke/burp/blob/master/configs/server/backup_tool_script.in'
+backup_tool_script_dir: '/usr/local/share/burp/scripts'
+backup_tool_script_path: "{{ backup_tool_script_dir }}/backup_tool_script"
+install_backup_tool_script: false
