@@ -239,10 +239,10 @@ burp_agent_pip_present:
   - "pip>=9"
   - "cffi>=1.7"
   - "gevent>=1.2"
-  - "urllib3>=1.19" # required to avoid issues with get_url module
+  #- "urllib3>=1.19" # required to avoid issues with get_url module
   # - "ndg-httpsclient>=0.4.2" # required to avoid issues with get_url module
   - "pyasn1"
-  - "requests[security]>=2.12"  # required to avoid issues with get_url module
+  #- "requests[security]>=2.12"  # required to avoid issues with get_url module
 ### ---
 
 ### Supervisor
