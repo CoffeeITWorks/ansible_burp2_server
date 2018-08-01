@@ -19,6 +19,14 @@
         name: 'python3-pip'
         state: absent
       when: not pip3_executable_stat.stat.exists
+
+    - name: Uninstall python-six if present on trusty
+      package:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - python-six
+        - python3-six
   
   when: ansible_distribution_release == 'trusty'
 
