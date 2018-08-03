@@ -4,5 +4,6 @@
   vars:
     burp_module_test_client: true
     burp_module_agent: true
+    install_backup_tool_script: true
   roles:
     - role: ansible_burp2_server

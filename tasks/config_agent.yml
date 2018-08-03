@@ -22,6 +22,11 @@
   
   when: ansible_distribution_release == 'trusty'
 
+- name: stat to see if pip2 exists
+  stat:
+    path: '/usr/bin/pip2'
+  register: pip2_executable_stat
+
 - name: install buiagent packages for pip3
   package:
     name: "{{ burp_agent_py3_packages| join(',') }}"
@@ -33,13 +38,14 @@
     name: "{{ burp_agent_pip_burpui }}"
     state: absent
     executable: "pip2"
-  when: python_pip_executable == "pip3"
+  when: python_pip_executable == "pip3" and pip2_executable_stat.stat.exists
 
 - name: install buiagent pip packages
   pip:
     name: "{{ item }}"
     state: present
     executable: "{{ python_pip_executable }}"
+    extra_args: --ignore-installed six
   with_items: "{{ burp_agent_pip_present }}"
 
 - name: Install buiagent pip
