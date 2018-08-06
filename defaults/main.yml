@@ -37,6 +37,8 @@ burp_home: "/var/spool/burp"
 burpsrcext: "zip"              # must be tar.gz or zip
 autoupgrade_version: "2.1.32"  # master version is not compiled so added separately
 burp_version: "2.1.32"         # branch or tag, example: "master"  , example: "2.0.46"
+burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure --prefix=/usr --sysconfdir=/etc/burp --localstatedir=/var"
+# For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
 
 burp_force_reinstall: false
 
