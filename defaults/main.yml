@@ -233,8 +233,8 @@ burp_agent_backend_timeout: "60"
 # ex: burpsrv_pip_burpui: "https://burpui.ziirish.me/builds/burp-ui.dev.tar.gz"
 burp_agent_pip_burpui: "burp-ui-agent"
 burpui_pip_packages:
-  - { name: "{{ burp_agent_pip_burpui }}", version: 0.5.1 }
-python_pip_executable: "pip3" # options pip3 / pip2
+  - { name: "{{ burp_agent_pip_burpui }}", version: 0.6.1 }
+python_pip_executable: "pip3" # options pip3 / pip2 python3 avoids some problems with encoding when browsing files
 burp_agent_pip_present:
   - "pip>=9"
   - "cffi>=1.7"
@@ -243,6 +243,9 @@ burp_agent_pip_present:
   # - "ndg-httpsclient>=0.4.2" # required to avoid issues with get_url module
   - "pyasn1"
   - "requests[security]>=2.12"  # required to avoid issues with get_url module
+#[Burp]
+burpui_backend_bconfcli: '/etc/burp/burp.conf'
+burpui_backend_bconfsrv: '/etc/burp/burp-server.conf'
 ### ---
 
 ### Supervisor

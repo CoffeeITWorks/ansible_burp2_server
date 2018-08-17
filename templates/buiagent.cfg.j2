@@ -1,7 +1,10 @@
 # Burp-UI configuration file
-# @version@ - 0.3.0
+# @version@ - 0.6.0
 # @release@ - stable
+# https://burp-ui.readthedocs.io/en/0.6.0/buiagent.html
 [Global]
+# burp server version 1 or 2
+version = {{ burp_agent_global_version }}
 # On which port is the application listening
 port = {{ burp_agent_global_port }}
 # On which address is the application listening
@@ -14,8 +17,6 @@ ssl = {{ burp_agent_global_ssl }}
 sslcert = {{ burp_server_ssl_cert }}
 # ssl key
 sslkey = {{ burp_server_ssl_key }}
-# burp server version 1 or 2
-version = {{ burp_agent_global_version }}
 # agent password
 password = {{ burp_agent_global_password }}
 
@@ -43,19 +44,19 @@ revoke = {{ burp_agent_security_revoke }}
 zip64 = {{ burp_agent_experimental_zip64 }}
 
 ## burp2 backend specific options
-[Burp2]
+[Burp]
 ## burp binary
 burpbin = {{ burp_agent_backend_burpbin }}
 ## vss_strip binary
 stripbin = {{ burp_agent_backend_stripbin }}
 ## burp client configuration file used for the restoration (Default: None)
-bconfcli = /etc/burp/burp.conf
+bconfcli = {{ burpui_backend_bconfcli }}
 ## burp server configuration file used for the setting page
 ##
 ## bconfsrv = /etc/burp/burp-restore.conf
 ##
 ## I have fixed the client to be on burp-server because the status showns better on burpui
-bconfsrv = /etc/burp/burp-server.conf
+bconfsrv = {{ burpui_backend_bconfsrv }}
 ##
 ## temporary directory to use for restoration
 tmpdir = {{ burp_agent_backend_tmpdir }}
