@@ -37,6 +37,8 @@ burp_home: "/var/spool/burp"
 burpsrcext: "zip"              # must be tar.gz or zip
 autoupgrade_version: "2.1.32"  # master version is not compiled so added separately
 burp_version: "2.1.32"         # branch or tag, example: "master"  , example: "2.0.46"
+burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure --prefix=/usr --sysconfdir=/etc/burp --localstatedir=/var"
+# For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
 
 burp_force_reinstall: false
 
@@ -239,13 +241,13 @@ burp_agent_pip_present:
   - "pip>=9"
   - "cffi>=1.7"
   - "gevent>=1.2"
-  - "urllib3>=1.19" # required to avoid issues with get_url module
+  #- "urllib3>=1.19" # required to avoid issues with get_url module
   # - "ndg-httpsclient>=0.4.2" # required to avoid issues with get_url module
   - "pyasn1"
-  - "requests[security]>=2.12"  # required to avoid issues with get_url module
 #[Burp]
 burpui_backend_bconfcli: '/etc/burp/burp.conf'
 burpui_backend_bconfsrv: '/etc/burp/burp-server.conf'
+  #- "requests[security]>=2.12"  # required to avoid issues with get_url module
 ### ---
 
 ### Supervisor
@@ -339,3 +341,10 @@ burp_client_ports_per_operation:
   - 'port_verify = {{ burp_server_port_operation_verify }}'
   - 'port_list = {{ burp_server_port_operation_list }}'
   - 'port_delete = {{ burp_server_port_operation_delete }}'
+
+# VARS to install backup_tool_script
+# https://burp.grke.org/docs/backup_tool_script.html
+backup_tool_script_url: 'https://github.com/grke/burp/blob/master/configs/server/backup_tool_script.in'
+backup_tool_script_dir: '/usr/local/share/burp/scripts'
+backup_tool_script_path: "{{ backup_tool_script_dir }}/backup_tool_script"
+install_backup_tool_script: false
