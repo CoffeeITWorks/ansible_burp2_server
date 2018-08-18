@@ -6,3 +6,5 @@ docker run --rm -it --privileged=True \
     retr0h/molecule:latest \
     sudo molecule destroy
 
+
+rm -rf molecule/default/.molecule/

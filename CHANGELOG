@@ -1,3 +1,20 @@
+v1.30
+=====
+
+* Upgrade burpui-agent to v0.6.1 https://github.com/CoffeeITWorks/ansible_burp2_server/issues/28
+* Add compile optimizations. 
+Now this role compiles with some better configurations for performance improvements, you can also change the variable `burp_configure_line` with your own configure flags too.
+See https://github.com/CoffeeITWorks/ansible_burp2_server/issues/24.
+* Add backup script tool from @deajan
+backup_script_tool is added as optional installation, you can use var `install_backup_tool_script: true` to install, see defaults/main.yml vars for more options.
+https://github.com/CoffeeITWorks/ansible_burp2_server/issues/26
+
+* Add more help for newcomers and developers of ansible role https://github.com/CoffeeITWorks/ansible_burp2_server/issues/6
+
+See https://github.com/CoffeeITWorks/ansible_burp2_server#Developers
+
+Also for newusers: https://github.com/CoffeeITWorks/ansible_burp2_server#quickstart
+
 v1.12
 =======
 

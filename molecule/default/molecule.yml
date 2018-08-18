@@ -9,7 +9,7 @@ platforms:
 
   - name: ansible_test-01
     image: paulfantom/ubuntu-molecule:16.04
-    privileged: True
+    #privileged: True
     command: /sbin/init
     capabilities:
       - SYS_ADMIN    
@@ -30,13 +30,13 @@ platforms:
       - SYS_ADMIN
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    privileged: True
+    #privileged: True
     groups:
       - group1
 
   - name: ansible_test-04
     image: fedora:latest
-    privileged: True
+    #privileged: True
     command: /sbin/init
     capabilities:
       - SYS_ADMIN    

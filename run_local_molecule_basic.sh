@@ -4,25 +4,23 @@
 # install ansible
 # run from repository role
 docker run --rm -it --privileged=True \
-    -v "$(pwd)":/tmp/$(basename "${PWD}"):rw \
+    -v "$(pwd)":/tmp/$(basename "${PWD}"):ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -w /tmp/$(basename "${PWD}") \
-    --entrypoint "" \
-    fminzoni/molecule \
-    molecule syntax
+    retr0h/molecule:latest \
+    sudo molecule --debug syntax
 
 docker run --rm -it --privileged=True \
-    -v "$(pwd)":/tmp/$(basename "${PWD}"):rw \
+    -v "$(pwd)":/tmp/$(basename "${PWD}"):ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -w /tmp/$(basename "${PWD}") \
-    --entrypoint "" \
-    fminzoni/molecule \
-    molecule --debug create
+    retr0h/molecule:latest \
+    sudo molecule --debug create
+
 
 docker run --rm -it --privileged=True \
-    -v "$(pwd)":/tmp/$(basename "${PWD}"):rw \
+    -v "$(pwd)":/tmp/$(basename "${PWD}"):ro \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -w /tmp/$(basename "${PWD}") \
-    --entrypoint "" \
-    fminzoni/molecule \
-    molecule --debug converge
+    retr0h/molecule:latest \
+    sudo molecule converge

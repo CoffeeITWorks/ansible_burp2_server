@@ -10,6 +10,35 @@ Check the documentation added in:
 https://github.com/CoffeeITWorks/ansible-generic-help#getting-started
 
 
+quickstart
+==========
+
+Install ansible on your control machine (See getting-started)
+Install python-minimal (for Ubuntu 16.04+) on remote machine (or in local if you are using ansible locally)
+
+Copy example inventory and files: https://github.com/CoffeeITWorks/ansible-generic-help/tree/master/example1
+(You can download the repo and copy the example1 dir)
+
+Install this role, example:
+
+```shell
+ansible-galaxy install -r requirements.yml 
+- downloading role 'burp2_server', owned by CoffeeITWorks
+- downloading role from https://github.com/CoffeeITWorks/ansible_burp2_server/archive/master.tar.gz
+- extracting CoffeeITWorks.burp2_server to /home/pablo/.ansible/roles/CoffeeITWorks.burp2_server
+- CoffeeITWorks.burp2_server (master) was installed successfully
+```
+
+Modify the ip address in `inventory/test`
+
+run ansible-playbook:
+
+```shell
+ansible-playbook -i inventory/ roles.burp2_servers.yml -v -u pablo --ask-pass
+```
+
+Later you will be able to customize some vars adding your own values in `group_vars` variables or `host_vars`.
+
 Role Name
 =========
 
@@ -292,3 +321,45 @@ Now there is only need to modify these to group/host vars:
 
     burpsrcext: "zip"
     burp_version: "master"
+
+Performance improvements
+------------------------
+
+* compile optimizations. 
+Now this role compiles with some better configurations for performance improvements, you can also change the variable `burp_configure_line` with your own configure flags too.
+See https://github.com/CoffeeITWorks/ansible_burp2_server/issues/24.
+
+Backup script tool from deajan
+------------------------------
+
+* Add backup script tool from @deajan
+backup_script_tool is added as optional installation, you can use var `install_backup_tool_script: true` to install, see defaults/main.yml vars for more options.
+https://github.com/CoffeeITWorks/ansible_burp2_server/issues/26
+
+See https://github.com/grke/burp/wiki/Utils#backup-tool-script
+
+Collaborators
+-------------
+
+Put your name here.
+
+Developers
+----------
+
+How to test this role?
+
+I have prepared an script and molecule tests, just install docker in your system and start it, then run the script:
+Disable selinux to allow setattr commands when using restore (disable and restart, permissive doesn't works too)
+
+```bash
+sudo systemctl start docker
+./run_local_molecule_basic.sh
+```
+
+Once tests are done, clean the created instances with (after a reboot also use destroy):
+
+```bash
+./run_local_molecule_destroy.sh
+```
+
+As it uses docker images, you don't need to install anything.
