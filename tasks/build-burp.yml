@@ -60,17 +60,17 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
 
 - name: check if burp is installed
-  stat: path=/usr/sbin/burp
+  stat: "path={{ burp_bin_path }}"
   register: stb
 
 - name: Uninstall burp
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes=/usr/sbin/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && make uninstall removes={{ burp_bin_path }}
   when: stb.stat.exists and ( unpack_src_tar.changed or unpack_src_zip.changed )
   tags:
     - skip_ansible_lint
 
 - name: Make install
-  shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates=/usr/sbin/burp
+  shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates={{ burp_bin_path }}
   notify: restart burp server
 
 - block:
