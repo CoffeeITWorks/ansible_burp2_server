@@ -320,7 +320,8 @@ burp_restore_clients:
 # according to whether it is doing backup/restore/verify/list/delete.
 # These ports are based on: https://github.com/CoffeeITWorks/ansible_burp2_server/issues/11
 # Compatible since burp 2.1.10
-burp_server_port_per_operation_bool: false
+# Change per operation port bool to default as it is completely safe
+burp_server_port_per_operation_bool: true
 burp_server_port_operation_restore: 4975
 burp_server_port_operation_verify: 4976
 burp_server_port_operation_list: 4977
