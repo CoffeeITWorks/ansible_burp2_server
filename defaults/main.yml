@@ -2,10 +2,8 @@
 # file: defaults/main.yml
 # New default options based on: https://github.com/grke/burp/wiki/Performance-Tips
 
-### Modules
-# Configure Burp UI Agent
-burp_module_agent: false
-# Configure burp restore service
+### Modules ---
+# Configure burp restore service (deprecated as burp can handle multiple ports, will be removed)
 burp_module_restore: false
 # Configure Burp manual delete
 burp_manual_delete_enabled: true
@@ -213,56 +211,8 @@ burp2_add_manual_clients: []
 # See file tasks/remove_client.yml
 burp_remove_clients: []
 
-# if burpsrv_agent: true
-### Burp UI Agent
-#[Global]
-burp_agent_global_port: "5001"
-burp_agent_global_bind: "0.0.0.0"
-burp_agent_global_ssl: "false"
-burp_agent_global_version: "2"
-burp_agent_global_password: "password"
-#[Security]
-burp_agent_security_includes: "/etc/burp"
-burp_agent_security_enforce: "false"
-burp_agent_security_revoke: "true"
-#[Experimental]
-burp_agent_experimental_zip64: "false"
-#[Backend]
-burp_agent_backend_burpbin: "{{ burp_bin_path }}"
-burp_agent_backend_stripbin: "{{ burp_usr_path }}/bin/vss_strip"
-burp_agent_backend_tmpdir: "/tmp"
-burp_agent_backend_timeout: "60"
-# Burp UI pip packages
-# Install burpui from a different source
-# ex: burpsrv_pip_burpui: "https://burpui.ziirish.me/builds/burp-ui.dev.tar.gz"
-burp_agent_pip_burpui: "burp-ui-agent"
-burpui_pip_packages:
-  - { name: "{{ burp_agent_pip_burpui }}", version: 0.6.1 }
-python_pip_executable: "pip3" # options pip3 / pip2 python3 avoids some problems with encoding when browsing files
-burp_agent_pip_present:
-  - "pip>=9"
-  - "cffi>=1.7"
-  - "gevent>=1.2"
-  #- "urllib3>=1.19" # required to avoid issues with get_url module
-  # - "ndg-httpsclient>=0.4.2" # required to avoid issues with get_url module
-  - "pyasn1"
-#[Burp]
-burpui_backend_bconfcli: '/etc/burp/burp.conf'
-burpui_backend_bconfsrv: '/etc/burp/burp-server.conf'
-  #- "requests[security]>=2.12"  # required to avoid issues with get_url module
-### ---
-
 ### Supervisor
-# Burp Agent
-burp_sv_agent_priority: "40"
-burp_sv_agent_directory: "/tmp"
-burp_sv_agent_command: "{{ pip_installed_exe_bin_path }}/bui-agent -v -c /etc/burp/buiagent.cfg"
-burp_sv_agent_user: "root"
-burp_sv_agent_autostart: "true"
-burp_sv_agent_autorestart: "true"
-burp_sv_agent_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
-burp_sv_agent_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
-# Burp Restore
+# Burp Restore (deprecated as burp can handle multiple ports, will be removed)
 burp_sv_restore_priority: "30"
 burp_sv_restore_directory: "/tmp"
 burp_sv_restore_command: "{{ burp_bin_path }} -F -c /etc/burp/burp-restore.conf"
