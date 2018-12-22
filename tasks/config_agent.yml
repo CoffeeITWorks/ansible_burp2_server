@@ -46,7 +46,7 @@
     state: present
     executable: "{{ python_pip_executable }}"
     extra_args: --ignore-installed six
-  with_items: "{{ burp_agent_pip_present }}"
+  loop: "{{ burp_agent_pip_present }}"
 
 - name: Install buiagent pip
   pip:
