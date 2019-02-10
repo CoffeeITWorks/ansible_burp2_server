@@ -17,11 +17,6 @@
     name: burp-restore
     state: restarted
 
-- name: restart buiagent
-  supervisorctl:
-    name: buiagent
-    state: restarted
-
 - name: restart cron server
   service:
     name: "{{ cron_service }}"

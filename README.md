@@ -80,10 +80,9 @@ Inside it you can add a file with the name of the group or the host where you wa
 
 example file `group_vars/burp2_servers/burp2_server_vars`
 
-*Options vars:* 
+*Options vars:*
 
 ```yaml
-burp_module_agent: true # Will add buiagent and configure it properly to use on burpui-multiagent mode. 
 burp_module_restore: true # Will configure a second burp server with same spool, useful to configure one restore_client to get restores faster on large deployments.
 ```
 
