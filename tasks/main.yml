@@ -3,9 +3,6 @@
 
 - include: multi_os.yml
 
-- include: redhat.yml
-  when: ansible_os_family == "RedHat"
-
 # - include: repositories.yml
 
 # - include: install_burp.yml
