@@ -9,6 +9,7 @@ Check the documentation added in:
 
 https://github.com/CoffeeITWorks/ansible-generic-help#getting-started
 
+Full list of roles: https://github.com/grke/burp/wiki/Automated-deploy-and-maintenance
 
 quickstart
 ==========
@@ -306,12 +307,6 @@ Burp backup and restore
 -----------------------
 
 Main page: http://burp.grke.org/
-
-Burpui
-------
-
-Main page: https://git.ziirish.me/ziirish/burp-ui
-
 
 Testing master branch:
 ----------------------
