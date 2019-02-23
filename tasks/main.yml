@@ -3,9 +3,6 @@
 
 - include: multi_os.yml
 
-- include: redhat.yml
-  when: ansible_os_family == "RedHat"
-
 # - include: repositories.yml
 
 # - include: install_burp.yml
@@ -37,9 +34,6 @@
   when: burp_module_restore
 
 - include: local_client.yml
-
-- include: config_agent.yml
-  when: burp_module_agent
 
 - include: supervisor.yml
 

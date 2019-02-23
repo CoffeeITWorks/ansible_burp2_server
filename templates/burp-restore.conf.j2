@@ -1,4 +1,5 @@
 # This is an example config file for the burp server.
+# deprecated as burp can handle multiple ports, will be removed
 
 mode = server
 
@@ -111,7 +112,7 @@ ssl_key_password = {{ burp_server_ssl_key_password }}
 ssl_dhfile = {{ burp_server_ssl_dhfile }}
 
 # ensure no backups run on burp-restore instance
-timer_script = /usr/share/burp/scripts/timer_script
+timer_script = {{ burp_usr_path }}/share/burp/scripts/timer_script
 # Ensure that 20 hours elapse between backups
 # Available units:
 # s (seconds), m (minutes), h (hours), d (days), w (weeks), n (months)
@@ -129,7 +130,7 @@ timer_script = /usr/share/burp/scripts/timer_script
 # %b - "backup"/"restore"/"verify"
 # %c - client name
 # %w - number of warnings, if any
-#notify_success_script = /usr/share/burp/scripts/notify_script
+#notify_success_script = {{ burp_usr_path }}/share/burp/scripts/notify_script
 #notify_success_arg = sendmail -t
 #notify_success_arg = To: youremail@example.com
 #notify_success_arg = From: burp
@@ -142,7 +143,7 @@ timer_script = /usr/share/burp/scripts/timer_script
 #notify_success_changes_only = 1
 
 # Uncomment the following for email notifications of backups that failed.
-#notify_failure_script = /usr/share/burp/scripts/notify_script
+#notify_failure_script = {{ burp_usr_path }}/share/burp/scripts/notify_script
 #notify_failure_arg = sendmail -t
 #notify_failure_arg = To: youremail@example.com
 #notify_failure_arg = From: burp
@@ -150,7 +151,7 @@ timer_script = /usr/share/burp/scripts/timer_script
 
 # The server can run scripts on each connection after authentication and before
 # disconnecting.
-#server_script_pre = /usr/share/burp/scripts/ssl_extra_checks_script
+#server_script_pre = {{ burp_usr_path }}/share/burp/scripts/ssl_extra_checks_script
 #server_script_pre_arg = /etc/burp/crl
 #server_script_pre_arg = /etc/burp/burp-server.conf
 #server_script_pre_arg = /usr/share/burp/scripts/server-pre-script.local
