@@ -9,6 +9,7 @@ Check the documentation added in:
 
 https://github.com/CoffeeITWorks/ansible-generic-help#getting-started
 
+Full list of roles: https://github.com/grke/burp/wiki/Automated-deploy-and-maintenance
 
 quickstart
 ==========
@@ -80,10 +81,9 @@ Inside it you can add a file with the name of the group or the host where you wa
 
 example file `group_vars/burp2_servers/burp2_server_vars`
 
-*Options vars:* 
+*Options vars:*
 
 ```yaml
-burp_module_agent: true # Will add buiagent and configure it properly to use on burpui-multiagent mode. 
 burp_module_restore: true # Will configure a second burp server with same spool, useful to configure one restore_client to get restores faster on large deployments.
 ```
 
@@ -307,12 +307,6 @@ Burp backup and restore
 -----------------------
 
 Main page: http://burp.grke.org/
-
-Burpui
-------
-
-Main page: https://git.ziirish.me/ziirish/burp-ui
-
 
 Testing master branch:
 ----------------------
