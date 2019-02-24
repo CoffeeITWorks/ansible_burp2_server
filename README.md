@@ -357,3 +357,6 @@ Once tests are done, clean the created instances with (after a reboot also use d
 ```
 
 As it uses docker images, you don't need to install anything.
+
+For burp maintainers and developers, there is also a separate role to perform tests on any burp server:
+https://github.com/CoffeeITWorks/ansible_burp2_tests

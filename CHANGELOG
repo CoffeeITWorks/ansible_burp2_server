@@ -2,6 +2,7 @@ develop
 =======
 
 * Move burpui agent modules to another role
+* Move burp tests to another role
 
 =======
 v1.30.2
