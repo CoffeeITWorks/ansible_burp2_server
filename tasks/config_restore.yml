@@ -1,6 +1,6 @@
 ---
 # file tasks/config_restore.yml
-
+# deprecated as burp can handle multiple ports, will be removed
 - name: configure burp restore
   template:
     src: "{{ item.src }}"

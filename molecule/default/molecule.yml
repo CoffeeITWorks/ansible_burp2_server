@@ -34,17 +34,6 @@ platforms:
     groups:
       - group1
 
-  - name: ansible_test-04
-    image: fedora:latest
-    #privileged: True
-    command: /sbin/init
-    capabilities:
-      - SYS_ADMIN    
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"        
-    groups:
-      - group1
-
 provisioner:
   name: ansible
   config_options:

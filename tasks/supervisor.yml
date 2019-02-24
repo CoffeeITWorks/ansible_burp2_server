@@ -34,16 +34,6 @@
     path: "{{ supervisoretc_dir }}"
     state: "directory"
 
-- name: supervisor | check bui-agent path
-  stat:
-    path: /usr/local/bin/bui-agent
-  register: bui_agent_local_bin
-
-- name: change pip_installed_exe_bin_path when using local bin
-  set_fact:
-    pip_installed_exe_bin_path: /usr/local/bin
-  when: bui_agent_local_bin.stat.exists
-
 - name: supervisor | configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
@@ -64,17 +54,6 @@
   notify:
     - restart supervisor
   when: burp_module_restore
-
-# only run if burp_module_agent: true
-- name: supervisor | configure supervisor services for buiagent
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: "buiagent.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/buiagent.{{ supervisor_ext }}" }
-  notify:
-    - restart supervisor
-  when: burp_module_agent
 
 - name: supervisor | ensure supervisor is started
   service:
@@ -126,11 +105,3 @@
 #    name: burp-restore
 #    state: present
 #  when: burp_module_restore
-
-# Only run if burp_module_agent: true
-#- name: Read supervisor config buiagent
-#  supervisorctl:
-#    name: buiagent
-#    state: present
-#  when: burp_module_agent
-
