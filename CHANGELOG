@@ -2,6 +2,7 @@ develop
 =======
 
 * Move burpui agent modules to another role
+* Remove supervisor ppa for trusty
 
 =======
 v1.30.2
