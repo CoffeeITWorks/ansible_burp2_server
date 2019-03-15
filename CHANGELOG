@@ -1,5 +1,5 @@
-develop
-=======
+1.32.0
+======
 
 * Move burpui agent modules to another role
 * Remove supervisor ppa for trusty
