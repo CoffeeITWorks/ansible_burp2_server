@@ -32,3 +32,14 @@
       file:
         path: /etc/default/burp-restore
         state: absent
+
+    # add this task if you have burp-server service running with supervisor and want to migrate to systemd (now default)
+    - name: supervisor | start burp server
+      supervisorctl:
+        name: burp-server
+        state: stopped
+    
+    - name: supervisor | Ensure "{{ supervisoretc_dir }}" dir exists
+      file:
+        path: "/etc/supervisor.d/burp-server.conf"
+        state: absent

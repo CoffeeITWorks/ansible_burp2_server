@@ -275,12 +275,19 @@ You can use this variable in a static var file like:  `group_vars`, or at runtim
 Dependencies
 ------------
 
-Installed services
-------------------
+Services
+--------
 
 ---
 
-It uses <http://supervisord.org/> for better management of third-party  services on the system and to be compatible with most systems (ubuntu trusty+, debian, centos, fedora, etc).
+You can choose between [systemd, supervisor, systemd_unprivileged] using var:
+
+    burp_sv_type: systemd
+
+All systemd installs service 'burp-server' name. And you can use `systemctl start/stop burp-server` to control the service.
+
+To control service with supervisor, use the following
+-----------------------------------------------------
 
 To restart installed services/daemons you should use:
 

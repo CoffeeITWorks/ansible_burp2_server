@@ -29,6 +29,13 @@ BREAK: This role will not support burp versions older to 2.2.10+ since burp serv
 
 * added variable for burp etc path https://github.com/CoffeeITWorks/ansible_burp2_server/issues/34
 
+* Use systemd by default for better speed deploying
+  You can choose between [systemd, supervisor, systemd_unprivileged] using var:
+
+    burp_sv_type: systemd
+
+* Remove molecule test for ubuntu trusty (it will be out of support next month)
+
 1.32.0
 ======
 

@@ -30,6 +30,10 @@
 - include: local_client.yml
 
 - include: supervisor.yml
+  when: burp_sv_type == 'supervisor'
+
+- include: systemd.yml
+  when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
 
 - include: backup_tool_script.yml
   when: install_backup_tool_script

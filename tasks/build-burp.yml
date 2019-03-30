@@ -64,7 +64,9 @@
 
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates={{ burp_bin_path }}
-  notify: restart burp server
+  notify: 
+    - restart burp server
+    - restart burp server systemd
 
 - block:
   # Verify burp version if the burp_version is not master

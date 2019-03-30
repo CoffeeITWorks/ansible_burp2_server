@@ -204,18 +204,18 @@ profiles_templates:
       - ''
       - '# note that we are backing up C:/System Volume Information"'
 
-
 # See file tasks/manual_client.yml
 burp2_add_manual_clients: []
 
 # See file tasks/remove_client.yml
 burp_remove_clients: []
 
-### Supervisor
+### Supervisor / systemd vars
 # Burp Server
+burp_sv_type: systemd  # options supervisor / systemd / systemd_unprivileged
 burp_sv_server_priority: "20"
 burp_sv_server_directory: "/tmp"
-burp_sv_server_command: "{{ burp_bin_path }} -F -c {{ burp_server_etc }}/burp-server.conf"
+burp_sv_server_command: "{{ burp_bin_path }} -c {{ burp_server_etc }}/burp-server.conf -F"
 burp_sv_server_user: "root"
 burp_sv_server_autostart: "true"
 burp_sv_server_autorestart: "true"
