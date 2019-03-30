@@ -12,16 +12,6 @@
     name: "{{ build_dependencies | join(',') }}"
     state: present
 
-- name: Uninstall old burp
-  package:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - burp
-    - burp-client
-    - burp-server
-    - burp-core
-
 - name: force reinstall burp
   file:
     path: "{{ download_dir }}"
@@ -29,7 +19,9 @@
   when: burp_force_reinstall | bool
 
 - name: Ensure download directory is present
-  file: path={{ download_dir }} state=directory
+  file: 
+    path: "{{ download_dir }}" 
+    state: directory
 
 - name: GET burp backup and restore
   get_url:
@@ -60,7 +52,8 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
 
 - name: check if burp is installed
-  stat: "path={{ burp_bin_path }}"
+  stat: 
+    path: "{{ burp_bin_path }}"
   register: stb
 
 - name: Uninstall burp
@@ -93,7 +86,10 @@
 
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
-  file: path={{ item }} recurse=yes state=directory
+  file: 
+    path: "{{ item }}"
+    recurse: yes 
+    state: directory
   with_items:
     - '/etc/burp/autoupgrade'
     - '{{ burp_client_ca_csr_dir }}'

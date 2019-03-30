@@ -1,0 +1,34 @@
+---
+
+- name: burp2 servers
+  become: yes
+  become_method: sudo
+  # environment: "{{ proxy_env }}"  # example to use behind proxy
+  hosts: burp2_servers
+  # Define the list of servers and add tags so you will be able to filter the call to a tag:
+  tasks:
+
+    - name: uninstall old burp package
+      package:
+        name: [ 'burp', 'burp-server', 'burp-client', 'burp-server', 'burp-core' ]
+        state: absent
+
+    - name: remove old burp server service
+      file:
+        path: /etc/init.d/burp-server
+        state: absent
+
+    - name: remove old burp restore service
+      file:
+        path: /etc/init.d/burp-restore
+        state: absent
+
+    - name: remove old default burp server service
+      file:
+        path: /etc/default/burp
+        state: absent
+
+    - name: remove old default burp restore service
+      file:
+        path: /etc/default/burp-restore
+        state: absent

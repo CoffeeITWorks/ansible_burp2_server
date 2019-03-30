@@ -23,6 +23,24 @@ Install python-minimal (for Ubuntu 16.04+) on remote machine (or in local if you
 Copy example inventory and files: <https://github.com/CoffeeITWorks/ansible-generic-help/tree/master/example1>
 (You can download the repo and copy the example1 dir)
 
+Example playbook
+
+```yaml
+---
+
+- name: burp2 servers
+  become: yes
+  become_method: sudo
+  # environment: "{{ proxy_env }}"  # example to use behind proxy
+  hosts: burp2_servers
+  # Define the list of servers and add tags so you will be able to filter the call to a tag:
+  roles:
+    - role: CoffeeITWorks.burp2_server
+      tags:
+        - "burp2_server_all"
+- "burp2_server"
+```
+
 Install this role, example:
 
 ```shell
@@ -106,20 +124,10 @@ Burp-ui agent was moved to another role: https://github.com/CoffeeITWorks/ansibl
 
 It's very recommended to use burpui-agent with python3, if you know role to add python3/pip3 on centos please contact me to update this information.
 
-Configure burp restore service
-------------------------------
-
----
-
- Burp Restore is another burp daemon with the unique purpose
- to have possibility to restore when backups reach max_children
- This was created before 2.1.10 added port per operation support
- and will be deprecated once burp 2.1 becomes stable
-
-     burp_module_restore: true
-
 Configure Burp manual delete
 ----------------------------
+
+(Enabled by default)
 
 ---
 
@@ -128,12 +136,16 @@ Configure Burp manual delete
 Configure Burp Autoupgrade
 --------------------------
 
+(Enabled by default)
+
 ---
 
      burp_server_autoupgrade_enabled: true
 
 Port per operation
 ------------------
+
+(Enabled by default)
 
 ---
 
@@ -338,6 +350,15 @@ backup_script_tool is added as optional installation, you can use var `install_b
 <https://github.com/CoffeeITWorks/ansible_burp2_server/issues/26>
 
 See <https://github.com/grke/burp/wiki/Utils#backup-tool-script>
+
+Upgrades
+--------
+
+To upgrade previous version or also upgrade from apt/yum/dnf/zypper installation to this role, you can run the playbook located in: [resources/upgrade.yml](resources/upgrade.yml)
+
+And run it
+
+    ansible-playbook -i inventory upgrade.yml -u username -k
 
 Collaborators
 -------------

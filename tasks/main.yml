@@ -7,9 +7,6 @@
 
 # - include: install_burp.yml
 
-# Clean any package distribution before start
-- include: clean.yml
-
 - include: build-burp.yml
 
 - include: config_burp.yml

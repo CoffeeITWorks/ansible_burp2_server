@@ -22,6 +22,9 @@
 BREAK: This role will not support burp versions older to 2.2.10+ since burp server role version 1.34.0
        due to the changes introduced on burp-config and burp -V to read version.
 
+* Adding a resources/upgrade.yml file to remove some unnecesary steps for normal installation and operation,
+  optimization on speed of the run for the role
+
 1.32.0
 ======
 
