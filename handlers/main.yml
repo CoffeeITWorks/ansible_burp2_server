@@ -12,11 +12,6 @@
     name: burp-server
     state: restarted
 
-- name: restart burp restore
-  supervisorctl:
-    name: burp-restore
-    state: restarted
-
 - name: restart cron server
   service:
     name: "{{ cron_service }}"

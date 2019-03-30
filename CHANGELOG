@@ -1,3 +1,27 @@
+1.34.0
+======
+
+* Support burp 2.2.18 
+  BREAKING change was introduced in 2.2.10: the address/port and status_address/status_port have been
+  removed in favor of new unified "listen" and "listen_status" options.
+  https://github.com/CoffeeITWorks/ansible_burp2_server/issues/32
+
+* Remove burp_restore module in favor of port per operation
+  Compatible since burp 2.1.10
+  Change per operation port bool to default as it is completely safe
+    burp_server_port_per_operation_bool: true
+
+* change autoupgrade var to default true.
+     burp_server_autoupgrade_enabled: true
+  You can still set it in your own group/host_vars and set false
+  WARN: You will need to add playbook or manually remove/disable the burp-restore service when upgrading.
+
+* change the way I read the burp version
+  https://github.com/CoffeeITWorks/ansible_burp2_server/issues/37
+
+BREAK: This role will not support burp versions older to 2.2.10+ since burp server role version 1.34.0
+       due to the changes introduced on burp-config and burp -V to read version.
+
 1.32.0
 ======
 

@@ -4,13 +4,11 @@ mode = server
 
 # The default addresses to listen on depend upon compile time options.
 # They may be overridden here.
-address = {{ burp_server_address }}
-port = {{ burp_server_port }}
+listen = {{ burp_server_listen }}
 # Think carefully before changing the status port address, as it can be used
 # to view the contents of backups.
-status_address = {{ burp_server_status_address }}
 # If you do not wish to run a status server at all, comment status_port out.
-status_port = {{ burp_server_status_port }}
+listen_status = {{ burp_server_listen_status }}
 
 directory = {{ burp_server_data }}
 dedup_group = {{ burp_server_dedup_group }}

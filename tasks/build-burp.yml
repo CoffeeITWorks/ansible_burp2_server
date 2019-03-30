@@ -1,6 +1,6 @@
 ---
 
-- name: ensure chache for apt is updated
+- name: ensure cache for apt is updated
   apt:
     update_cache: yes
     cache_valid_time: 43200
@@ -78,7 +78,7 @@
 
   # Run this task always to register the burp version
   - name: read burp installed version
-    shell: burp -v
+    shell: burp -V
     changed_when: false
     register: cmd_burp_version
     tags:

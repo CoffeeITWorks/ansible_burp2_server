@@ -3,12 +3,10 @@
 # New default options based on: https://github.com/grke/burp/wiki/Performance-Tips
 
 ### Modules ---
-# Configure burp restore service (deprecated as burp can handle multiple ports, will be removed)
-burp_module_restore: false
 # Configure Burp manual delete
 burp_manual_delete_enabled: true
 # Configure Burp Autoupgrade
-burp_server_autoupgrade_enabled: false
+burp_server_autoupgrade_enabled: true
 # Activate clients from git repository
 burp_repos: false
 #burpsrv_repos:
@@ -31,8 +29,8 @@ burp_home: "/var/spool/burp"
 
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
-autoupgrade_version: "2.1.32"  # master version is not compiled so added separately
-burp_version: "2.1.32"         # branch or tag, example: "master"  , example: "2.0.46"
+autoupgrade_version: "2.2.18"  # master version is not compiled so added separately
+burp_version: "2.2.18"         # branch or tag, example: "master"  , example: "2.0.46"
 burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure "
 # For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
 burp_usr_path: '/usr/local'
@@ -53,9 +51,10 @@ burp_server_data: "{{ burp_home }}/data"
 burp_server_clientconfdir: "/etc/burp/clientconfdir"
 burp_server_autoupgrade_dir: "/etc/burp/autoupgrade/server"
 burp_server_address: "0.0.0.0"
-burp_server_port: "4971"
-burp_server_status_address: "127.0.0.1"
-burp_server_status_port: "4972"
+burp_server_port: 4971
+burp_server_listen: "{{ burp_server_address }}:{{ burp_server_port }}"
+burp_server_status_port: 4972
+burp_server_listen_status: "127.0.0.1:{{ burp_server_status_port }}"
 burp_server_dedup_group: "global"
 burp_server_protocol: "1"
 burp_server_pidfile: "/var/run/burp.server.pid"
@@ -63,7 +62,7 @@ burp_server_hardlinked_archive: "0"
 burp_server_librsync: "1"
 burp_server_working_dir_recovery_method: "delete"
 burp_server_max_children: "2"  # See https://github.com/grke/burp/wiki/Performance-Tips
-burp_server_max_status_children: "10000"
+burp_server_max_status_children: "1000"
 burp_server_umask: "0022"
 burp_server_syslog: "0"
 burp_server_stdout: "1"
@@ -99,7 +98,8 @@ burp_server_timer_args:
   - Sat,Sun,00,01,02,03,04,05,06,07,08,17,18,19,20,21,22,23
 burp_server_keep:
   - 7
-
+burp_restore_clients:
+  - monitor
 # Modify these variables in you host/group vars
 # to allow notification when a failure occurs
 # You will need some setup done in your sendmail command, like local postfix/sendmail.
@@ -210,15 +210,6 @@ burp2_add_manual_clients: []
 burp_remove_clients: []
 
 ### Supervisor
-# Burp Restore (deprecated as burp can handle multiple ports, will be removed)
-burp_sv_restore_priority: "30"
-burp_sv_restore_directory: "/tmp"
-burp_sv_restore_command: "{{ burp_bin_path }} -F -c /etc/burp/burp-restore.conf"
-burp_sv_restore_user: "root"
-burp_sv_restore_autostart: "true"
-burp_sv_restore_autorestart: "true"
-burp_sv_restore_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
-burp_sv_restore_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
 # Burp Server
 burp_sv_server_priority: "20"
 burp_sv_server_directory: "/tmp"
@@ -248,21 +239,6 @@ burp_client_ssl_cert: "/etc/burp/ssl_cert-monitor.pem"
 burp_client_ssl_key: "/etc/burp/ssl_cert-monitor.key"
 ### ---
 
-# if burp_module_restore: true
-# Burp Restore is another burp daemon with the unique purpose
-# to have possibility to restore when backups reach max_children
-# This was created before 2.1.10 added port per operation support
-# and will be deprecated once burp 2.1 becomes stable
-### Burp Restore
-burp_restore_address: "0.0.0.0"
-burp_restore_port: "4973"
-burp_restore_status_address: "127.0.0.1"
-burp_restore_status_port: "4974"
-burp_restore_pidfile: "/var/run/burp.restore.pid"
-burp_restore_clients:
-  - monitor
-### ---
-
 #Since version 2.1.10
 #   + Add the ability for the client to connect to different server ports
 # according to whether it is doing backup/restore/verify/list/delete.
@@ -276,16 +252,16 @@ burp_server_port_operation_list: 4977
 burp_server_port_operation_delete: 4978
 burp_server_ports_per_operation:
   - '# port for restore'
-  - "port = {{ burp_server_port_operation_restore }}"
+  - "listen = {{ burp_server_address }}:{{ burp_server_port_operation_restore }}"
   - 'max_children = 2'
   - '# port for verify'
-  - "port = {{ burp_server_port_operation_verify }}"
+  - "listen = {{ burp_server_address }}:{{ burp_server_port_operation_verify }}"
   - 'max_children = 1'
   - '# port for list'
-  - "port = {{ burp_server_port_operation_list }}"
+  - "listen = {{ burp_server_address }}:{{ burp_server_port_operation_list }}"
   - 'max_children = 15'
   - '# port for delete'
-  - "port = {{ burp_server_port_operation_delete }}"
+  - "listen = {{ burp_server_address }}:{{ burp_server_port_operation_delete }}"
   - 'max_children = 2'
 burp_client_ports_per_operation:
   - 'port_restore = {{ burp_server_port_operation_restore }}'

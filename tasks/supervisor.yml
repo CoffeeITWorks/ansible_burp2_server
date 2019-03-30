@@ -38,17 +38,6 @@
     - restart supervisor
   register: supervisor_burp_service_config_status
 
-# only run if burp_module_restore: true
-- name: supervisor | configure supervisor services for burp-restore
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: "burp-restore.conf_supervisor.j2", dest: "{{ supervisoretc_dir }}/burp-restore.{{ supervisor_ext }}" }
-  notify:
-    - restart supervisor
-  when: burp_module_restore
-
 - name: supervisor | ensure supervisor is started
   service:
     name: "{{ supervisor_service }}"
@@ -92,10 +81,3 @@
 #  supervisorctl:
 #    name: burp-server
 #    state: present
-
-# Only run if burp_module_restore: true
-#- name: Read supervisor config burp_restore
-#  supervisorctl:
-#    name: burp-restore
-#    state: present
-#  when: burp_module_restore
