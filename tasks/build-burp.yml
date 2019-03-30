@@ -80,7 +80,7 @@
 
   - name: failed when burp version is different than the one that must be installed
     fail: msg="burp version is different than the one that must be installed"
-    when: cmd_burp_version.stdout != "burp-{{ burp_version }}"
+    when: cmd_burp_version.stdout != burpsrc
 
   when: burp_version != "master"
 
