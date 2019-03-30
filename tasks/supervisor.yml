@@ -71,9 +71,9 @@
     path: "{{ item }}"
     state: present
   with_items:
-    - '/etc/burp/ssl_cert_ca-server.pem'
-    - '/etc/burp/ssl_cert-server.key'
-    - '/etc/burp/ssl_cert-server.pem'
+    - '{{ burp_server_etc }}/ssl_cert_ca-server.pem'
+    - '{{ burp_server_etc }}/ssl_cert-server.key'
+    - '{{ burp_server_etc }}/ssl_cert-server.pem'
 
 # state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first

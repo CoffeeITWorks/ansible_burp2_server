@@ -91,10 +91,10 @@
     recurse: yes 
     state: directory
   with_items:
-    - '/etc/burp/autoupgrade'
+    - '{{ burp_server_etc }}/autoupgrade'
     - '{{ burp_client_ca_csr_dir }}'
-    - '/etc/burp/clientconfdir/incexc'
-    - '/etc/burp/clientconfdir/profiles'
+    - '{{ burp_server_etc }}/clientconfdir/incexc'
+    - '{{ burp_server_etc }}/clientconfdir/profiles'
 
 - name: copy etc file
   template:

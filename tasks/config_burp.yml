@@ -25,7 +25,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "burp-server.conf.j2", dest: "/etc/burp/burp-server.conf"}
+    - { src: "burp-server.conf.j2", dest: "{{ burp_server_etc }}/burp-server.conf"}
   notify: restart burp server
 
 - name: config_burp | configure profiles configured in profiles_templates

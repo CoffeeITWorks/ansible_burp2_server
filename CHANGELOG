@@ -27,6 +27,8 @@ BREAK: This role will not support burp versions older to 2.2.10+ since burp serv
 
 * clean check of burp version https://github.com/CoffeeITWorks/ansible_burp2_server/issues/33
 
+* added variable for burp etc path https://github.com/CoffeeITWorks/ansible_burp2_server/issues/34
+
 1.32.0
 ======
 

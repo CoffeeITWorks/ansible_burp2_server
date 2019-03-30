@@ -165,8 +165,8 @@ notify_failure_arg = Subject: %b failed: %c %w
 # The server can run scripts on each connection after authentication and before
 # disconnecting.
 #server_script_pre = /usr/share/burp/scripts/ssl_extra_checks_script
-#server_script_pre_arg = /etc/burp/crl
-#server_script_pre_arg = /etc/burp/burp-server.conf
+#server_script_pre_arg = {{ burp_server_etc }}/crl
+#server_script_pre_arg = {{ burp_server_etc }}/burp-server.conf
 #server_script_pre_arg = /usr/share/burp/scripts/server-pre-script.local
 # Set server_script_pre_notify to 1 to have notifications on server_script_pre
 # returning non-zero. Most people will want to leave this off - it could

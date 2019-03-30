@@ -45,11 +45,13 @@ burpurl: "https://github.com/grke/burp/archive/{{ burp_version }}.{{ burpsrcext 
 # Directory that will be used as the location for the downloads§
 download_dir: "{{ ansible_env.HOME }}/burp"
 
+burp_server_etc: '/etc/burp'
+
 ### Burp Server
 ### http://burp.grke.org/docs/manpage.html
 burp_server_data: "{{ burp_home }}/data"
-burp_server_clientconfdir: "/etc/burp/clientconfdir"
-burp_server_autoupgrade_dir: "/etc/burp/autoupgrade/server"
+burp_server_clientconfdir: "{{ burp_server_etc }}/clientconfdir"
+burp_server_autoupgrade_dir: "{{ burp_server_etc }}/autoupgrade/server"
 burp_server_address: "0.0.0.0"
 burp_server_port: 4971
 burp_server_listen: "{{ burp_server_address }}:{{ burp_server_port }}"
@@ -77,14 +79,14 @@ burp_server_network_timeout: false
 # due to less CPU usage and fasters backups
 burp_server_compression: zlib5
 burp_server_version_warn: "1"
-burp_server_ca_conf: "/etc/burp/CA.cnf"
+burp_server_ca_conf: "{{ burp_server_etc }}/CA.cnf"
 burp_server_ca_name: "burpCA"
 burp_server_ca_burp_ca: "{{ burp_usr_path }}/sbin/burp_ca"
 burp_server_ca_crl_check: "1"
-burp_server_ssl_cert_ca: "/etc/burp/ssl_cert_ca-server.pem"
-burp_server_ssl_cert: "/etc/burp/ssl_cert-server.pem"
-burp_server_ssl_key: "/etc/burp/ssl_cert-server.key"
-burp_server_ssl_dhfile: "/etc/burp/dhfile.pem"
+burp_server_ssl_cert_ca: "{{ burp_server_etc }}/ssl_cert_ca-server.pem"
+burp_server_ssl_cert: "{{ burp_server_etc }}/ssl_cert-server.pem"
+burp_server_ssl_key: "{{ burp_server_etc }}/ssl_cert-server.key"
+burp_server_ssl_dhfile: "{{ burp_server_etc }}/dhfile.pem"
 burp_server_ssl_key_password: "password"
 burp_server_script_pre: false
 burp_server_scripts_pre_args: []
@@ -213,7 +215,7 @@ burp_remove_clients: []
 # Burp Server
 burp_sv_server_priority: "20"
 burp_sv_server_directory: "/tmp"
-burp_sv_server_command: "{{ burp_bin_path }} -F -c /etc/burp/burp-server.conf"
+burp_sv_server_command: "{{ burp_bin_path }} -F -c {{ burp_server_etc }}/burp-server.conf"
 burp_sv_server_user: "root"
 burp_sv_server_autostart: "true"
 burp_sv_server_autorestart: "true"
@@ -233,10 +235,10 @@ burp_cron_delete:
 ### Burp Client
 burp_client_pidfile: "/var/run/burp.pid"
 burp_client_password: "password"
-burp_client_ca_csr_dir: "/etc/burp/CA-client"
-burp_client_ssl_cert_ca: "/etc/burp/ssl_cert_ca-monitor.pem"
-burp_client_ssl_cert: "/etc/burp/ssl_cert-monitor.pem"
-burp_client_ssl_key: "/etc/burp/ssl_cert-monitor.key"
+burp_client_ca_csr_dir: "{{ burp_server_etc }}/CA-client"
+burp_client_ssl_cert_ca: "{{ burp_server_etc }}/ssl_cert_ca-monitor.pem"
+burp_client_ssl_cert: "{{ burp_server_etc }}/ssl_cert-monitor.pem"
+burp_client_ssl_key: "{{ burp_server_etc }}/ssl_cert-monitor.key"
 ### ---
 
 #Since version 2.1.10
