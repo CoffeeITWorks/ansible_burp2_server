@@ -23,8 +23,6 @@ burp_repos: false
 # dedup_group = trusty
 # . incexc/profile_lnxsrv
 
-burp_module_test_client: false
-
 ### ---
 
 burp_home: "/var/spool/burp"

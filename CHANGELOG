@@ -2,6 +2,7 @@
 ======
 
 * Move burpui agent modules to another role
+* Move burp tests to another role
 * Remove supervisor ppa for trusty
 
 =======
