@@ -102,13 +102,7 @@ Modules
 Configure Burp UI Agent
 -----------------------
 
----
-
-    burp_module_agent: true
-    # You can also change the password:
-    burp_agent_global_password: "password"
-    # For centos use pip2 or add role to install pip3 with pyton3 (very recommended)
-    python_pip_executable: "pip2" # options pip3 / pip2
+Burp-ui agent was moved to another role: https://github.com/CoffeeITWorks/ansible_burpui_agent
 
 It's very recommended to use burpui-agent with python3, if you know role to add python3/pip3 on centos please contact me to update this information.
 
