@@ -30,9 +30,6 @@
   when: burp_repos
   tags: update_git_clients
 
-- include: config_restore.yml
-  when: burp_module_restore
-
 - include: local_client.yml
 
 - include: supervisor.yml
