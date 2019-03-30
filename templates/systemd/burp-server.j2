@@ -4,9 +4,10 @@ After=network.target
 
 [Service]
 ExecStart={{ burp_sv_server_command }}
-Type=forking
+Type=simple
 User={{ burp_sv_server_user }}
-RestartSec=1
+RestartSec=10
+TimeoutStartSec=120
 Restart=on-failure
 
 [Install]

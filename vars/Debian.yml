@@ -29,6 +29,7 @@ build_dependencies:
   - libssl1.0.0 # from package dependencies
   - libtinfo5   # from package dependencies
   - zlib1g      # from package dependencies
+  - locales
 
 # Repository information: http://ziirish.info/repos/README.txt
 # burp_apt_sources:
