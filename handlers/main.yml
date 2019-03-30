@@ -14,7 +14,7 @@
   when: burp_sv_type == 'supervisor'
 
 - name: restart burp server systemd
-  supervisorctl:
+  service:
     name: burp-server
     state: restarted
   when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
