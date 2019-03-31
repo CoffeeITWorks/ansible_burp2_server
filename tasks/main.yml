@@ -7,9 +7,6 @@
 
 # - include: install_burp.yml
 
-# Clean any package distribution before start
-- include: clean.yml
-
 - include: build-burp.yml
 
 - include: config_burp.yml
@@ -30,17 +27,15 @@
   when: burp_repos
   tags: update_git_clients
 
-- include: config_restore.yml
-  when: burp_module_restore
-
 - include: local_client.yml
 
 - include: supervisor.yml
+  when: burp_sv_type == 'supervisor'
+
+- include: systemd.yml
+  when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
 
 - include: backup_tool_script.yml
   when: install_backup_tool_script
-
-- include: tests/test_client.yml
-  when: burp_module_test_client
 
 - include: remove_client.yml

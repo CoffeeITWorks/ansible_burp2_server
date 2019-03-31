@@ -1,0 +1,16 @@
+[Unit]
+Description=Burp Backup service
+After=network.target
+
+[Service]
+ExecStart={{ burp_sv_server_command }}
+Type=simple
+User={{ burp_sv_server_user }}
+RuntimeDirectory=burp
+RuntimeDirectoryMode=0750
+RestartSec=10
+TimeoutStartSec=120
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

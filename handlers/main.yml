@@ -11,11 +11,13 @@
   supervisorctl:
     name: burp-server
     state: restarted
+  when: burp_sv_type == 'supervisor'
 
-- name: restart burp restore
-  supervisorctl:
-    name: burp-restore
+- name: restart burp server systemd
+  service:
+    name: burp-server
     state: restarted
+  when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
 
 - name: restart cron server
   service:

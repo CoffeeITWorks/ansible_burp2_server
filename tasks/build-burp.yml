@@ -1,6 +1,6 @@
 ---
 
-- name: ensure chache for apt is updated
+- name: ensure cache for apt is updated
   apt:
     update_cache: yes
     cache_valid_time: 43200
@@ -12,16 +12,6 @@
     name: "{{ build_dependencies | join(',') }}"
     state: present
 
-- name: Uninstall old burp
-  package:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - burp
-    - burp-client
-    - burp-server
-    - burp-core
-
 - name: force reinstall burp
   file:
     path: "{{ download_dir }}"
@@ -29,7 +19,9 @@
   when: burp_force_reinstall | bool
 
 - name: Ensure download directory is present
-  file: path={{ download_dir }} state=directory
+  file: 
+    path: "{{ download_dir }}" 
+    state: directory
 
 - name: GET burp backup and restore
   get_url:
@@ -60,7 +52,8 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
 
 - name: check if burp is installed
-  stat: "path={{ burp_bin_path }}"
+  stat: 
+    path: "{{ burp_bin_path }}"
   register: stb
 
 - name: Uninstall burp
@@ -71,14 +64,16 @@
 
 - name: Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates={{ burp_bin_path }}
-  notify: restart burp server
+  notify: 
+    - restart burp server
+    - restart burp server systemd
 
 - block:
   # Verify burp version if the burp_version is not master
 
   # Run this task always to register the burp version
   - name: read burp installed version
-    shell: burp -v
+    shell: burp -V
     changed_when: false
     register: cmd_burp_version
     tags:
@@ -87,18 +82,21 @@
 
   - name: failed when burp version is different than the one that must be installed
     fail: msg="burp version is different than the one that must be installed"
-    when: cmd_burp_version.stdout != "burp-{{ burp_version }}"
+    when: cmd_burp_version.stdout != burpsrc
 
   when: burp_version != "master"
 
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: create etc directories
-  file: path={{ item }} recurse=yes state=directory
+  file: 
+    path: "{{ item }}"
+    recurse: yes 
+    state: directory
   with_items:
-    - '/etc/burp/autoupgrade'
+    - '{{ burp_server_etc }}/autoupgrade'
     - '{{ burp_client_ca_csr_dir }}'
-    - '/etc/burp/clientconfdir/incexc'
-    - '/etc/burp/clientconfdir/profiles'
+    - '{{ burp_server_etc }}/clientconfdir/incexc'
+    - '{{ burp_server_etc }}/clientconfdir/profiles'
 
 - name: copy etc file
   template:

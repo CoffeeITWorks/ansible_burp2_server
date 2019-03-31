@@ -4,4 +4,4 @@
 - name: install burp packages
   package:
     name: "{{ burp_server_packages| join(',') }}"
-    state: latest
+    state: present
