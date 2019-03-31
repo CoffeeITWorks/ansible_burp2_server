@@ -35,6 +35,15 @@
 - include: systemd.yml
   when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
 
+- name: wait for burpca to get all server certificates
+  wait_for:
+    path: "{{ item }}"
+    state: present
+  with_items:
+    - '{{ burp_server_etc }}/ssl_cert_ca-server.pem'
+    - '{{ burp_server_etc }}/ssl_cert-server.key'
+    - '{{ burp_server_etc }}/ssl_cert-server.pem'
+
 - include: backup_tool_script.yml
   when: install_backup_tool_script
 
