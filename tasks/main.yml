@@ -44,6 +44,9 @@
     - '{{ burp_server_etc }}/ssl_cert-server.key'
     - '{{ burp_server_etc }}/ssl_cert-server.pem'
 
+- name: flush handlers
+  meta: flush_handlers
+
 - include: backup_tool_script.yml
   when: install_backup_tool_script
 
