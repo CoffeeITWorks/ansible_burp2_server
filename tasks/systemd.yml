@@ -22,6 +22,3 @@
     name: burp-server
     state: started
     enabled: yes
-
-- name: flush handlers
-  meta: flush_handlers
