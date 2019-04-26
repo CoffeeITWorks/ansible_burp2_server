@@ -100,7 +100,7 @@ burp_server_timer_args:
   - Sat,Sun,00,01,02,03,04,05,06,07,08,17,18,19,20,21,22,23
 burp_server_keep:
   - 7
-burp_restore_clients:
+burp_restore_super_clients:
   - monitor
 # Modify these variables in you host/group vars
 # to allow notification when a failure occurs

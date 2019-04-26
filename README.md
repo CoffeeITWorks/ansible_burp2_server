@@ -255,6 +255,8 @@ Add your own lines to burp-server.conf
         burp_server_custom_lines:
         - "someextra=line"
 
+See https://burp.grke.org/docs/manpage.html
+
 Remove clients from a list
 --------------------------
 

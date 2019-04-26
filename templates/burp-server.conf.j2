@@ -211,8 +211,8 @@ monitor_browse_cache = {{ burp_server_monitor_cache }}
 manual_delete = {{ burp_trash }}
 {% endif %}
 
-{% for client in burp_restore_clients %}
-restore_client = {{ client }}
+{% for client in burp_restore_super_clients %}
+super_client = {{ client }}
 {% endfor %}
 
 {% if burp_server_custom_lines %}

@@ -60,4 +60,4 @@
   file:
     path: "{{ burp_server_data }}/{{ item }}"
     state: directory
-  with_items: "{{ burp_restore_clients }}"
+  with_items: "{{ burp_restore_super_clients }}"
