@@ -1,10 +1,3 @@
-Tests
-=====
-
-[![CircleCI](https://circleci.com/gh/CoffeeITWorks/ansible_burp2_server.svg?style=svg)](https://circleci.com/gh/CoffeeITWorks/ansible_burp2_server)
-
-[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server)
-
 Getting Started
 ===============
 
@@ -14,8 +7,13 @@ Check the documentation added in:
 
 Full list of roles: <https://github.com/grke/burp/wiki/Automated-deploy-and-maintenance>
 
+Tests
+-----
+
+[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server)
+
 quickstart
-==========
+----------
 
 Install ansible on your control machine (See getting-started)
 Install python-minimal (for Ubuntu 16.04+) on remote machine (or in local if you are using ansible locally)
@@ -62,7 +60,7 @@ ansible-playbook -i inventory/ roles.burp2_servers.yml -v -u pablo --ask-pass
 Later you will be able to customize some vars adding your own values in `group_vars` variables or `host_vars`.
 
 Role Name
-=========
+---------
 
 ansible burp2_server deploy and maintenance role.
 
@@ -99,18 +97,12 @@ Here we will organize the variables files into the `group_vars` directory:
 
 Inside it you can add a file with the name of the group or the host where you want to add specific options of this role.
 
-example file `group_vars/burp2_servers/burp2_server_vars`
-
-*Options vars:*
-
-```yaml
-burp_module_restore: true # Will configure a second burp server with same spool, useful to configure one restore_client to get restores faster on large deployments.
-```
+example file `group_vars/burp2_servers/burp2_server_vars.yml`
 
 Check also all vars in `defaults/main.yml` you can override any default using your host/group_vars
 
 Role Variables: Complete list of modules
-========================================
+----------------------------------------
 
 Modules
 -------
@@ -254,6 +246,8 @@ Add your own lines to burp-server.conf
 
         burp_server_custom_lines:
         - "someextra=line"
+
+See https://burp.grke.org/docs/manpage.html
 
 Remove clients from a list
 --------------------------
