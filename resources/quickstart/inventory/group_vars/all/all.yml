@@ -1,0 +1,20 @@
+---
+
+# It is not desired to store this on plaintext
+# better to use ansible-vault or ssh keys
+# but giving some example of what you can add here. 
+
+# ansible_user: username
+# ansible_ssh_pass: somepass
+# ansible_become_user: root
+# ansible_become_pass: somepass
+
+# See information about ansible-vault for more secure methods.
+
+# some other useful example to uncomment:
+# 
+# proxy_env:
+#   http_proxy: "http://user:pass@hostname:port"
+#   https_proxy: "http://user:pass@hostname:port"
+#   ftp_proxy: "http://user:pass@hostname:port"
+#   no_proxy: "localhost,127.0.0.1,localaddress,.localdomain.com"

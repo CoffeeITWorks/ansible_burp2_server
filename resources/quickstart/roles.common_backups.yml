@@ -1,0 +1,14 @@
+---
+
+- name: burp2 clients for backups
+  become: yes
+  become_method: sudo
+  # environment: "{{ proxy_env }}"  # example to use behind proxy
+  hosts: all:!burp2_servers
+  # Define the list of servers and add tags so you will be able to filter the call to a tag:
+  roles: 
+    
+    - role: coffeeitworks.burp2_client
+      tags: 
+        - "common_all"
+        - "common_backups"

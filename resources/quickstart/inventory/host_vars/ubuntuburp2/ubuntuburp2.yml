@@ -1,0 +1,6 @@
+---
+
+# In this quickstart I have added the clients in host_vars/ubuntuburp2.yml
+burp2_add_manual_clients:
+  - name: debian9-univ
+    profile: profile_lnxsrv

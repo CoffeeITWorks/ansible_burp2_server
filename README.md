@@ -21,6 +21,8 @@ Install python-minimal (for Ubuntu 16.04+) on remote machine (or in local if you
 Copy example inventory and files: <https://github.com/CoffeeITWorks/ansible-generic-help/tree/master/example1>
 (You can download the repo and copy the example1 dir)
 
+See also [Quickstart.md](resources/quickstart/Quickstart.md)
+
 Example playbook
 
 ```yaml
