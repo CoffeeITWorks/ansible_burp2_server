@@ -62,7 +62,8 @@ burp_server_protocol: "1"
 burp_server_pidfile: "/var/run/burp.server.pid"
 burp_server_hardlinked_archive: "0"
 burp_server_librsync: "1"
-burp_server_working_dir_recovery_method: "delete"
+burp_server_working_dir_recovery_method: "delete"  # could be resume / delete
+burp_max_resume_attempts: 4  # Will use delete method after 4 resume retries
 burp_server_max_children: "2"  # See https://github.com/grke/burp/wiki/Performance-Tips
 burp_server_max_status_children: "1000"
 burp_server_umask: "0022"
