@@ -1,0 +1,23 @@
+---
+# check more variables at the role https://galaxy.ansible.com/coffeeitworks/burpui_server
+# and also in github defaults/main.yml file.
+
+# Enable mixed to allow plain passwords https://git.ziirish.me/ziirish/burp-ui/issues/177#note_1794
+burpui_basic_enabled: false
+burpui_basic_mixed: "true"
+burpui_basic_users:
+  - { name: "admin", password: "admin" }
+# If you change the password here, you will need to change in burpui_apiurl var in burp_reports.yml file
+# Change this here or better create a VAULT encrypted file and 
+# set here the {{ VAULT_burpui_password }} as value
+
+# If you don't have a separate server for burpui, you must set it as standalone True
+burpui_standalone: False
+
+# bui-agent
+# change burpui_standalone: false
+# To use multiple agents:
+burpui_agents:
+  - { name: "ubuntuburp2", address: "192.168.122.135", port: "5001", password: "password", ssl: "false" }
+# Password is same as the set for burp_agent_global_password var in burp2_servers/burpui_agent.yml
+# IP address depends on your inventory, you must add one line as per burp2_server

@@ -10,8 +10,6 @@ Full list of roles: <https://github.com/grke/burp/wiki/Automated-deploy-and-main
 Tests
 -----
 
-[![CircleCI](https://circleci.com/gh/CoffeeITWorks/ansible_burp2_server.svg?style=svg)](https://circleci.com/gh/CoffeeITWorks/ansible_burp2_server)
-
 [![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server)
 
 quickstart
@@ -22,6 +20,8 @@ Install python-minimal (for Ubuntu 16.04+) on remote machine (or in local if you
 
 Copy example inventory and files: <https://github.com/CoffeeITWorks/ansible-generic-help/tree/master/example1>
 (You can download the repo and copy the example1 dir)
+
+See also [Quickstart.md](resources/quickstart/Quickstart.md)
 
 Example playbook
 

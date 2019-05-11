@@ -3,6 +3,12 @@
 
 * Break burp_restoreclients changed to burp_restore_super_clients to to a change in the burp config.
 
+1.34.1
+======
+
+* Added resources/quickstart examples
+* Added burp_max_resume_attempts default option set to 4
+
 1.34.0
 ======
 

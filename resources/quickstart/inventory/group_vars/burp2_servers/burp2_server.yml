@@ -1,0 +1,17 @@
+---
+# file:  group_vars/burp2_servers/burp2_server
+
+# You can override here the defaults vars we have in burp2_server role defaults/main.yml
+
+burp_module_agent: true
+burp_server_autoupgrade_enabled: true
+
+# Add here or better in host_vars/hostname the clients you want to add automatically to the burp2_server
+# In this quickstart I have added the clients in host_vars/ubuntuburp2.yml
+#burp2_add_manual_clients:
+#  - name: client_name
+#    profile: profile name to use (optional), default: profile_lnxsrv (these files are in incexc/ dir).
+
+# burp2_add_manual_clients list is used to create the files in /etc/burp/clientconfdir/clientname with it tower_settings
+# burp2 requires you setup the clients you want to autorize on server before adding client
+# There is other var to allow you to setup the clients in a git repo and then cloned to this dir in serverless
