@@ -1,0 +1,32 @@
+---
+# file: vars/Redhat.yml
+
+build_dependencies:
+  - make
+  #- pkg-config
+  - check
+  - gcc-c++
+  - librsync-devel
+  - zlib-devel
+  - openssl-devel
+  - ncurses-devel
+  - libacl-devel
+  - uthash-devel
+  - yajl-devel
+  - automake
+  - libtool
+  - autoconf # provides autoreconf
+  - unzip       # required to unzip from master.zip archive for example
+  - openssl     # ensure it is installed, if not burp_ca will not work
+  - ncurses     # from package dependencies
+  - libgcc      # from package dependencies
+
+supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisor_ext: "conf"
+supervisor_service: supervisord
+pip_installed_exe_bin_path: '/usr/bin'
+
+cron_packages:
+  - cronie      # To enable crontab jobs
+
+cron_service: crond

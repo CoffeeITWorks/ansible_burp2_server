@@ -241,6 +241,33 @@ Configure your own profiles
 
 Check `defaults/main.yml` file, to copy the content and create your own profiles with `profiles_templates var`
 
+A small example:
+
+```yaml
+# See also files/incexc, those in this repo are copied to /etc/burp/clientconfdir/incexc
+# This template create each template in: /etc/burp/clientconfdir/incexc/name
+profiles_templates:
+
+  - name: profile_lnxsrv
+    content:
+      - "#hard_quota No permitir backups a clientes con mas de xxGb en el backup total"
+      - "#hard_quota Do not allow to backup clients with more than xxGb in the whole backup"
+      - "hard_quota=65Gb"
+      - ""
+      - "#soft_quota enviar WARNING backups a de clientes con mas de xxGb en el backup total"
+      - "#soft_quota send WARNING to backups clients with more than xxGb in the whole backup"
+      - "soft_quota=50Gb"
+      - ""
+      - ". lnxsrv_global_inclusions"
+      - ". lnxsrv_global_exclusions"
+      - ". compressed_exclusions"
+      - ". audio_compressed_exclusions"
+      - ". generic_excluded_extensions"
+      - ""
+      - "cross_all_filesystems=1"
+      - "dedup_group = lnxsrv"
+```
+
 Add your own lines to burp-server.conf
 --------------------------------------
 
