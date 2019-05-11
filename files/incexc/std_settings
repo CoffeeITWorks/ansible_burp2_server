@@ -1,0 +1,10 @@
+. audio_compressed_exclusions
+. image_compressed_exclusions
+. video_compressed_exclusions
+. compressed_exclusions
+. generic_excluded_extensions
+. generic_exclusions
+
+nobackup=.nobackup
+atime=0
+scan_problem_raises_error=0

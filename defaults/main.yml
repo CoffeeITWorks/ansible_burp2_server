@@ -117,6 +117,8 @@ burp_server_custom_lines: []
 
 ## burp_server incexc profiles
 
+# See also files/incexc, those in this repo are copied to /etc/burp/clientconfdir/incexc
+# This template create each template in: /etc/burp/clientconfdir/incexc/name
 profiles_templates:
 
   - name: profile_lnxsrv
@@ -131,6 +133,14 @@ profiles_templates:
       - ""
       - ". lnxsrv_global_inclusions"
       - ". lnxsrv_global_exclusions"
+      - ". compressed_exclusions"
+      - ". audio_compressed_exclusions"
+      - ". generic_excluded_extensions"
+      - '. image_compressed_exclusions'
+      - '. video_compressed_exclusions'
+      - 'nobackup=.nobackup'
+      - 'atime=0'
+      - 'scan_problem_raises_error=0'
       - ""
       - "cross_all_filesystems=1"
       - "dedup_group = lnxsrv"
@@ -147,6 +157,14 @@ profiles_templates:
       - ""
       - ". lnxsrv_global_inclusions"
       - ". lnxsrv_global_exclusions"
+      - ". compressed_exclusions"
+      - ". audio_compressed_exclusions"
+      - ". generic_excluded_extensions"
+      - '. image_compressed_exclusions'
+      - '. video_compressed_exclusions'
+      - 'nobackup=.nobackup'
+      - 'atime=0'
+      - 'scan_problem_raises_error=0'
       - ""
       - "cross_all_filesystems=1"
       - "dedup_group = lnxsrv"
@@ -174,6 +192,15 @@ profiles_templates:
       - ". win6x_global_exclusions"
       - ". video_exclusions"
       - ". audio_exclusions"
+      - ". compressed_exclusions"
+      - ". audio_compressed_exclusions"
+      - ". generic_exclusions"
+      - ". generic_excluded_extensions"
+      - '. image_compressed_exclusions'
+      - '. video_compressed_exclusions'
+      - 'nobackup=.nobackup'
+      - 'atime=0'
+      - 'scan_problem_raises_error=0'
       - ""
       - "dedup_group = win6x"
 
@@ -204,6 +231,36 @@ profiles_templates:
       - 'exclude_regex = "[A-Z]:/Programdata/Microsoft/ClickToRun"'
       - ''
       - '# note that we are backing up C:/System Volume Information"'
+      - ''
+      - ". audio_compressed_exclusions"
+      - ". compressed_exclusions"
+      - '. image_compressed_exclusions'
+      - '. video_compressed_exclusions'
+      - 'nobackup=.nobackup'
+      - 'atime=0'
+      - 'scan_problem_raises_error=0'
+      - "dedup_group = win6x"
+
+  - name: profile_win6x_drp2
+    content:
+      - ''
+      - '. windows_settings'
+      - '. compressed_exclusions'
+      - '. audio_compressed_exclusions'
+      - '. generic_exclusions'
+      - '. generic_excluded_extensions'
+      - '. image_compressed_exclusions'
+      - '. video_compressed_exclusions'
+      - 'nobackup=.nobackup'
+      - 'atime=0'
+      - 'scan_problem_raises_error=0'
+      - ''
+      - '# note that we are backing up C:/System Volume Information"'
+      - '# Remove VSS info, also strips NTFS acls (protocol 1 only)'
+      - 'strip_vss=1'
+      - '# Splitting VSS info would mean that for every file, 3 files exists (header, actual file, footer)'
+      - 'split_vss=0'
+      - "dedup_group = win6x"
 
 # See file tasks/manual_client.yml
 burp2_add_manual_clients: []
