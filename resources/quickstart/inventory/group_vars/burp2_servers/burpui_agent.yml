@@ -1,0 +1,7 @@
+---
+
+# Change this here or better create a VAULT encrypted file and 
+# set here the {{ VAULT_burp_agent_global_password }} as value
+burp_agent_global_password: "password"
+
+# If you don't have a separate server for burpui, you don't need burpui_agent

@@ -1,0 +1,40 @@
+---
+
+- name: burp2 servers
+  become: yes
+  become_method: sudo
+  # environment: "{{ proxy_env }}"  # example to use behind proxy
+  hosts: burp2_servers
+  # Define the list of servers and add tags so you will be able to filter the call to a tag:
+  roles: 
+    
+    - role: coffeeitworks.burp2_server
+      tags: 
+        - "burp2_server_all"
+        - "burp2_server"
+    
+    # If you don't have a separate server for burpui, you don't need burpui_agent
+    - role: coffeeitworks.ansible_burpui_agent
+      tags:
+        - "burp2_server_all"
+        - "burpui_agent"
+
+- name: burpui servers
+  become: yes
+  become_method: sudo
+  # environment: "{{ proxy_env }}"  # example to use behind proxy
+  hosts: burpui_servers
+  # Define the list of servers and add tags so you will be able to filter the call to a tag:
+  roles: 
+    
+    - role: coffeeitworks.burpui_server
+      tags: 
+        - "burp2_server_all"
+        - "burpui_server_all"
+        - "burpui_server"
+
+    - role: coffeeitworks.burp_reports
+      tags: 
+        - "burp2_server_all"
+        - "burpui_server_all"
+        - "burpui_server"
