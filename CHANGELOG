@@ -3,7 +3,12 @@
 
 * Break burp_restoreclients changed to burp_restore_super_clients to to a change in the burp config.
 
-1.34.1
+1.34.3
+======
+
+* #40 - review of templates used and review from deajan templates
+
+1.34.2
 ======
 
 * Added resources/quickstart examples
