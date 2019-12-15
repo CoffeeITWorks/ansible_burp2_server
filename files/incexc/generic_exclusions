@@ -1,7 +1,6 @@
+# Templates from: https://github.com/deajan/linuxscripts
 # Microsoft Office lock files (eg */~$somefile.doc)
-# exclude_regex = .*/~\$[^/]+\.[^/]+
-# https://github.com/deajan/linuxscripts/issues/2
-# exclude_regex = ^.*[\/\\](~\$.*)\.*$
+exclude_regex = .*/~\$[^/]+\.[^/]+
 
 # MacOS files
 exclude_regex = \.DS_Store
