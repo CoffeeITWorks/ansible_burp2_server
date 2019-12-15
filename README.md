@@ -35,7 +35,7 @@ Example playbook
   hosts: burp2_servers
   # Define the list of servers and add tags so you will be able to filter the call to a tag:
   roles:
-    - role: CoffeeITWorks.burp2_server
+    - role: coffeeitworks.burp2_server
       tags:
         - "burp2_server_all"
 - "burp2_server"
@@ -47,8 +47,8 @@ Install this role, example:
 ansible-galaxy install -r requirements.yml
 - downloading role 'burp2_server', owned by CoffeeITWorks
 - downloading role from https://github.com/CoffeeITWorks/ansible_burp2_server/archive/master.tar.gz
-- extracting CoffeeITWorks.burp2_server to /home/pablo/.ansible/roles/CoffeeITWorks.burp2_server
-- CoffeeITWorks.burp2_server (master) was installed successfully
+- extracting coffeeitworks.burp2_server to /home/pablo/.ansible/roles/coffeeitworks.burp2_server
+- coffeeitworks.burp2_server (master) was installed successfully
 ```
 
 Modify the ip address in `inventory/test`
@@ -78,7 +78,7 @@ Installing this role
 
 Install the role on the system:
 
-    ansible-galaxy install CoffeeITWorks.burp2_server
+    ansible-galaxy install coffeeitworks.burp2_server
 
 Checkout more info at: <https://github.com/CoffeeITWorks/ansible-generic-help#installing-roles>
 
