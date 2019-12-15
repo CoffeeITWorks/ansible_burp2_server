@@ -2,6 +2,7 @@
 =====
 
 * Break burp_restoreclients changed to burp_restore_super_clients to to a change in the burp config.
+* Autoupgrade script updated with same version as in burp tree.
 
 1.34.3
 ======
