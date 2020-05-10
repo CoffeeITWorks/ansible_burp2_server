@@ -2,6 +2,7 @@
 =====
 
 * Break burp_restoreclients changed to burp_restore_super_clients to to a change in the burp config.
+* fixes for molecule v3
 
 1.34.3
 ======
