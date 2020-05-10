@@ -4,10 +4,14 @@
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
+  retries: 3
+  delay: 2
   when: ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: redhat | install EPEL release package for Centos
   yum:
     name: "epel-release"
     state: present
+  retries: 3
+  delay: 2
   when: ansible_distribution == 'CentOS'
