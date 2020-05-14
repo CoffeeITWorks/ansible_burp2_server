@@ -8,7 +8,7 @@ driver:
   name: docker
 platforms:
 
-  - name: ansible_test-01
+  - name: ansible_burp2_server-01
     image: "geerlingguy/docker-ubuntu1804-ansible:latest"
     #privileged: True
     command: /sbin/init
@@ -23,7 +23,7 @@ platforms:
     groups:
       - group1
 
-  - name: ansible_nagios4_server_config-02
+  - name: ansible_burp2_server-02
     image: "geerlingguy/docker-debian10-ansible"
     #privileged: True
     command: /sbin/init
@@ -38,7 +38,7 @@ platforms:
     groups:
       - use_pip_package
 
-  - name: ansible_test-03
+  - name: ansible_burp2_server-03
     image: docker.io/pycontribs/centos:7
     pre_build_image: true
     command: /sbin/init
