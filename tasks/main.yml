@@ -11,7 +11,7 @@
 
 - include: config_burp.yml
 
-- include: hostfix/burp_ca.yml
+- include: hotfix/burp_ca.yml
   when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "10")
 
 - include: manual_client.yml
