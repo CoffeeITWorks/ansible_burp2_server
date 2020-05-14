@@ -1,0 +1,11 @@
+---
+# during tests with molecule on debian-10, burp failed to create the certificated, so I had to add a manual patch as workaround
+
+- name: hotfix | fix burp_ca when hostname -f not working
+  copy:
+    src: "burp_ca"
+    dest: "{{ burp_server_ca_burp_ca }}"
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+    force: yes

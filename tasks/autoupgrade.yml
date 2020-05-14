@@ -27,6 +27,8 @@
     timeout: 30
     validate_certs: no
     # use_proxy: yes
+  retries: 3
+  delay: 2
   with_items:
     - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
     - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}/package" }

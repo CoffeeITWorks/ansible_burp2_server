@@ -1,3 +1,9 @@
+2.2.0
+=====
+
+* fix debian-10 support
+* add workaround for debian-10 tests not working with hostname -f command.
+
 2.0.0
 =====
 
