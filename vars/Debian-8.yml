@@ -5,9 +5,6 @@
 #  - libssl-dev
 #  - burp-core
 
-#TASK [ansible_burp2_server : install build dependencies] ***********************
-#fatal: [ansible_burp2_debian_9]: FAILED! => {"changed": false, "failed": true, "msg": "No package matching 'libssl1.0.0' is available"}
-
 build_dependencies:
   - make
   - pkg-config
@@ -29,7 +26,7 @@ build_dependencies:
   - libgcc1     # from package dependencies
   - libc6       # from package dependencies
   - libacl1     # from package dependencies
-  - libssl1.1   # from package dependencies (debian9)
+  - libssl1.0.0 # from package dependencies
   - libtinfo5   # from package dependencies
   - zlib1g      # from package dependencies
   - locales

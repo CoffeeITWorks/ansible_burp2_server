@@ -23,6 +23,21 @@ platforms:
     groups:
       - group1
 
+  - name: ansible_nagios4_server_config-02
+    image: "geerlingguy/docker-debian10-ansible"
+    #privileged: True
+    command: /sbin/init
+    pre_build_image: true
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    groups:
+      - use_pip_package
+
   - name: ansible_test-03
     image: docker.io/pycontribs/centos:7
     pre_build_image: true
