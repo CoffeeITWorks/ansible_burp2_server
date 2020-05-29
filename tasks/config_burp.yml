@@ -5,6 +5,9 @@
   file:
     path: "{{ item }}"
     state: directory
+    user: "{{ burp_sv_server_user }}"
+    group: "{ burp_sv_server_user }}"
+    mode: '0755'
   with_items:
     - "{{ burp_home }}"
     - "{{ burp_server_data }}"

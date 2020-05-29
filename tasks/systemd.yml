@@ -6,12 +6,6 @@
     dest: "/etc/systemd/system/burp-server.service"
   when: burp_sv_type == 'systemd'
 
-- name: systemd | configure systemd service for burp-server
-  template:
-    src: "systemd/burp-server_unpriv.j2"
-    dest: "/etc/systemd/system/burp-server.service"
-  when: burp_sv_type == 'systemd_unprivileged'
-
 - name: systemd daemon-reload
   systemd:
     daemon_reload: yes

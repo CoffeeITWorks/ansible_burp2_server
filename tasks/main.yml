@@ -9,6 +9,9 @@
 
 - include: build-burp.yml
 
+- include: build-burp.yml
+  when: burp_sv_server_user != "root"
+
 - include: config_burp.yml
 
 - include: hotfix/burp_ca.yml
@@ -36,7 +39,7 @@
   when: burp_sv_type == 'supervisor'
 
 - include: systemd.yml
-  when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
+  when: burp_sv_type == 'systemd'
 
 - name: wait for burpca to get all server certificates
   wait_for:
