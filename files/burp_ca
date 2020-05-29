@@ -61,7 +61,7 @@ case "$(uname -s)" in
 	AIX) name="$(host "$(hostname)" | awk '{ print $1}')" ;;
 	NetBSD) name="$(hostname)" ;;
 	OpenBSD) name="$(uname -n)" ;;
-	*) if name="$(hostname -f)"; then ""; else name="$(hostname)"; fi ;;
+	*) if name="$(hostname -f)"; then echo ""; else name="$(hostname)"; fi ;;
 esac
 # Try NetBSD style.
 [ -n "$name" ] || name="$(hostname)"
