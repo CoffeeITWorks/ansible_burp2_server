@@ -6,7 +6,7 @@
     path: "{{ item }}"
     state: directory
     owner: "{{ burp_sv_server_user }}"
-    group: "{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
     mode: '0755'
   with_items:
     - "{{ burp_home }}"
