@@ -10,3 +10,12 @@
     name: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
     comment: Ansible managed burp-service service
+
+- name: unpriv_user | Ensure /etc dir has permissions
+  file:
+    path: "{{ burp_server_etc }}"
+    recurse: yes 
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'
