@@ -1,0 +1,21 @@
+---
+
+- name: unpriv_user | Ensure group {{ burp_sv_server_user }}" exists
+  group:
+    name: "{{ burp_sv_server_user }}"
+    state: present
+
+- name: unpriv_user | Add the user for burp-server service
+  user:
+    name: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    comment: Ansible managed burp-service service
+
+- name: unpriv_user | Ensure /etc dir has permissions
+  file:
+    path: "{{ burp_server_etc }}"
+    recurse: yes 
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'

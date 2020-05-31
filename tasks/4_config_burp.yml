@@ -1,0 +1,96 @@
+---
+# file tasks/config_burp.yml
+
+# Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
+- name: config_burp | create etc directories
+  file: 
+    path: "{{ item }}"
+    recurse: yes 
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'
+  with_items:
+    - '{{ burp_server_etc }}/autoupgrade'
+    - '{{ burp_client_ca_csr_dir }}'
+    - '{{ burp_server_etc }}/clientconfdir/incexc'
+    - '{{ burp_server_etc }}/clientconfdir/profiles'
+
+- name: config_burp | copy etc file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ burp_sv_server_user }}"
+  with_items:
+    - { src: "build/CA.cnf.j2", dest: "{{ burp_server_ca_conf }}" }
+
+- name: config_burp | create burp folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'
+  with_items:
+    - "{{ burp_home }}"
+    - "{{ burp_server_data }}"
+    - "{{ burp_logs }}"
+    - "{{ burp_server_clientconfdir }}/profiles"
+    - "{{ burp_server_clientconfdir }}/incexc"
+
+- name: config_burp | remove burp example files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ burp_server_clientconfdir }}/testclient"
+    - "{{ burp_server_clientconfdir }}/incexc/example"
+
+- name: config_burp | configure burp server
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ burp_sv_server_user }}"
+  with_items:
+    - { src: "burp-server.conf.j2", dest: "{{ burp_server_etc }}/burp-server.conf"}
+  notify: 
+    - restart burp server
+    - restart burp server systemd
+
+- name: config_burp | configure profiles configured in profiles_templates
+  template:
+    src: profiles/profile_template.j2
+    dest: "{{ burp_server_clientconfdir }}/incexc/{{ item.name }}"
+    owner: "{{ burp_sv_server_user }}"
+  with_items: "{{ profiles_templates }}"
+
+- name: config_burp | copy clients configuration files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ burp_server_clientconfdir }}"
+    directory_mode: "yes"
+    force: yes
+  with_items:
+    - incexc
+
+- name: config_burp | configure profile lnxsrv to create new client
+  template:
+    src: profiles/lnxsrv.j2
+    dest: "{{ burp_server_clientconfdir }}/profiles/lnxsrv"
+    owner: "{{ burp_sv_server_user }}"
+
+- name: config_burp | configure profile win6x to create new client
+  template:
+    src: profiles/win6x.j2
+    dest: "{{ burp_server_clientconfdir }}/profiles/win6x"
+    owner: "{{ burp_sv_server_user }}"
+
+# This task ensures we can create restore file for server initiated restores
+- name: config_burp | create restore client's dir in spool dir
+  file:
+    path: "{{ burp_server_data }}/{{ item }}"
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'
+  with_items: "{{ burp_restore_super_clients }}"

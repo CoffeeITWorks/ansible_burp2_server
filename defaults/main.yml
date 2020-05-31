@@ -46,6 +46,12 @@ burpurl: "https://github.com/grke/burp/archive/{{ burp_version }}.{{ burpsrcext 
 download_dir: "{{ ansible_env.HOME }}/burp"
 
 burp_server_etc: '/etc/burp'
+## Additional autoupgrade vars:
+# autoupgrade_url_win64: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download"
+# autoupgrade_url_win32: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download"
+# By default using direct mirror link because downloading from default sourceforge.net takes additional 6s to get the file:
+autoupgrade_url_win32: "https://managedway.dl.sourceforge.net/project/burp/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe"
+autoupgrade_url_win64: "https://managedway.dl.sourceforge.net/project/burp/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe"
 
 ### Burp Server
 ### http://burp.grke.org/docs/manpage.html
@@ -59,7 +65,7 @@ burp_server_status_port: 4972
 burp_server_listen_status: "127.0.0.1:{{ burp_server_status_port }}"
 burp_server_dedup_group: "global"
 burp_server_protocol: "1"
-burp_server_pidfile: "/var/run/burp.server.pid"
+burp_server_pidfile: "/var/run/burp/burp.server.pid" # Don't change it unless you know what you are doing
 burp_server_hardlinked_archive: "0"
 burp_server_librsync: "1"
 burp_server_working_dir_recovery_method: "delete"  # could be resume / delete
@@ -270,10 +276,12 @@ burp_remove_clients: []
 
 ### Supervisor / systemd vars
 # Burp Server
-burp_sv_type: systemd  # options supervisor / systemd / systemd_unprivileged
+burp_sv_type: systemd  # options supervisor / systemd
 burp_sv_server_priority: "20"
 burp_sv_server_directory: "/tmp"
 burp_sv_server_command: "{{ burp_bin_path }} -c {{ burp_server_etc }}/burp-server.conf -F"
+# Different user than root could have problems with server-initiated restore
+# to change permissions of the files restored
 burp_sv_server_user: "root"
 burp_sv_server_autostart: "true"
 burp_sv_server_autorestart: "true"

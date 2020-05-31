@@ -1,10 +1,10 @@
 ---
 # file: tasks/multi_os.yml
 
-- debug:
-    msg: "distribution-version: {{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
+#- debug:
+#    msg: "distribution-version: {{ ansible_distribution }}-{{ ansible_distribution_major_version }}"
 
-- name: Gather OS Specific Variables
+- name: multi_os | Gather OS Specific Variables
   include_vars: "{{ item }}"
   with_first_found:
     - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
@@ -12,5 +12,5 @@
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/defaults.yml"
 
-- include: redhat.yml
+- include: 1_2_redhat.yml
   when: ansible_os_family == "RedHat"
