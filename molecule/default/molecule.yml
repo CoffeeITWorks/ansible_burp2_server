@@ -50,11 +50,29 @@ platforms:
     groups:
       - group1
 
+  - name: ansible_burp2_server-04
+    image: "geerlingguy/docker-centos8-ansible"
+    #privileged: True
+    command: /sbin/init
+    pre_build_image: true
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    groups:
+      - use_pip_package
+
 provisioner:
   name: ansible
   config_options:
     defaults:
       callback_whitelist: profile_tasks
+    ssh_connection:
+      pipelining: true
+      ssh_args: -o ControlMaster=auto -o ControlPersist=60s
   inventory:
     group_vars:
       master:
