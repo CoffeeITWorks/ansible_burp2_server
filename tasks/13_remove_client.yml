@@ -4,25 +4,25 @@
 # burp_remove_clients:
 #   - name: client_name
 
-- name: "Delete client's profile"
+- name: remove_client | "Delete client's profile"
   file:
     path: "{{ burp_server_clientconfdir }}/{{ item.name }}"
     state: absent
   with_items: "{{ burp_remove_clients }}"
 
-- name: "Delete client's working directory for protocol 1"
+- name: remove_client | "Delete client's working directory for protocol 1"
   file:
     path: "{{ burp_server_data }}/{{ item.name }}"
     state: absent
   with_items: "{{ burp_remove_clients }}"
 
-- name: "Delete client's certificates .crt"
+- name: remove_client | "Delete client's certificates .crt"
   file:
     path: "{{ burp_server_etc }}/CA/{{ item.name }}.crt"
     state: absent
   with_items: "{{ burp_remove_clients }}"
 
-- name: "Delete client's certificates .csr"
+- name: remove_client | "Delete client's certificates .csr"
   file:
     path: "{{ burp_server_etc }}/CA/{{ item.name }}.csr"
     state: absent

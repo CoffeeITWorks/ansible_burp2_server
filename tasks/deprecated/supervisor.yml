@@ -1,34 +1,36 @@
 ---
 
-- name: supervisor | update cache
-  apt: update-cache=yes cache_valid_time=43200
+- name: supervisor deprecated | update cache
+  apt: 
+    update-cache: yes
+    cache_valid_time: "43200"
   changed_when: false
   when: ansible_os_family == 'Debian'
 
-- name: supervisor | Install supervisor
+- name: supervisor deprecated | Install supervisor
   package:
     name: supervisor
     state: present
 
-- name: supervisor | configure supervisor logrotate
+- name: supervisor deprecated | configure supervisor logrotate
   template:
     src: supervisor_logrotate.j2
     dest: /etc/logrotate.d/supervisor
 
 # On centos 6 there is no include section by default
-- name: supervisor | configure supervisor logrotate
+- name: supervisor deprecated | configure supervisor logrotate
   template:
     src: redhat_supervisord.conf.j2
     dest: /etc/supervisord.conf
   when: ansible_os_family == "RedHat"
 
 # On centos 6 this directory is not created by rpm package
-- name: supervisor | Ensure "{{ supervisoretc_dir }}" dir exists
+- name: supervisor deprecated | Ensure "{{ supervisoretc_dir }}" dir exists
   file:
     path: "{{ supervisoretc_dir }}"
     state: "directory"
 
-- name: supervisor | configure supervisor service for burp-server
+- name: supervisor deprecated | configure supervisor service for burp-server
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -38,13 +40,13 @@
     - restart supervisor
   register: supervisor_burp_service_config_status
 
-- name: supervisor | ensure supervisor is started
+- name: supervisor deprecated | ensure supervisor is started
   service:
     name: "{{ supervisor_service }}"
     state: started
   register: supervisor_started
 
-- name: supervisor | ensure supervisor is restarted
+- name: supervisor deprecated | ensure supervisor is restarted
   service:
     name: "{{ supervisor_service }}"
     state: restarted
@@ -53,18 +55,21 @@
   tags:
     - skip-ansible-lint
 
-- name: supervisor | pause 10 seconds when supervisor started
+- name: supervisor deprecated | pause 10 seconds when supervisor started
   pause:
-    seconds: 10
+    seconds: "10"
   when: supervisor_started.changed or supervisor_restarted.changed
 
-- name: supervisor | start burp server
+- name: supervisor deprecated | start burp server
   supervisorctl:
     name: burp-server
     state: started
 
-- name: supervisor | wait for burp_server port
-  wait_for: port={{ burp_server_port }} delay=5 timeout=30
+- name: supervisor deprecated | wait for burp_server port
+  wait_for: 
+    port: "{{ burp_server_port }}"
+    delay: 5
+    timeout: 30
 
 # state: present uses supervisorctl add which is not available on centos 6
 # Supervisor must be restarted first

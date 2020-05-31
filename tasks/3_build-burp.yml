@@ -3,7 +3,7 @@
 - name: build-burp | ensure cache for apt is updated
   apt:
     update_cache: yes
-    cache_valid_time: 43200
+    cache_valid_time: "43200"
   changed_when: false
   when: ansible_os_family == 'Debian'
 
@@ -68,7 +68,8 @@
     - restart burp server
     - restart burp server systemd
 
-- block:
+- name: build-burp block | Verify burp version if the burp_version is not master
+  block:
   # Verify burp version if the burp_version is not master
 
   # Run this task always to register the burp version

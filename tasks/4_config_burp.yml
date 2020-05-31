@@ -68,7 +68,7 @@
   copy:
     src: "{{ item }}"
     dest: "{{ burp_server_clientconfdir }}"
-    directory_mode: yes
+    directory_mode: "yes"
     force: yes
   with_items:
     - incexc

@@ -35,7 +35,7 @@
     group: "{{ burp_sv_server_user }}"
     # use_proxy: yes
   retries: 3
-  delay: 2
+  delay: 6
   with_items:
-    - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
-    - { src: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download", dest: "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}/package" }
+    - { src: "{{ autoupgrade_url_win64 }}", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
+    - { src: "{{ autoupgrade_url_win32 }}", dest: "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}/package" }
