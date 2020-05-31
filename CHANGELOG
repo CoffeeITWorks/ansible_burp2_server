@@ -1,3 +1,7 @@
+2.4.1
+=====
+* Improve speed to synchronize files/incexc files improved around 5x (from 58s to 10s)
+
 2.4.0
 =====
 * support and add automatic test for systemd burp service with unprivileged user

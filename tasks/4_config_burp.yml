@@ -1,6 +1,11 @@
 ---
 # file tasks/config_burp.yml
 
+- name: config_burp | install config dependencies
+  package:
+    name: "{{ ansible_burp_config_dependencies | join(',') }}"
+    state: present
+
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: config_burp | create etc directories
   file: 
@@ -44,7 +49,6 @@
     state: absent
   with_items:
     - "{{ burp_server_clientconfdir }}/testclient"
-    - "{{ burp_server_clientconfdir }}/incexc/example"
 
 - name: config_burp | configure burp server
   template:
@@ -65,13 +69,11 @@
   with_items: "{{ profiles_templates }}"
 
 - name: config_burp | copy clients configuration files
-  copy:
-    src: "{{ item }}"
+  synchronize:
+    src: "files/incexc"
     dest: "{{ burp_server_clientconfdir }}"
-    directory_mode: "yes"
-    force: yes
-  with_items:
-    - incexc
+  become: yes
+  become_user: "{{ burp_sv_server_user }}"
 
 - name: config_burp | configure profile lnxsrv to create new client
   template:
