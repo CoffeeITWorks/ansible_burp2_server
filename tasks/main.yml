@@ -9,7 +9,8 @@
 
 - include: build-burp.yml
 
-- include: build-burp.yml
+# Include steps to be ready for unprivileged account
+- include: unprivileged_user.yml
   when: burp_sv_server_user != "root"
 
 - include: config_burp.yml
