@@ -18,7 +18,7 @@
 
 # https://github.com/grke/burp/pull/831/files#diff-c47c7c7383225ab55ff591cb59c41e6bR23
 # required for uthash-devel on Centos 8
-- name: Enable PowerTools repo on CentOS 8
+- name: redhat | Enable PowerTools repo on CentOS 8
   ini_file:
     dest: /etc/yum.repos.d/CentOS-PowerTools.repo
     section: PowerTools

@@ -1,3 +1,8 @@
+2.4.0
+=====
+* support and add automatic test for systemd burp service with unprivileged user
+* reorganize files and minor lint fixes
+
 2.2.2
 =====
 * burp_ca file in sync with burp repo

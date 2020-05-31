@@ -17,7 +17,7 @@
   service:
     name: burp-server
     state: restarted
-  when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
+  when: burp_sv_type == 'systemd'
 
 - name: restart cron server
   service:

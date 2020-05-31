@@ -1,42 +1,46 @@
 ---
 # file: tasks/main.yml
 
-- include: multi_os.yml
+- include: 1_1_multi_os.yml
 
 # - include: repositories.yml
 
 # - include: install_burp.yml
 
-- include: build-burp.yml
+# Include steps to be ready for unprivileged account
+- include: 2_unprivileged_user.yml
+  when: burp_sv_server_user != "root"
 
-- include: config_burp.yml
+- include: 3_build-burp.yml
 
-- include: hotfix/burp_ca.yml
+- include: 4_config_burp.yml
+
+- include: 5_hotfix/burp_ca.yml
   when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "10")
 
-- include: manual_client.yml
+- include: 6_manual_client.yml
 
 # Only for monitor and status purpose
-- include: manual_delete.yml
+- include: 7_1_manual_delete.yml
   when: burp_manual_delete_enabled
 
-- include: manual_delete_disabled.yml
+- include: 7_2_manual_delete_disabled.yml
   when: not burp_manual_delete_enabled
 
-- include: autoupgrade.yml
+- include: 8_autoupgrade.yml
   when: burp_server_autoupgrade_enabled
 
-- include: clients_git.yml
+- include: 9_clients_git.yml
   when: burp_repos
   tags: update_git_clients
 
-- include: local_client.yml
+- include: 10_local_client.yml
 
-- include: supervisor.yml
+- include: deprecated/supervisor.yml
   when: burp_sv_type == 'supervisor'
 
-- include: systemd.yml
-  when: burp_sv_type == 'systemd' or burp_sv_type == 'systemd_unprivileged'
+- include: 11_systemd.yml
+  when: burp_sv_type == 'systemd'
 
 - name: wait for burpca to get all server certificates
   wait_for:
@@ -50,7 +54,7 @@
 - name: flush handlers
   meta: flush_handlers
 
-- include: backup_tool_script.yml
+- include: 12_backup_tool_script.yml
   when: install_backup_tool_script
 
-- include: remove_client.yml
+- include: 13_remove_client.yml

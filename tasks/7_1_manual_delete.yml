@@ -1,21 +1,24 @@
 ---
 # file tasks/manual_delete.yml
 
-- name: install cron packages
+- name: manual_delete | install cron packages
   package:
     name: "{{ cron_packages | join(',') }}"
     state: present
 
-- name: create burp folders
+- name: manual_delete | create burp folders
   file:
     path: "{{ item }}"
     state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'
   with_items:
     - "{{ burp_trash }}"
     - "{{ burp_logs }}"
     - /etc/cron.d
 
-- name: Cron task to delete files in burp trash
+- name: manual_delete | Cron task to delete files in burp trash
   cron:
     name: delete files in burp trash
     job: 'rm -rfv {{ burp_trash  }}/* >> {{ burp_logs }}/manual_delete.log'
@@ -28,12 +31,12 @@
   with_items: "{{ burp_cron_delete }}"
   notify: restart cron server
 
-- name: configure burp logrotate
+- name: manual_delete | configure burp logrotate
   template:
     src: burp_logrotate.j2
     dest: /etc/logrotate.d/burp
 
-- name: Enable crond service
+- name: manual_delete | Enable crond service
   service:
     name: "{{ cron_service }}"
     state: started
