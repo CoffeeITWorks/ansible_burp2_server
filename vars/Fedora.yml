@@ -21,6 +21,9 @@ build_dependencies:
   - ncurses     # from package dependencies
   - libgcc      # from package dependencies
 
+ansible_burp_config_dependencies:
+  - rsync
+
 supervisoretc_dir: "/etc/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisord
