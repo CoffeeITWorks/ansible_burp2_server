@@ -50,7 +50,7 @@ platforms:
     groups:
       - group1
 
-  - name: ansible_burp2_client-04
+  - name: ansible_burp2_server-04
     image: "geerlingguy/docker-centos8-ansible"
     #privileged: True
     command: /sbin/init
