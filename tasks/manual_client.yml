@@ -10,5 +10,7 @@
   template:
     src: profiles/new_client.j2
     dest: "{{ burp_server_clientconfdir }}/{{ item.name }}"
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
   with_items: "{{ burp2_add_manual_clients | default([]) }}"
   # Ansible will not run the task if the var is empty
