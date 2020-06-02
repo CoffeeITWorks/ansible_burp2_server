@@ -47,11 +47,10 @@ download_dir: "{{ ansible_env.HOME }}/burp"
 
 burp_server_etc: '/etc/burp'
 ## Additional autoupgrade vars:
-# autoupgrade_url_win64: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download"
-# autoupgrade_url_win32: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download"
-# By default using direct mirror link because downloading from default sourceforge.net takes additional 6s to get the file:
-autoupgrade_url_win32: "https://managedway.dl.sourceforge.net/project/burp/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe"
-autoupgrade_url_win64: "https://managedway.dl.sourceforge.net/project/burp/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe"
+#autoupgrade_url_win64: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download"
+#autoupgrade_url_win32: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download"
+autoupgrade_url_win64: "https://github.com/pablodav/burp/releases/download/{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe"
+autoupgrade_url_win32: "https://github.com/pablodav/burp/releases/download/{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe"
 
 ### Burp Server
 ### http://burp.grke.org/docs/manpage.html
