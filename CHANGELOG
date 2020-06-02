@@ -1,3 +1,8 @@
+2.4.2
+=====
+* workaround for sourceforge https://github.com/grke/burp/issues/865
+* fix permissions too permisive on /etc/burp #66
+
 2.4.1
 =====
 * Improve speed to synchronize files/incexc files improved around 5x (from 58s to 10s)
