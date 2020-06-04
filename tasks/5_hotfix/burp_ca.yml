@@ -7,5 +7,5 @@
     dest: "{{ burp_server_ca_burp_ca }}"
     owner: root
     group: root
-    mode: u=rwx,g=rx,o=rx
+    mode: u=rwx,g=rx
     force: yes

@@ -10,22 +10,22 @@
 - name: config_burp | create etc directories
   file: 
     path: "{{ item }}"
-    recurse: yes 
     state: directory
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0755'
+    mode: '0750'
   with_items:
     - '{{ burp_server_etc }}/autoupgrade'
-    - '{{ burp_client_ca_csr_dir }}'
-    - '{{ burp_server_etc }}/clientconfdir/incexc'
-    - '{{ burp_server_etc }}/clientconfdir/profiles'
+    # - '{{ burp_client_ca_csr_dir }}' # already in 10_local_client
+    - "{{ burp_server_clientconfdir }}/profiles"
+    - "{{ burp_server_clientconfdir }}/incexc"
 
 - name: config_burp | copy etc file
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ burp_sv_server_user }}"
+    mode: '0750'
   with_items:
     - { src: "build/CA.cnf.j2", dest: "{{ burp_server_ca_conf }}" }
 
@@ -35,13 +35,11 @@
     state: directory
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0755'
+    mode: '0750'
   with_items:
     - "{{ burp_home }}"
     - "{{ burp_server_data }}"
     - "{{ burp_logs }}"
-    - "{{ burp_server_clientconfdir }}/profiles"
-    - "{{ burp_server_clientconfdir }}/incexc"
 
 - name: config_burp | remove burp example files
   file:
@@ -66,12 +64,18 @@
     src: profiles/profile_template.j2
     dest: "{{ burp_server_clientconfdir }}/incexc/{{ item.name }}"
     owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0750'
   with_items: "{{ profiles_templates }}"
 
 - name: config_burp | copy clients configuration files
   synchronize:
     src: "files/incexc"
     dest: "{{ burp_server_clientconfdir }}"
+    perms: no
+    recursive: no
+    times: no
+    archive: no
   become: yes
   become_user: "{{ burp_sv_server_user }}"
 
@@ -94,5 +98,5 @@
     state: directory
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0755'
+    mode: '0750'
   with_items: "{{ burp_restore_super_clients }}"
