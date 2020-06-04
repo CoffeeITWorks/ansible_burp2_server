@@ -12,7 +12,7 @@
     state: directory
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0755'
+    mode: '0750'
   with_items:
     - "{{ burp_trash }}"
     - "{{ burp_logs }}"

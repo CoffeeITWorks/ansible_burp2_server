@@ -1,3 +1,7 @@
+2.4.3
+=====
+* fixes on permissions and idempotence
+
 2.4.2
 =====
 * workaround for sourceforge https://github.com/grke/burp/issues/865
