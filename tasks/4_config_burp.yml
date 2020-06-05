@@ -25,7 +25,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ burp_sv_server_user }}"
-    mode: '0750'
+    mode: '0640'
   with_items:
     - { src: "build/CA.cnf.j2", dest: "{{ burp_server_ca_conf }}" }
 
@@ -65,7 +65,7 @@
     dest: "{{ burp_server_clientconfdir }}/incexc/{{ item.name }}"
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0750'
+    mode: '0640'
   with_items: "{{ profiles_templates }}"
 
 - name: config_burp | copy clients configuration files
@@ -98,5 +98,5 @@
     state: directory
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0750'
+    mode: '0640'
   with_items: "{{ burp_restore_super_clients }}"
