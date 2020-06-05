@@ -74,6 +74,10 @@
     dest: "{{ burp_server_clientconfdir }}/incexc/"
     archive: no
     recursive: yes
+    times: yes
+    links: no
+    perms: no
+    checksum: yes # required to skip based on checksum not on time and size
   become: yes
   become_user: "{{ burp_sv_server_user }}"
 
