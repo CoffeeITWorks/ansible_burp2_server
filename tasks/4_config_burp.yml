@@ -70,12 +70,10 @@
 
 - name: config_burp | copy clients configuration files
   synchronize:
-    src: "files/incexc"
-    dest: "{{ burp_server_clientconfdir }}"
-    perms: no
-    recursive: no
-    times: no
+    src: "files/incexc/"
+    dest: "{{ burp_server_clientconfdir }}/incexc/"
     archive: no
+    recursive: yes
   become: yes
   become_user: "{{ burp_sv_server_user }}"
 
