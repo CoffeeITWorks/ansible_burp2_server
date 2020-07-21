@@ -1,31 +1,23 @@
+# http://www.jeffgeerling.com/blog/testing-ansible-roles-travis-ci-github
 sudo: required
-dist: trusty
-#group: edge
 language: python
 services:
   - docker
-env:
-  global:
-    - PATH="/usr/bin:$PATH"
-#before_install:
-    # Ansible doesn't play well with virtualenv
-#  - deactivate
-#  - sudo apt-get update -qq
-#  - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
+before_install:
+  - sudo apt-get -qq update
+  #- docker build --tag molecule_local/fedora-rawhide2:latest -f molecule/default/fedorar/Dockerfile molecule/default/fedorar
 
 install:
-  #- pip install docker-py # Important: docker-py is not compatible anymore, use docker instead
-  # avoid bug https://github.com/ansible/ansible/issues/23016 until 2.2.3 is released
-  # ref: https://github.com/metacloud/molecule/issues/783
-  - sudo pip install ansible
-  - sudo pip install molecule==1.25.0 # needs to be ported to molecule 2 http://molecule.readthedocs.io/en/latest/porting.html
-  # - pip install required driver (e.g. docker, python-vagrant, shade)
-  - sudo pip install docker
+  - sudo apt-get install -y python-pip libssl-dev libffi-dev
+  - pip install molecule
+  - pip install docker-py
+    #- ansible-galaxy install -r requirements.yml
+
 script:
-  - molecule create
+  - molecule --debug create
   - molecule converge
   - molecule syntax
-  #- molecule idempotence
+  - molecule idempotence
 
 notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/

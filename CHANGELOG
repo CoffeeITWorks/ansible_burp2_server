@@ -1,0 +1,254 @@
+2.4.4
+=====
+* minor fixes to file permissions
+* important fix to regression added with synchronize
+
+2.4.3
+=====
+* fixes on permissions and idempotence
+
+2.4.2
+=====
+* workaround for sourceforge https://github.com/grke/burp/issues/865
+* fix permissions too permisive on /etc/burp #66
+
+2.4.1
+=====
+* Improve speed to synchronize files/incexc files improved around 5x (from 58s to 10s)
+
+2.4.0
+=====
+* support and add automatic test for systemd burp service with unprivileged user
+* reorganize files and minor lint fixes
+
+2.2.2
+=====
+* burp_ca file in sync with burp repo
+
+2.2.1
+=====
+* support centos 8
+
+2.2.0
+=====
+
+* fix debian-10 support
+* add workaround for debian-10 tests not working with hostname -f command.
+
+2.0.0
+=====
+
+* Break burp_restoreclients changed to burp_restore_super_clients to to a change in the burp config.
+* fixes for molecule v3
+
+1.34.3
+======
+
+* #40 - review of templates used and review from deajan templates
+
+1.34.2
+======
+
+* Added resources/quickstart examples
+* Added burp_max_resume_attempts default option set to 4
+
+1.34.0
+======
+
+* Support burp 2.2.18 
+  BREAKING change was introduced in 2.2.10: the address/port and status_address/status_port have been
+  removed in favor of new unified "listen" and "listen_status" options.
+  https://github.com/CoffeeITWorks/ansible_burp2_server/issues/32
+
+* Remove burp_restore module in favor of port per operation
+  Compatible since burp 2.1.10
+  Change per operation port bool to default as it is completely safe
+    burp_server_port_per_operation_bool: true
+
+* change autoupgrade var to default true.
+     burp_server_autoupgrade_enabled: true
+  You can still set it in your own group/host_vars and set false
+  WARN: You will need to add playbook or manually remove/disable the burp-restore service when upgrading.
+
+* change the way I read the burp version
+  https://github.com/CoffeeITWorks/ansible_burp2_server/issues/37
+
+BREAK: This role will not support burp versions older to 2.2.10+ since burp server role version 1.34.0
+       due to the changes introduced on burp-config and burp -V to read version.
+
+* Adding a resources/upgrade.yml file to remove some unnecesary steps for normal installation and operation,
+  optimization on speed of the run for the role
+
+* clean check of burp version https://github.com/CoffeeITWorks/ansible_burp2_server/issues/33
+
+* added variable for burp etc path https://github.com/CoffeeITWorks/ansible_burp2_server/issues/34
+
+* Use systemd by default for better speed deploying
+  You can choose between [systemd, supervisor, systemd_unprivileged] using var:
+
+    burp_sv_type: systemd
+
+* Remove molecule test for ubuntu trusty (it will be out of support next month)
+
+1.32.0
+======
+
+* Move burpui agent modules to another role
+* Move burp tests to another role
+* Remove supervisor ppa for trusty
+
+=======
+v1.30.2
+=======
+
+* fix on autoupgrade script
+
+v1.30.1
+=======
+
+* fix on metadata for ansible galaxy
+
+v1.30
+=====
+
+* Upgrade burpui-agent to v0.6.1 https://github.com/CoffeeITWorks/ansible_burp2_server/issues/28
+* Add compile optimizations. 
+Now this role compiles with some better configurations for performance improvements, you can also change the variable `burp_configure_line` with your own configure flags too.
+See https://github.com/CoffeeITWorks/ansible_burp2_server/issues/24.
+* Add backup script tool from @deajan
+backup_script_tool is added as optional installation, you can use var `install_backup_tool_script: true` to install, see defaults/main.yml vars for more options.
+https://github.com/CoffeeITWorks/ansible_burp2_server/issues/26
+
+* Add more help for newcomers and developers of ansible role https://github.com/CoffeeITWorks/ansible_burp2_server/issues/6
+
+See https://github.com/CoffeeITWorks/ansible_burp2_server#Developers
+
+Also for newusers: https://github.com/CoffeeITWorks/ansible_burp2_server#quickstart
+
+v1.12
+=======
+
+* added more windows exclusions by @deajan on github. Thanks!
+* default to burp 2.1.32 as it is the current stable
+
+v1.11
+=======
+
+* updated lnxsrv_global_exclusions
+* Update default burp to 2.1.28 (current stable)
+* Migrate molecule tests to molecule v2 closes #18
+* fix #19 fixes testing for fedora on molecule
+
+
+v1.10
+=====
+
+* #16 Install python3 to centos or Redhat when using pip3 as executable for burpui-agent (default)
+* Added fedora tests with molecule
+* Install cron/cronie if it is not installed
+* use crond as service name when it is on Redhat based systemd
+* #15 change defaults based on https://github.com/grke/burp/wiki/Performance-Tips
+* burp_manual_delete_enabled: true by default based on #15 (saves lot of time for phase4 on big backups or when having hundred of services)
+
+v1.9.3
+======
+
+* change to python3 for buiagent to fix https://git.ziirish.me/ziirish/burp-ui/issues/233
+
+v1.9.2
+======
+
+Some idempotence fix for supervisor
+
+v1.9.1
+======
+
+Small lint fixes
+
+v1.9
+====
+
+* Clean files and tasks when disabled manual_delete
+* Improve idempotence tasks for supervisor
+* Added support for debian9 (vars/Debian-9.yml added) some change in libssl dependency
+* Molecule tests for debian8, debian9, centos7, ubuntu latest, ubuntu trusty
+* Improved check for new install, it will ensure certificates required for burp are created: 
+  - name: supervisor | wait for burpca to get all server certificates
+    wait_for:
+      path: "{{ item }}"
+      state: present
+    with_items:
+      - '/etc/burp/ssl_cert_ca-server.pem'
+      - '/etc/burp/ssl_cert-server.key'
+      - '/etc/burp/ssl_cert-server.pem'
+
+v1.8
+====
+
+* Add notify failure by email
+  Modify these variables in you host/group vars 
+  to allow notification when a failure occurs
+  burp_notify_failure: false
+  burp_notify_failure_email_to: root@localhost
+  burp_notify_failure_email_from: "burp_{{ ansible_nodename }}@domain.net"
+
+  You will need some setup done in your sendmail command, like local postfix/sendmail. 
+  It's easy for linux sysadmin or those using ansible like automation. 
+
+v1.7
+====
+
+* Since version 2.1.10
+   + Add the ability for the client to connect to different server ports
+   burp_server_port_per_operation_bool: true
+
+v1.6
+====
+
+* Update burpui-agent to 0.5.1
+
+v1.5
+====
+
+* Update burpui-agent to 0.5.0
+
+v1.4
+====
+
+* Added burp_remove_clients as an option to remove clients from a list
+
+v1.3
+====
+
+* fixed idempotence, ansible-lint, centos7/systemd docker test to pass all tests with molecule.
+* Passing all tests with molecule test for: centos7/systemd, Ubuntu/latest, Debian/8. 
+* Added travis test with molecule
+** Tests master branch of burp when run with debian/8 (ansible_burp_server-master2 name in molecule.yml)
+* Molecule tests forced to be in serial: 1 to avoid performance issues with travisci
+* Added automated travis import to galaxy
+
+v1.2
+====
+
+* Add librsync option to burp-server.conf template
+* Add burp_server_custom_lines var
+* Added profile_lnxsrv_medium on defaults
+* Added cross_all_filesystems=1 on defaults profiles
+* Fixed testing centos7 with docker when running `molecule test`
+* Fixed testing master branch (not test burp version in this case)
+
+v1.0
+====
+
+* Configure Burp UI Agent
+* Configure burp restore service
+* Configure Burp manual delete
+* Configure Burp Autoupgrade
+* Activate clients from git repository
+* have tests automatic for restore, backup with test client
+* modify all setting for burp_server.conf
+* build burp from source and have option to choose which burp version build
+* Upgrade from source
+* profiles_templates from defaults, so anyone can set their own, and also with good defaults profiles: profile_lnxsrv, profile_win6x, profile_win6x_drp
+* burp2_add_manual_clients to have possibility to add clients from a list, also from command line
+

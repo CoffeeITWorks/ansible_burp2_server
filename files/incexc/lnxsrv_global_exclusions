@@ -9,12 +9,11 @@ exclude_regex = /dev
 exclude_regex = /var/lib/lxcfs
 exclude_regex = /var/lib/docker/devicemapper
 exclude_regex = /var/lib/docker/containers
-
+exclude_regex = \.cache/
 
 exclude_fs = sysfs
 exclude_fs = tmpfs
 exclude_fs = sysfs
-exclude_fs = tmpfs
 exclude_fs = proc
 exclude_fs = devtmpfs
 exclude_fs = devpts
@@ -32,5 +31,12 @@ exclude_fs = nsfs
 exclude_fs = binfmt_misc
 exclude_fs = fuse
 
-exclude_comp = bz2
-exclude_comp = gz
+# Dropbox, OneDrive, SkyDrive (not excluded by default because of cryptolockers attacks)
+#exclude_regex = ^/home/[^/]+/SkyDrive[^/]+
+#exclude_regex = ^/home/[^/]+/Dropbox
+#exclude_regex = ^/home/[^/]+/OneDrive
+
+# Linux cache files
+exclude_regex = \.cache
+exclude_regex = /\.cache/
+exclude_regex = /lost\+found

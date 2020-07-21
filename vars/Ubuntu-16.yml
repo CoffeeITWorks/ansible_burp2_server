@@ -1,0 +1,49 @@
+---
+# file: vars/Ubuntu.yml
+
+# burp_server_packages:
+#  - libssl-dev
+#  - burp-core
+
+build_dependencies:
+  - make
+  - pkg-config
+  - check
+  - g++
+  - librsync-dev
+  - libncurses5-dev
+  - libz-dev
+  - libssl-dev
+  - uthash-dev
+  - libyajl-dev
+  - autoconf
+  - automake
+  - libtool
+  - dh-autoreconf
+  - unzip       # required to unzip from master.zip archive for example
+  - openssl     # On debian 8 vagrant is not installed by default
+  - libncurses5 # from package dependencies
+  - libgcc1     # from package dependencies
+  - libc6       # from package dependencies
+  - libacl1     # from package dependencies
+  - libssl1.0.0 # from package dependencies
+  - libtinfo5   # from package dependencies
+  - zlib1g      # from package dependencies
+  - locales
+
+# Repository information: http://ziirish.info/repos/README.txt
+# burp_apt_sources:
+#  - "deb http://ziirish.info/repos/ubuntu/{{ ansible_distribution_release }} zi-latest main"
+
+ansible_burp_config_dependencies:
+  - rsync
+
+supervisoretc_dir: "/etc/supervisor/conf.d"
+supervisor_ext: "conf"
+supervisor_service: supervisor
+pip_installed_exe_bin_path: '/usr/local/bin'
+
+cron_packages:
+  - cron      # To enable crontab jobs
+
+cron_service: cron

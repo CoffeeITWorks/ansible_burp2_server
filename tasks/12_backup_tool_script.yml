@@ -1,0 +1,23 @@
+---
+
+- name: backup_tool_script | ensure dir exists
+  file:
+    path: "{{ backup_tool_script_dir }}"
+    state: directory
+    owner: root
+    group: root
+
+- name: backup_tool_script |  Install or update backup tool script
+  get_url:
+    url: "{{ backup_tool_script_url }}"
+    dest: "{{ backup_tool_script_path }}"
+    force: no
+    owner: root
+    group: root
+    mode: 0755
+
+- name: backup_tool_script | create link to local bin
+  file:
+    src: "{{ backup_tool_script_path }}"
+    dest: "/usr/local/bin/backup_tool_script"
+    state: link

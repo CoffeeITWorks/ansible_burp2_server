@@ -1,0 +1,18 @@
+---
+# file: tasks/manual_client.yml
+
+# Optional list of clients to add on specific execution
+# - name: client_name
+#   profile: profile name to use (optional), default: profile_lnxsrv (these files are in incexc/ dir).
+#   password: client_password (optional), default: burp_client_password var
+
+- name: manual_client | add local client from var burp2_add_manual_clients
+  template:
+    src: profiles/new_client.j2
+    dest: "{{ burp_server_clientconfdir }}/{{ item.name }}"
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+  with_items: "{{ burp2_add_manual_clients | default([]) }}"
+  # Ansible will not run the task if the var is empty
+  tags:
+    - add_manual_clients

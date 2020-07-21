@@ -1,0 +1,8 @@
+---
+# file: site.yml 
+
+- name: include burp2 servers
+  import_playbook: roles.burp2_servers.yml
+
+- name: Include backups roles for all our servers in our infra
+  import_playbook: roles.common_backups.yml

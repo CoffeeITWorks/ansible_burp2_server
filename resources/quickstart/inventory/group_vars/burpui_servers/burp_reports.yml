@@ -1,0 +1,8 @@
+---
+# check more variables at the role https://galaxy.ansible.com/coffeeitworks/burp_reports
+# and also in github defaults/main.yml file.
+
+# Change this here or better create a VAULT encrypted file and 
+# set here the {{ VAULT_burpui_password }} as value
+
+burpui_apiurl: http://admin:admin@localhost:5000/api/

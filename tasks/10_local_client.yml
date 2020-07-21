@@ -1,0 +1,24 @@
+---
+# file tasks/local_client.yml
+
+- name: local_client | create CA-monitor folder
+  file:
+    path: "{{ burp_client_ca_csr_dir }}"
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0750'
+
+- name: local_client | configure burp client
+  template:
+    src: burp.conf.j2
+    dest: "{{ burp_server_etc }}/burp.conf"
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+
+- name: local_client | add local client
+  template:
+    src: monitor.j2
+    dest: "{{ burp_server_clientconfdir }}/monitor"
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"

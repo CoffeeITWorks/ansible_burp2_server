@@ -7,8 +7,42 @@ exclude_regex="C:/Users/All Users"
 #exclude_regex="C:/Users/[^/]+/AppData/Local/History"
 #exclude_regex="C:/Users/[^/]+/AppData/Local/Application Data"
 #exclude_regex="C:/Users/[^/]+/AppData/Local/Temporary Internet Files"
+#exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Internet Explorer"
 #exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Windows/Temporary Internet Files"
+# Error reports
+#exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Windows/WER"
+# Windows 10 Edge cache
+#exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Windows/InetCache"
+#exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Windows/WebCache"
+#exclude_regex="C:/Users/[^/]+/AppData/Local/Microsoft/Windows/AppCache"
+#exclude_regex="C:/Users/[^/]+/AppData/Roaming/Microsoft/Windows/Cookies"
+#exclude_regex=".*/MSOCache.*"
+#exclude_regex=".*/Config\.Msi"
+#exclude_regex=".*Thumbs\.db"
+#exclude_regex=".*/NetHood/"
+#exclude_regex=".*/PrintHood/"
+#exclude_regex=".*/Cookies/"
+#exclude_regex=".*/Recent/"
+#exclude_regex=".*/SendTo/"
+#exclude_regex=".*/LocalService/"
+#exclude_regex=".*/NetworkService/"
 #exclude_regex="C:/Users/[^/]+/Downloads"
+# Windows update cache
+exclude_regex="C:/Windows/SoftwareDistribution/Download"
+exclude_regex="C:/Windows/Temp"
+exclude_regex="C:/Windows/Downloaded Program Files"
+exclude_regex="[A-Z]:/RECYCLER"
+exclude_regex=^[A-Z]:/\$recycle\.bin$
+exclude_regex="[A-Z]:/System Volume Information"
+# swap file (Windows XP, 7, 8)
+exclude_regex="[A-Z]:/pagefile.sys"
+# swap file?? (Windows 8)
+exclude_regex="[A-Z]:/swapfile.sys"
+exclude_regex=^[A-Z]:/hiberfil\.sys$
+# Windows temp installer
+exclude_regex="[A-Z]:/$WINDOWS.~BT"
+# Windows 10 Upgrade previous install
+exclude_regex=[A-Z]:/Windows.old$
 exclude_ext=exe
 exclude_ext=msi
 exclude_ext=msu

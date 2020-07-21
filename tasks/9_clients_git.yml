@@ -1,0 +1,26 @@
+---
+# file: tasks/linux.yml
+
+- name: clients_git | Clone configuration directories
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ burp_server_clientconfdir }}/{{ item.dir }}"
+    version: "{{ item.version }}"
+    update: yes
+    force: yes
+  with_items: "{{ burp_repos }}"
+
+- name: clients_git | Link client configuration files
+  shell: "ln -fs {{ item.dir }}/* ./"
+  args:
+    chdir: "{{ burp_server_clientconfdir }}"
+  with_items: "{{ burp_repos }}"
+  changed_when: false
+  tags:
+    - skip_ansible_lint
+
+- name: clients_git | Remove deprecated links
+  shell: 'find . -type l -xtype l -exec rm -rf {} \;'
+  args:
+    chdir: "{{ burp_server_clientconfdir }}"
+  changed_when: false

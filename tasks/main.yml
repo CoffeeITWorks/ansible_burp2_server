@@ -1,58 +1,60 @@
 ---
 # file: tasks/main.yml
 
-- include: multi_os.yml
-  tags:
-    - add_manual_clients
-
-- include: redhat.yml
-  when: ansible_os_family == "RedHat"
+- include: 1_1_multi_os.yml
 
 # - include: repositories.yml
 
 # - include: install_burp.yml
 
-  # Clean any package distribution before start
-- include: clean.yml
+# Include steps to be ready for unprivileged account
+- include: 2_unprivileged_user.yml
+  when: burp_sv_server_user != "root"
 
-- include: build-burp.yml
+- include: 3_build-burp.yml
 
-- include: config_burp.yml
+- include: 4_config_burp.yml
 
-- include: manual_client.yml
-  # tags should be declared at include level see https://www.ansible.com/blog/ansible-2.0-launchb
-  tags:
-    - add_manual_clients
-    
-  # Only for monitor and status purpose
-- include: manual_delete.yml
+- include: 5_hotfix/burp_ca.yml
+  when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "10")
+
+- include: 6_manual_client.yml
+
+# Only for monitor and status purpose
+- include: 7_1_manual_delete.yml
   when: burp_manual_delete_enabled
-  tags:
-    - add_manual_clients
-    
-- include: manual_delete_disabled.yml
+
+- include: 7_2_manual_delete_disabled.yml
   when: not burp_manual_delete_enabled
-  tags:
-    - add_manual_clients
-    
-- include: autoupgrade.yml
+
+- include: 8_autoupgrade.yml
   when: burp_server_autoupgrade_enabled
 
-- include: clients_git.yml
+- include: 9_clients_git.yml
   when: burp_repos
   tags: update_git_clients
 
-- include: config_restore.yml
-  when: burp_module_restore
+- include: 10_local_client.yml
 
-- include: local_client.yml
+- include: deprecated/supervisor.yml
+  when: burp_sv_type == 'supervisor'
 
-- include: config_agent.yml
-  when: burp_module_agent
+- include: 11_systemd.yml
+  when: burp_sv_type == 'systemd'
 
-- include: supervisor.yml
+- name: wait for burpca to get all server certificates
+  wait_for:
+    path: "{{ item }}"
+    state: present
+  with_items:
+    - '{{ burp_server_etc }}/ssl_cert_ca-server.pem'
+    - '{{ burp_server_etc }}/ssl_cert-server.key'
+    - '{{ burp_server_etc }}/ssl_cert-server.pem'
 
-- include: tests/test_client.yml
-  when: burp_module_test_client
+- name: flush handlers
+  meta: flush_handlers
 
-- include: remove_client.yml
+- include: 12_backup_tool_script.yml
+  when: install_backup_tool_script
+
+- include: 13_remove_client.yml

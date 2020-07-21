@@ -4,13 +4,11 @@ mode = server
 
 # The default addresses to listen on depend upon compile time options.
 # They may be overridden here.
-address = {{ burp_server_address }}
-port = {{ burp_server_port }}
+listen = {{ burp_server_listen }}
 # Think carefully before changing the status port address, as it can be used
 # to view the contents of backups.
-status_address = {{ burp_server_status_address }}
 # If you do not wish to run a status server at all, comment status_port out.
-status_port = {{ burp_server_status_port }}
+listen_status = {{ burp_server_listen_status }}
 
 directory = {{ burp_server_data }}
 dedup_group = {{ burp_server_dedup_group }}
@@ -26,6 +24,7 @@ pidfile = {{ burp_server_pidfile }}
 hardlinked_archive = {{ burp_server_hardlinked_archive }}
 librsync={{ burp_server_librsync }}
 working_dir_recovery_method = {{ burp_server_working_dir_recovery_method }}
+max_resume_attempts = {{ burp_max_resume_attempts }}
 max_children = {{ burp_server_max_children }}
 max_status_children = {{ burp_server_max_status_children }}
 umask = {{ burp_server_umask }}
@@ -167,8 +166,8 @@ notify_failure_arg = Subject: %b failed: %c %w
 # The server can run scripts on each connection after authentication and before
 # disconnecting.
 #server_script_pre = /usr/share/burp/scripts/ssl_extra_checks_script
-#server_script_pre_arg = "{{ etc_dir }}/burp/crl"
-#server_script_pre_arg = "{{ etc_dir }}/burp/burp-server.conf"
+#server_script_pre_arg = {{ burp_server_etc }}/crl
+#server_script_pre_arg = {{ burp_server_etc }}/burp-server.conf
 #server_script_pre_arg = /usr/share/burp/scripts/server-pre-script.local
 # Set server_script_pre_notify to 1 to have notifications on server_script_pre
 # returning non-zero. Most people will want to leave this off - it could
@@ -213,8 +212,8 @@ monitor_browse_cache = {{ burp_server_monitor_cache }}
 manual_delete = {{ burp_trash }}
 {% endif %}
 
-{% for client in burp_restore_clients %}
-restore_client = {{ client }}
+{% for client in burp_restore_super_clients %}
+super_client = {{ client }}
 {% endfor %}
 
 {% if burp_server_custom_lines %}

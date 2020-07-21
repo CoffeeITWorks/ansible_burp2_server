@@ -1,0 +1,41 @@
+---
+# file tasks/autoupgrade.yml
+
+- name: autoupgrade | create autoupgrade clients dir
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    mode: '0755'
+  with_items:
+    - "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}"
+    - "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}"
+
+# documentation from:
+# http://burp.grke.org/docs/autoupgrade.html
+
+- name: autoupgrade | copy autoupgrade_script
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+  with_items:
+    - { src: "autoupgrade_script", dest: "{{ burp_server_autoupgrade_dir }}/win32/script" }
+    - { src: "autoupgrade_script", dest: "{{ burp_server_autoupgrade_dir }}/win64/script" }
+
+- name: autoupgrade | Get autoupgrade package
+  get_url:
+    url: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    timeout: 30
+    validate_certs: no
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
+    # use_proxy: yes
+  retries: 3
+  delay: 6
+  with_items:
+    - { src: "{{ autoupgrade_url_win64 }}", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
+    - { src: "{{ autoupgrade_url_win32 }}", dest: "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}/package" }

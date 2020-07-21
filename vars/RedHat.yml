@@ -17,23 +17,13 @@ build_dependencies:
   - automake
   - libtool
   - autoconf # provides autoreconf
-  - libffi-devel # burpui dependency for cffi package
   - unzip       # required to unzip from master.zip archive for example
   - openssl     # ensure it is installed, if not burp_ca will not work
   - ncurses     # from package dependencies
   - libgcc      # from package dependencies
 
-burp_agent_packages:
-  - python-pip
-  - python-devel
-  - supervisor
-  - redhat-rpm-config # This is required to build ujson, if not install pip got error: gcc: error: /usr/lib/rpm/redhat/redhat-hardened-cc1: No such file or directory
-
-burp_agent_py3_packages:
-  - python3
-  - python3-devel
-  - python3-pip
-  - redhat-rpm-config
+ansible_burp_config_dependencies:
+  - rsync
 
 supervisoretc_dir: "{{ etc_dir}}/supervisor/conf.d"
 supervisor_ext: "conf"
