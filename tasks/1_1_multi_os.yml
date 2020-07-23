@@ -14,3 +14,6 @@
 
 - include: 1_2_redhat.yml
   when: ansible_os_family == "RedHat"
+
+- include: 1_3_debian.yml
+  when: ansible_os_family == "Debian" and ansible_distribution_major_version <= 9

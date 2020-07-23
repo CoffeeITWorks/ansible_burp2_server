@@ -1,5 +1,5 @@
 ---
-# file: vars/Ubuntu.yml
+# file: vars/Debian-9.yml
 
 # burp_server_packages:
 #  - libssl-dev
@@ -41,7 +41,7 @@ ansible_burp_config_dependencies:
 supervisoretc_dir: "/etc/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisor
-pip_installed_exe_bin_path: '/usr/local/bin'
+pip_installed_exe_bin_path: '{{ usr_dir }}/local/bin'
 
 cron_packages:
   - cron      # To enable crontab jobs

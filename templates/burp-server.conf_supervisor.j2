@@ -5,6 +5,8 @@ command={{ burp_sv_server_command }}
 user={{ burp_sv_server_user }}
 autostart={{ burp_sv_server_autostart }}
 autorestart={{ burp_sv_server_autorestart }}
+# ignore fast exit - do not know howto solve this better
+startsecs = 0
+startretries={{ burp_sv_server_startretries }}
 stdout_logfile={{ burp_sv_server_stdout_logfile }}
 stderr_logfile={{ burp_sv_server_stderr_logfile }}
-

@@ -2,7 +2,17 @@
 # file: defaults/main.yml
 # New default options based on: https://github.com/grke/burp/wiki/Performance-Tips
 
+# default paths for non FreeBSD systems
+etc_dir: "/etc"
+usr_dir: "/usr"
+# use the pkg tool to use binaries and be faster
+burp_freebsd_use_portinstall: false
+
 ### Modules ---
+# Configure Burp UI Agent
+burp_module_agent: false
+# Configure burp restore service
+burp_module_restore: false
 # Configure Burp manual delete
 burp_manual_delete_enabled: true
 # Configure Burp Autoupgrade
@@ -10,7 +20,7 @@ burp_server_autoupgrade_enabled: true
 # Activate clients from git repository
 burp_repos: false
 #burpsrv_repos:
-#  - { repo: "url", version: "branch", dir: "dest dir"}
+#  - { repo: "url", versiong: "branch", dir: "dest dir"}
 # Example:
 # burp_repos:
 #  - { repo: "http://host/group/repo.git", version: "master", dir: "linux_clients"}
@@ -26,14 +36,15 @@ burp_repos: false
 burp_home: "/var/spool/burp"
 
 ## Build vars:
-
+# freeBSD need gmake
+make: "make"
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
 autoupgrade_version: "2.2.18"  # master version is not compiled so added separately
 burp_version: "2.2.18"         # branch or tag, example: "master"  , example: "2.0.46"
 burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure "
 # For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
-burp_usr_path: '/usr/local'
+burp_usr_path: "{{ usr_dir }}"
 burp_bin_path: "{{ burp_usr_path }}/sbin/burp"
 
 burp_force_reinstall: false
@@ -45,7 +56,7 @@ burpurl: "https://github.com/grke/burp/archive/{{ burp_version }}.{{ burpsrcext 
 # Directory that will be used as the location for the downloads§
 download_dir: "{{ ansible_env.HOME }}/burp"
 
-burp_server_etc: '/etc/burp'
+burp_server_etc: "{{ etc_dir }}/burp"
 ## Additional autoupgrade vars:
 #autoupgrade_url_win64: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download"
 #autoupgrade_url_win32: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download"
@@ -125,7 +136,7 @@ burp_server_custom_lines: []
 # See also files/incexc, those in this repo are copied to /etc/burp/clientconfdir/incexc
 # This template create each template in: /etc/burp/clientconfdir/incexc/name
 profiles_templates:
-
+  
   - name: profile_lnxsrv
     content:
       - "#hard_quota No permitir backups a clientes con mas de xxGb en el backup total"
@@ -284,8 +295,9 @@ burp_sv_server_command: "{{ burp_bin_path }} -c {{ burp_server_etc }}/burp-serve
 burp_sv_server_user: "root"
 burp_sv_server_autostart: "true"
 burp_sv_server_autorestart: "true"
-burp_sv_server_stdout_logfile: "/var/log/supervisor/%(program_name)s.log"
-burp_sv_server_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
+burp_sv_server_startretries: "5"
+burp_sv_server_stdout_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
+burp_sv_server_stderr_logfile: "{{ burp_sv_server_log_dir }}/%(program_name)s.log"
 ### ---
 
 # if burp_manual_delete_enabled: true
@@ -342,3 +354,7 @@ backup_tool_script_url: 'https://github.com/grke/burp/blob/master/configs/server
 backup_tool_script_dir: '{{ burp_usr_path }}/share/burp/scripts'
 backup_tool_script_path: "{{ backup_tool_script_dir }}/backup_tool_script"
 install_backup_tool_script: false
+
+# use the 'portinstall' module on FreeBSD to compile packages instead of 'package'
+burp_freebsd_use_portinstall: True
+  

@@ -1,0 +1,42 @@
+---
+# file: vars/FreeBSD-11.yml
+
+# etc - different path for all additional sw
+etc_dir: "/usr/local/etc"
+usr_dir: "/usr/local"
+
+make: "gmake"
+
+burp_server_packages:
+  - py-supervisor 
+  - logrotate
+  - bash
+build_dependencies:
+  - uthash
+  - librsync2
+  - autotools
+  - yajl
+  - gmake
+  - openssl
+  # enables svn co
+  - ca_root_nss
+burp_agent_packages:
+  - python27
+  - devel/py-pip
+  - py27-supervisor
+burp_agent_py3_packages:
+  - python36
+  - py-pip
+
+supervisoretc_dir: "{{ etc_dir }}/supervisor/conf.d"
+supervisor_ext: "conf"
+supervisor_service: supervisord
+
+pip_installed_exe_bin_path: "{{ usr_dir }}/bin"
+
+cron_packages:
+  - logrotate
+cron_service: cron
+
+autoupgrade_version: "2.0.54"  # master version is not compiled so added separately
+burp_version: "2.0.54"         # branch or tag, example: "master"  , example: "2.0.46"

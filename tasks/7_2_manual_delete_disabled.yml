@@ -18,4 +18,4 @@
 - name: manual_delete_disabled | remove burp logrotate
   file:
     state: absent
-    path: /etc/logrotate.d/burp
+    path: "{{ etc_dir }}/logrotate.d/burp"

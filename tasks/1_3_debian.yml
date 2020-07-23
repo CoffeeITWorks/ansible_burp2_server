@@ -1,0 +1,16 @@
+---
+
+- name: Configure DEB sources for burp
+  template:
+    src: sources_burp.list.j2
+    dest: "{{ etc_dir }}/apt/sources.list.d/sources_burp.list"
+  notify: update cache
+  register: add_burp_repo
+
+# Add an Apt signing key, uses key URL
+- name: Install gpg key for burp repository
+  shell: 'wget -q "http://ziirish.info/repos/{{ ansible_distribution | lower }}.gpg" -O - | sudo apt-key add -'
+  when: add_burp_repo.changed
+
+- name: ensure handlers runs before continue
+  meta: flush_handlers

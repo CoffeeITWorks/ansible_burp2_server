@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    burp_module_test_client: yes
+    burp_force_reinstall: True
+  roles:
+    # force becoming root
+    - { role: ansible_burp2_server, become: yes }

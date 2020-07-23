@@ -1,0 +1,28 @@
+---
+
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: False
+  env:
+    # if not set wants to use libvirt on my box
+    VAGRANT_DEFAULT_PROVIDER: virtualbox
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: freebsd11
+    box: ../../../../../testboxes/vagrant-freebsd11.1-ansibletarget.box
+    memory: 4096
+    cpus: 4
+    # https://www.vagrantup.com/docs/synced-folders/basic_usage.html
+    instance_raw_config_args:
+      - "vm.synced_folder '.', '/vagrant', disabled: true"
+scenario:
+  name: freebsd
+verifier:
+  name: testinfra
+  options:
+    verbose: true

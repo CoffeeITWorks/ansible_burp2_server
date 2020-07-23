@@ -5,7 +5,8 @@
   package:
     name: "{{ cron_packages | join(',') }}"
     state: present
-
+  when: ( ansible_os_family != "FreeBSD" or burp_freebsd_use_portinstall == False )
+  
 - name: manual_delete | create burp folders
   file:
     path: "{{ item }}"
@@ -16,7 +17,7 @@
   with_items:
     - "{{ burp_trash }}"
     - "{{ burp_logs }}"
-    - /etc/cron.d
+    - "{{ etc_dir }}/cron.d"
 
 - name: manual_delete | Cron task to delete files in burp trash
   cron:
@@ -31,10 +32,15 @@
   with_items: "{{ burp_cron_delete }}"
   notify: restart cron server
 
+- name: create logrotate.d folder
+  file:
+    path: "{{ etc_dir }}/logrotate.d"
+    state: directory          
+  
 - name: manual_delete | configure burp logrotate
   template:
     src: burp_logrotate.j2
-    dest: /etc/logrotate.d/burp
+    dest: "{{ etc_dir }}/logrotate.d/burp"
 
 - name: manual_delete | Enable crond service
   service:

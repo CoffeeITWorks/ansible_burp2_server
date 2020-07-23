@@ -1,0 +1,14 @@
+#exclude_paths:
+#  - ./my/excluded/directory/
+#  - ./my/other/excluded/directory/
+#  - ./last/excluded/directory/
+parseable: true
+quiet: true
+#rulesdir:
+#  - ./rule/directory/
+skip_list:
+  - trailing-spaces
+#tags:
+#  - run_this_tag
+use_default_rules: true
+verbosity: 1
