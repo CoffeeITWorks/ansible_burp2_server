@@ -74,7 +74,7 @@
 
   # Run this task always to register the burp version
   - name: build-burp | read burp installed version
-    shell: burp -V
+    shell: burp -v
     changed_when: false
     register: cmd_burp_version
     tags:
