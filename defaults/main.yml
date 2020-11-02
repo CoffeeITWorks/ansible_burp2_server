@@ -292,6 +292,7 @@ burp_sv_server_stderr_logfile: "/var/log/supervisor/%(program_name)s.log"
 ### Manual Delete
 burp_trash: "{{ burp_home }}/trash"
 burp_logs: "/var/log/burp"
+root_group: "root"
 burp_cron_delete:
   - { minute: "00", hour: "03", dow: "*" }
 ### ---
