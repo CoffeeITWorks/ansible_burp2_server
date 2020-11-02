@@ -6,17 +6,21 @@
     name: "{{ cron_packages | join(',') }}"
     state: present
 
+- name: ensure /etc/cron.d exists
+  file:
+    path: /etc/cron.d
+    state: directory
+    owner: root
+    group: "{{ root_group }}"
+    mode: '0755'
+
 - name: manual_delete | create burp folders
   file:
-    path: "{{ item }}"
+    path: "{{ burp_trash }}"
     state: directory
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
-    mode: '0750'
-  with_items:
-    - "{{ burp_trash }}"
-    - "{{ burp_logs }}"
-    - /etc/cron.d
+    mode: '0755'
 
 - name: manual_delete | Cron task to delete files in burp trash
   cron:
