@@ -80,6 +80,7 @@
     tags:
       - skip_ansible_lint
     check_mode: no
+    become: false
 
   - name: build-burp | failed when burp version is different than the one that must be installed
     fail: msg="burp version is different than the one that must be installed"
