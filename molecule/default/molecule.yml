@@ -38,18 +38,6 @@ platforms:
     groups:
       - use_pip_package
 
-  - name: ansible_burp2_server-03
-    image: docker.io/pycontribs/centos:7
-    pre_build_image: true
-    command: /sbin/init
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-    #privileged: True
-    groups:
-      - group1
-
   - name: ansible_burp2_server-04
     image: "geerlingguy/docker-centos8-ansible"
     #privileged: True
