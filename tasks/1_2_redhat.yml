@@ -20,7 +20,6 @@
 # required for uthash-devel on Centos 8
 - name: Enable PowerTools repo on CentOS/RedHat 8
   ini_file:
-  community.general.ini_file:
     path: /etc/yum.repos.d/CentOS-Linux-PowerTools.repo
     section: powertools
     option: enabled
