@@ -29,8 +29,8 @@ burp_home: "/var/spool/burp"
 
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
-autoupgrade_version: "2.2.18"  # master version is not compiled so added separately
-burp_version: "2.2.18"         # branch or tag, example: "master"  , example: "2.0.46"
+autoupgrade_version: "2.4.0"  # master version is not compiled so added separately
+burp_version: "2.4.0"         # branch or tag, example: "master"  , example: "2.0.46"
 burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure "
 # For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
 burp_usr_path: '/usr/local'
