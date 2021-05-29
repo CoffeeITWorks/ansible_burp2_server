@@ -49,14 +49,3 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-# https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
-# Don't forget to add the secret galaxy_api_key in your repository
-  release:
-    needs:
-      - molecule
-    runs-on: ubuntu-latest
-    steps:
-      - name: galaxy
-        uses: robertdebock/galaxy-action@1.1.0
-        with:
-          galaxy_api_key: ${{ secrets.galaxy_api_key }}        

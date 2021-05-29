@@ -1,0 +1,16 @@
+---
+name: Galaxy notification
+on: [push, release]
+
+# https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
+# Don't forget to add the secret galaxy_api_key in your repository
+jobs:
+  release:
+    needs:
+      - molecule
+    runs-on: ubuntu-latest
+    steps:
+      - name: galaxy
+        uses: robertdebock/galaxy-action@1.1.0
+        with:
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}        
