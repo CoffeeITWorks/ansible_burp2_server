@@ -1,3 +1,9 @@
+2.4.6
+=====
+* win64 not supported anymore
+* multiple fixes
+* changes with github actions
+
 2.4.4
 =====
 * minor fixes to file permissions

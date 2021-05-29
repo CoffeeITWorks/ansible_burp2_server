@@ -48,7 +48,6 @@ download_dir: "{{ ansible_env.HOME }}/burp"
 burp_server_etc: '/etc/burp'
 ## Additional autoupgrade vars:
 autoupgrade_url_win64: "https://github.com/grke/burp/releases/download/{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe"
-autoupgrade_url_win32: "https://github.com/grke/burp/releases/download/{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe"
 
 ### Burp Server
 ### http://burp.grke.org/docs/manpage.html

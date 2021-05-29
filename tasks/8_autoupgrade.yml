@@ -22,7 +22,6 @@
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
   with_items:
-    - { src: "autoupgrade_script", dest: "{{ burp_server_autoupgrade_dir }}/win32/script" }
     - { src: "autoupgrade_script", dest: "{{ burp_server_autoupgrade_dir }}/win64/script" }
 
 - name: autoupgrade | Get autoupgrade package
@@ -38,4 +37,3 @@
   delay: 6
   with_items:
     - { src: "{{ autoupgrade_url_win64 }}", dest: "{{ burp_server_autoupgrade_dir }}/win64/{{ autoupgrade_version }}/package" }
-    - { src: "{{ autoupgrade_url_win32 }}", dest: "{{ burp_server_autoupgrade_dir }}/win32/{{ autoupgrade_version }}/package" }
