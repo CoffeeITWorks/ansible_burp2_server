@@ -71,9 +71,9 @@
     unsafe_writes: yes
     copy: yes
     creates: "{{ burp_server_clientconfdir }}/incexc/audio_exclusions"
+    owner: "{{ burp_sv_server_user }}"
+    group: "{{ burp_sv_server_user }}"
     mode: '0750'
-  become: yes
-  become_user: "{{ burp_sv_server_user }}"
 
 - name: config_burp | configure profile lnxsrv to create new client
   template:
