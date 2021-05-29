@@ -1,11 +1,6 @@
 ---
 # file tasks/config_burp.yml
 
-- name: config_burp | install config dependencies
-  package:
-    name: "{{ ansible_burp_config_dependencies | join(',') }}"
-    state: present
-
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate
 - name: config_burp | create etc directories
   file: 
@@ -69,15 +64,10 @@
   with_items: "{{ profiles_templates }}"
 
 - name: config_burp | copy clients configuration files
-  synchronize:
+  copy:
     src: "files/incexc/"
     dest: "{{ burp_server_clientconfdir }}/incexc/"
-    archive: no
-    recursive: yes
-    times: yes
-    links: no
-    perms: no
-    checksum: yes # required to skip based on checksum not on time and size
+    unsafe_writes: yes
   become: yes
   become_user: "{{ burp_sv_server_user }}"
 
