@@ -1,6 +1,6 @@
 name: Molecule
 
-on: [push]
+on: [push, pull_request, pull_request_review, release]
 
 jobs:
   molecule:
