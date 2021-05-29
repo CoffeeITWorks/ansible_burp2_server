@@ -19,8 +19,8 @@
   when: burp_force_reinstall | bool
 
 - name: build-burp | Ensure download directory is present
-  file: 
-    path: "{{ download_dir }}" 
+  file:
+    path: "{{ download_dir }}"
     state: directory
 
 - name: build-burp | GET burp backup and restore
@@ -52,7 +52,7 @@
   shell: cd {{ download_dir }}/{{ burpsrc }} && make creates={{ download_dir }}/{{ burpsrc }}/burp
 
 - name: build-burp | check if burp is installed
-  stat: 
+  stat:
     path: "{{ burp_bin_path }}"
   register: stb
 
@@ -64,7 +64,7 @@
 
 - name: build-burp | Make install
   shell: cd {{ download_dir }}/{{ burpsrc }} && make install creates={{ burp_bin_path }}
-  notify: 
+  notify:
     - restart burp server
     - restart burp server systemd
 
@@ -80,6 +80,7 @@
     tags:
       - skip_ansible_lint
     check_mode: no
+    become: false
 
   - name: build-burp | failed when burp version is different than the one that must be installed
     fail: msg="burp version is different than the one that must be installed"

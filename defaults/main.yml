@@ -29,8 +29,8 @@ burp_home: "/var/spool/burp"
 
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
-autoupgrade_version: "2.2.18"  # master version is not compiled so added separately
-burp_version: "2.2.18"         # branch or tag, example: "master"  , example: "2.0.46"
+autoupgrade_version: "2.4.0"  # master version is not compiled so added separately
+burp_version: "2.4.0"         # branch or tag, example: "master"  , example: "2.0.46"
 burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure "
 # For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
 burp_usr_path: '/usr/local'
@@ -47,10 +47,7 @@ download_dir: "{{ ansible_env.HOME }}/burp"
 
 burp_server_etc: '/etc/burp'
 ## Additional autoupgrade vars:
-#autoupgrade_url_win64: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe/download"
-#autoupgrade_url_win32: "https://sourceforge.net/projects/burp/files/burp-{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe/download"
-autoupgrade_url_win64: "https://github.com/pablodav/burp/releases/download/{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe"
-autoupgrade_url_win32: "https://github.com/pablodav/burp/releases/download/{{ autoupgrade_version }}/burp-win32-installer-{{ autoupgrade_version }}.exe"
+autoupgrade_url_win64: "https://github.com/grke/burp/releases/download/{{ autoupgrade_version }}/burp-win64-installer-{{ autoupgrade_version }}.exe"
 
 ### Burp Server
 ### http://burp.grke.org/docs/manpage.html

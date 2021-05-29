@@ -35,9 +35,6 @@ build_dependencies:
 # burp_apt_sources:
 #  - "deb http://ziirish.info/repos/ubuntu/{{ ansible_distribution_release }} zi-latest main"
 
-ansible_burp_config_dependencies:
-  - rsync
-
 supervisoretc_dir: "/etc/supervisor/conf.d"
 supervisor_ext: "conf"
 supervisor_service: supervisor
