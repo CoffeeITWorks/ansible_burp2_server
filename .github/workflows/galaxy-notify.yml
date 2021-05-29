@@ -1,13 +1,64 @@
 ---
-name: Galaxy notification
-on: [push, release]
+name: Molecule release
+on: 
+  push:
+    branches:
+      - "master"
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  molecule:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Better to use one scenario per OS for faster performance and easier debugging
+        scenario:
+          - centos-8
+          - ubuntu-2004
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+
+      - name: Molecule converge
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --debug --base-config molecule/_shared/base.yml
+          molecule_command: converge
+          # Always specify scenario and don't use default for better different use cases
+          molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+      - name: Molecule syntax
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --debug --base-config molecule/_shared/base.yml
+          molecule_command: syntax
+          # Always specify scenario and don't use default for better different use cases
+          molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+      - name: Molecule idempotence
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --debug --base-config molecule/_shared/base.yml
+          molecule_command: idempotence
+          # Always specify scenario and don't use default for better different use cases
+          molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
 
 # https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
 # Don't forget to add the secret galaxy_api_key in your repository
-jobs:
   release:
-    needs:
-      - molecule
     runs-on: ubuntu-latest
     steps:
       - name: galaxy
