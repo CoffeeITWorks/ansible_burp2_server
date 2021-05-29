@@ -70,6 +70,8 @@
     dest: "{{ burp_server_clientconfdir }}/"
     unsafe_writes: yes
     copy: yes
+    creates: "{{ burp_server_clientconfdir }}/incexc/audio_exclusions"
+    mode: '0750'
   become: yes
   become_user: "{{ burp_sv_server_user }}"
 
