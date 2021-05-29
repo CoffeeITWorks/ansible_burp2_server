@@ -1,14 +1,9 @@
 ---
 # file tasks/config_burp.yml
 
-# - name: config_burp | install config dependencies
-#   package:
-#     name: "{{ ansible_burp_config_dependencies | join(',') }}"
-#     state: present
-- name: install rsync on the ansible controller
-  connection: local
+- name: config_burp | install config dependencies
   package:
-    name: rsync
+    name: "{{ ansible_burp_config_dependencies | join(',') }}"
     state: present
 
 # Ensure to not create /etc/bur/CA manually because it will break auto generated certificate

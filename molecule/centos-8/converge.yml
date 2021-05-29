@@ -1,5 +1,11 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+  - name: install rsync on the ansible controller
+    connection: local
+    package:
+      name: rsync
+      state: present
   roles:
     - role: ansible_burp2_server
