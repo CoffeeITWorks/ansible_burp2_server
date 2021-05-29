@@ -60,3 +60,4 @@ fabric.properties
 
 # VSCode
 .vscode
+.cache
