@@ -60,6 +60,8 @@ jobs:
 # Don't forget to add the secret galaxy_api_key in your repository
   release:
     runs-on: ubuntu-latest
+    needs:
+      - molecule
     steps:
       - name: galaxy
         uses: robertdebock/galaxy-action@1.1.0

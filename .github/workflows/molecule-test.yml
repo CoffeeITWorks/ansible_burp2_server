@@ -1,6 +1,13 @@
 name: Molecule pipeline test
 
-on: [push, pull_request, pull_request_review]
+on: 
+  push:
+    branches-ignore:
+      - "master"
+    tags-ignore:
+      - "*"
+  pull_request:
+  pull_request_review:
 
 jobs:
   molecule:
