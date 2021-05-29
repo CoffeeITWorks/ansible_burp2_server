@@ -10,7 +10,7 @@ Full list of roles: <https://github.com/grke/burp/wiki/Automated-deploy-and-main
 Tests
 -----
 
-[![Build Status](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server.svg?branch=master)](https://travis-ci.org/CoffeeITWorks/ansible_burp2_server)
+[![Molecule](https://github.com/CoffeeITWorks/ansible_burp2_server/actions/workflows/molecule-test.yml/badge.svg)](https://github.com/CoffeeITWorks/ansible_burp2_server/actions/workflows/molecule-test.yml)
 
 quickstart
 ----------
