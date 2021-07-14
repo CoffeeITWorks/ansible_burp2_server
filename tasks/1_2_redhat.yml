@@ -21,6 +21,7 @@
 - name: Enable PowerTools repo on CentOS/RedHat 8
   yum_repository:
     name: PowerTools
+    description: PowerTools Repository
     mirrorlist: 'mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=PowerTools&infra=$infra'
     enabled: yes
     gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial'
