@@ -12,5 +12,5 @@
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/defaults.yml"
 
-- include: 1_2_redhat.yml
+- import_tasks: 1_2_redhat.yml
   when: ansible_os_family == "RedHat"
