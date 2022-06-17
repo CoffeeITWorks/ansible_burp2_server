@@ -1,6 +1,7 @@
 ---
 galaxy_info:
-  author: "Diego Daguerre / Pablo Estigarribia"
+  role_name: ansible_burp2_server
+  author: "coffeeitworks"
   company: coffeeITWorks
   description: ansible role to deploy and maintain burp backup
 
@@ -17,7 +18,7 @@ galaxy_info:
   # - CC-BY
   license: MIT
 
-  min_ansible_version: 2.0
+  min_ansible_version: 3.0
 
   # Optionally specify the branch Galaxy will use when accessing the GitHub
   # repo for this role. During role install, if no tags are available,

@@ -1,4 +1,6 @@
 ---
+# https://www.ansible.com/blog/developing-and-testing-ansible-roles-with-molecule-and-podman-part-1
+# sudo setsebool -P container_manage_cgroup 1
 dependency:
   name: galaxy
   options:
@@ -10,7 +12,7 @@ driver:
 platforms:
 
   - name: ansible_burp2_server-01
-    image: "geerlingguy/docker-ubuntu2004-ansible:latest"
+    image: "docker.io/geerlingguy/docker-ubuntu2004-ansible:latest"
     #privileged: True
     command: "/lib/systemd/systemd"
     pre_build_image: true
@@ -25,7 +27,7 @@ platforms:
       - group1
 
   - name: ansible_burp2_server-04
-    image: "geerlingguy/docker-centos8-ansible"
+    image: "docker.io/geerlingguy/docker-centos8-ansible"
     command: /usr/sbin/init
     #privileged: True
     pre_build_image: true
@@ -43,7 +45,8 @@ provisioner:
   name: ansible
   config_options:
     defaults:
-      callback_whitelist: profile_tasks
+      callbacks_whitelist: profile_tasks, timer, yaml
+      interpreter_python: auto_silent
     ssh_connection:
       pipelining: false
       ssh_args: -o ControlMaster=auto -o ControlPersist=60s
