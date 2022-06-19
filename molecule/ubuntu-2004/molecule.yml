@@ -43,3 +43,5 @@ provisioner:
     host_vars:
       ansible_burp2_server-02:
         burp_sv_server_user: 'burp'
+verifier:
+  name: ansible
