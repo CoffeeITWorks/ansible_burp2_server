@@ -1,45 +1,45 @@
 ---
 # file: tasks/main.yml
 
-- include: 1_1_multi_os.yml
+- import_tasks: 1_1_multi_os.yml
 
-# - include: repositories.yml
+# - import_tasks: repositories.yml
 
-# - include: install_burp.yml
+# - import_tasks: install_burp.yml
 
-# Include steps to be ready for unprivileged account
-- include: 2_unprivileged_user.yml
+# import_tasks steps to be ready for unprivileged account
+- import_tasks: 2_unprivileged_user.yml
   when: burp_sv_server_user != "root"
 
-- include: 3_build-burp.yml
+- import_tasks: 3_build-burp.yml
 
-- include: 4_config_burp.yml
+- import_tasks: 4_config_burp.yml
 
-- include: 5_hotfix/burp_ca.yml
+- import_tasks: 5_hotfix/burp_ca.yml
   when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "10")
 
-- include: 6_manual_client.yml
+- import_tasks: 6_manual_client.yml
 
 # Only for monitor and status purpose
-- include: 7_1_manual_delete.yml
+- import_tasks: 7_1_manual_delete.yml
   when: burp_manual_delete_enabled
 
-- include: 7_2_manual_delete_disabled.yml
+- import_tasks: 7_2_manual_delete_disabled.yml
   when: not burp_manual_delete_enabled
 
-- include: 8_autoupgrade.yml
+- import_tasks: 8_autoupgrade.yml
   when: burp_server_autoupgrade_enabled
 
-- include: 9_clients_git.yml
+- import_tasks: 9_clients_git.yml
   when: burp_repos
   tags: update_git_clients
 
-- include: 10_local_client.yml
+- import_tasks: 10_local_client.yml
 
-- include: deprecated/supervisor.yml
+- import_tasks: deprecated/supervisor.yml
   when: burp_sv_type == 'supervisor'
 
-- include: 11_systemd.yml
+- import_tasks: 11_systemd.yml
   when: burp_sv_type == 'systemd'
 
 - name: wait for burpca to get all server certificates
@@ -54,7 +54,7 @@
 - name: flush handlers
   meta: flush_handlers
 
-- include: 12_backup_tool_script.yml
+- import_tasks: 12_backup_tool_script.yml
   when: install_backup_tool_script
 
-- include: 13_remove_client.yml
+- import_tasks: 13_remove_client.yml

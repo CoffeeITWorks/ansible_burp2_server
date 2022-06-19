@@ -11,10 +11,10 @@ driver:
   name: podman
 platforms:
 
-  - name: ansible_burp2_server-01
-    image: "docker.io/geerlingguy/docker-ubuntu2004-ansible:latest"
+  - name: ansible_burp2_server-04
+    image: "docker.io/geerlingguy/docker-centos8-ansible"
+    command: /usr/sbin/init
     #privileged: True
-    command: "/lib/systemd/systemd"
     pre_build_image: true
     capabilities:
       - SYS_ADMIN
@@ -24,7 +24,7 @@ platforms:
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
     groups:
-      - group1
+      - use_pip_package
 
 provisioner:
   name: ansible

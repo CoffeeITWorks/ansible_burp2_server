@@ -1,5 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  roles:
-    - role: ansible_burp2_server
+  tasks:
+    - name: Include ansible_burp2_server
+      include_role: 
+        name: ansible_burp2_server

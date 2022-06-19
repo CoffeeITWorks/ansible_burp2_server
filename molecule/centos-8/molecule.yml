@@ -9,8 +9,8 @@ driver:
 platforms:
 
   - name: ansible_burp2_server-04
-    image: "geerlingguy/docker-centos8-ansible"
-    privileged: True
+    image: "docker.io/geerlingguy/docker-centos8-ansible"
+    #privileged: True
     command: /sbin/init
     pre_build_image: true
     capabilities:
@@ -27,7 +27,7 @@ provisioner:
   name: ansible
   config_options:
     defaults:
-      callback_whitelist: profile_tasks
+      callbacks_enabled: profile_tasks
     ssh_connection:
       pipelining: true
       ssh_args: -o ControlMaster=auto -o ControlPersist=60s

@@ -1,3 +1,8 @@
+2.5.0
+=====
+* Fixes for molecule v4 tests
+* Hotfix/81 enable power tools repo
+
 2.4.6
 =====
 * win64 not supported anymore
