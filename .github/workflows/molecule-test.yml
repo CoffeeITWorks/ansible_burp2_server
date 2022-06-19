@@ -28,31 +28,33 @@ jobs:
         with:
           path: "${{ github.repository }}"
       
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Molecule converge
+        uses: gofrolist/molecule-action@v2
         with:
-          python-version: '3.x'
-      
-      - name: Install dependencies.
-        run: pip3 install yamllint ansible-lint ansible "molecule[lint,docker]"
-      
-      - name: Install Galaxy dependencies.
-        run: ansible-galaxy collection install community.docker
-      
-      - name: Run molecule converge
-        run: "molecule converge --scenario-name ${{ matrix.scenario }}"
+          molecule_options: --debug --base-config molecule/_shared/base.yml
+          molecule_command: converge
+          # Always specify scenario and don't use default for better different use cases
+          molecule_args: --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-
-      - name: Run molecule syntax
-        run: "molecule syntax --scenario-name ${{ matrix.scenario }}"
+      - name: Molecule syntax
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --debug --base-config molecule/_shared/base.yml
+          molecule_command: syntax
+          # Always specify scenario and don't use default for better different use cases
+          molecule_args: --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-
-      - name: Run molecule idempotence
-        run: "molecule idempotence --scenario-name ${{ matrix.scenario }}"
+      - name: Molecule idempotence
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --debug --base-config molecule/_shared/base.yml
+          molecule_command: idempotence
+          # Always specify scenario and don't use default for better different use cases
+          molecule_args: --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
