@@ -30,7 +30,7 @@ provisioner:
   name: ansible
   config_options:
     defaults:
-      callbacks_whitelist: profile_tasks, timer, yaml
+      callbacks_enabled: profile_tasks, timer, yaml
       interpreter_python: auto_silent
     ssh_connection:
       pipelining: false
