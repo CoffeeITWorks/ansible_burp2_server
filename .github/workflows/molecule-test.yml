@@ -45,7 +45,7 @@ jobs:
         run: molecule --version
 
       - name: Run molecule converge
-        run: "molecule converge --scenario-name ${{ matrix.scenario }} --driver-name docker"
+        run: "cd molecule/${{ matrix.scenario }} && molecule converge"
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
