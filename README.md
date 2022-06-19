@@ -61,6 +61,15 @@ ansible-playbook -i inventory/ roles.burp2_servers.yml -v -u pablo --ask-pass
 
 Later you will be able to customize some vars adding your own values in `group_vars` variables or `host_vars`.
 
+Requirements
+------------
+
+Install this role if you wanna use it with centos > 8
+```yaml
+- src: https://github.com/robertdebock/ansible-role-powertools
+  name: ansible-role-powertools
+```
+
 Role Name
 ---------
 
