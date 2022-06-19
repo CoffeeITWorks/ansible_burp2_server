@@ -49,15 +49,18 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+        working-directory: "${{ github.repository }}"
 
       - name: Run molecule syntax
         run: "molecule syntax --scenario-name ${{ matrix.scenario }}"
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+        working-directory: "${{ github.repository }}"
 
       - name: Run molecule idempotence
         run: "molecule idempotence --scenario-name ${{ matrix.scenario }}"
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+        working-directory: "${{ github.repository }}"
