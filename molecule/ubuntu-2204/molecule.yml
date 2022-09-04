@@ -13,7 +13,7 @@ platforms:
 
   - name: ansible_burp2_server-01
     image: "docker.io/geerlingguy/docker-ubuntu2204-ansible:latest"
-    #privileged: True
+    privileged: True
     command: "/lib/systemd/systemd"
     pre_build_image: true
     capabilities:
