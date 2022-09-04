@@ -150,7 +150,6 @@ pablo@debian9-univ:~$ sudo burp -a l
 2019-05-05 22:41:06 -0300: burp[28434] SSL is using cipher: DHE-RSA-AES256-GCM-SHA384 TLSv1.2 Kx=DH       Au=RSA  Enc=AESGCM(256) Mac=AEAD
 
 2019-05-05 22:41:06 -0300: burp[28434] extra_comms_begin ok:autoupgrade:incexc:orig_client:uname:sincexc:counters_json:msg:forceproto=1:
-2019-05-05 22:41:06 -0300: burp[28434] Server is forcing protocol 1
 Backup: 0000001 2019-05-05 18:47:07 -0300 (deletable)
 2019-05-05 22:41:06 -0300: burp[28434] main socket 3: Peer closed SSL session
 2019-05-05 22:41:06 -0300: burp[28434] List finished ok
