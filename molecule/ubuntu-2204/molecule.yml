@@ -1,0 +1,51 @@
+---
+# https://www.ansible.com/blog/developing-and-testing-ansible-roles-with-molecule-and-podman-part-1
+# sudo setsebool -P container_manage_cgroup 1
+dependency:
+  name: galaxy
+  options:
+    ignore-certs: True
+    ignore-errors: True
+    role-file: dev_requirements.yml  # this file is at the root of the git project same place as molecule is executed
+driver:
+  name: docker
+platforms:
+
+  - name: ansible_burp2_server-01
+    image: "docker.io/geerlingguy/docker-ubuntu2204-ansible:latest"
+    privileged: True
+    command: "/lib/systemd/systemd"
+    pre_build_image: true
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    groups:
+      - group1
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      callbacks_enabled: profile_tasks, timer, yaml
+      interpreter_python: auto_silent
+    ssh_connection:
+      pipelining: true
+      ssh_args: -o ControlMaster=auto -o ControlPersist=60s
+  inventory:
+    group_vars:
+      master:
+        burpsrcext: "zip"
+        burp_version: "master"
+        burp_remove_clients:
+          - name: client_to_remove
+          - name: other_client_to_remove
+        burp_server_port_per_operation_bool: true
+    host_vars:
+      ansible_burp2_server-02:
+        burp_sv_server_user: 'burp'
+verifier:
+  name: ansible

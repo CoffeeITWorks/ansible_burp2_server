@@ -193,10 +193,12 @@ if [ "$init" = "yes" ]; then
 	[ req ]
 	distinguished_name      = req_distinguished_name
 	prompt                  = no
+
 	[ v3_ca ]
 	basicConstraints=CA:true
 	subjectKeyIdentifier=hash
 	authorityKeyIdentifier=keyid,issuer:always
+
 	[ req_distinguished_name ]
 	commonName                      = $ca
 EOF
@@ -234,14 +236,18 @@ if [ "$request" = "yes" ]; then
 	TEMP="$(mktemp "/tmp/@name@_ca.tmp.XXXXXXXX" || echo "/tmp/@name@_ca.tmp.$$")"
 	cat <<-EOF > "$TEMP"
         req_extensions          = v3_req
+
 	[ req ]
 	distinguished_name      = req_distinguished_name
 	prompt                  = no
+
 	[ v3_req ]
 	basicConstraints=CA:false
 	$altname
+
 	[ req_distinguished_name ]
 	commonName                      = $name
+
 EOF
 	openssl req \
 		-config "$TEMP" \

@@ -1,3 +1,10 @@
+3.1.2
+=====
+Version match with burp version.
+burp removed protocol 2, so removing config and support.
+openssl3 support added.
+Ubuntu 22.04 support (openssl3)
+
 2.5.0
 =====
 * Fixes for molecule v4 tests

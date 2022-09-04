@@ -29,8 +29,8 @@ burp_home: "/var/spool/burp"
 
 # Add these vars to your hosts/groups to change version/tag (archive to download and compile)
 burpsrcext: "zip"              # must be tar.gz or zip
-autoupgrade_version: "2.4.0"  # master version is not compiled so added separately
-burp_version: "2.4.0"         # branch or tag, example: "master"  , example: "2.0.46"
+autoupgrade_version: "3.1.2"  # master version is not compiled so added separately
+burp_version: "3.1.2"         # branch or tag, example: "master"  , example: "2.0.46"
 burp_configure_line: "CFLAGS='-O2 -march=native -mtune=native -mfpmath=sse -floop-parallelize-all -ftree-parallelize-loops=4' ./configure "
 # For CFLAGS see: https://github.com/grke/burp/wiki/Performance-Tips#optional-compile-time-improvements
 burp_usr_path: '/usr/local'
@@ -38,9 +38,8 @@ burp_bin_path: "{{ burp_usr_path }}/sbin/burp"
 
 burp_force_reinstall: false
 
-# previously:  burpsrc: "burp-2.0.46"
 burpsrc: "burp-{{ burp_version }}"
-# previously:  burpurl: "https://github.com/grke/burp/archive/2.0.46.tar.gz"
+# example of parsed vars  burpurl: "https://github.com/grke/burp/archive/2.0.46.tar.gz"
 burpurl: "https://github.com/grke/burp/archive/{{ burp_version }}.{{ burpsrcext }}"
 # Directory that will be used as the location for the downloads§
 download_dir: "{{ ansible_env.HOME }}/burp"
@@ -60,7 +59,6 @@ burp_server_listen: "{{ burp_server_address }}:{{ burp_server_port }}"
 burp_server_status_port: 4972
 burp_server_listen_status: "127.0.0.1:{{ burp_server_status_port }}"
 burp_server_dedup_group: "global"
-burp_server_protocol: "1"
 burp_server_pidfile: "/var/run/burp/burp.server.pid" # Don't change it unless you know what you are doing
 burp_server_hardlinked_archive: "0"
 burp_server_librsync: "1"
@@ -258,7 +256,7 @@ profiles_templates:
       - 'scan_problem_raises_error=0'
       - ''
       - '# note that we are backing up C:/System Volume Information"'
-      - '# Remove VSS info, also strips NTFS acls (protocol 1 only)'
+      - '# Remove VSS info, also strips NTFS acls'
       - 'strip_vss=1'
       - '# Splitting VSS info would mean that for every file, 3 files exists (header, actual file, footer)'
       - 'split_vss=0'
