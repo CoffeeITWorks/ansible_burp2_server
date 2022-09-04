@@ -22,3 +22,8 @@
     dest: "{{ burp_server_clientconfdir }}/monitor"
     owner: "{{ burp_sv_server_user }}"
     group: "{{ burp_sv_server_user }}"
+
+- name: local_client | Run local client to generate certs
+  shell: "{{ burp_bin_path }}" -c {{ burp_server_etc }}/burp.conf
+  register: local_client_run_output
+  changed_when: false
