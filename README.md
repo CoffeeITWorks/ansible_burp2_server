@@ -209,6 +209,7 @@ burp2_add_manual_clients:
   - name: client_name
     profile: profile name to use (optional), default: profile_lnxsrv (these files are in incexc/ dir).
     password: client_password (optional), default: burp_client_password var
+    content: list of custom content (optional)
   - name: second_client
 ```
 

@@ -2,6 +2,13 @@
 
 password = {{ item.password | default(burp_client_password) }}
 
+{% if item.content is defined -%}
+	{%- for l in item.content -%}
+	{{ l }}
+	{% endfor %}
+
+{% endif -%}
+
 # More configuration files can be read, using syntax like the following
 # (without the leading '# ').
 . incexc/{{ item.profile | default('profile_lnxsrv') }}
