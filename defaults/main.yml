@@ -5,6 +5,7 @@
 ### Modules ---
 # Configure Burp manual delete
 burp_manual_delete_enabled: true
+burp_manual_delete_logs: true
 # Configure Burp Autoupgrade
 burp_server_autoupgrade_enabled: true
 # Activate clients from git repository
