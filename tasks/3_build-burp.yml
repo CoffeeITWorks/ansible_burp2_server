@@ -28,7 +28,6 @@
     url: "{{ burpurl }}"
     dest: "{{ download_dir }}/{{ burpsrc }}.{{ burpsrcext }}"
     timeout: 30
-    validate_certs: no
 
 - name: build-burp | Unpack Burp source files tar.gz
   shell: cd {{ download_dir }} && tar -xzvf {{ burpsrc }}.{{ burpsrcext }} creates={{ download_dir }}/{{ burpsrc }}
