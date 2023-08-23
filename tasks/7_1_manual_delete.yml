@@ -25,7 +25,7 @@
 - name: manual_delete | Cron task to delete files in burp trash
   cron:
     name: delete files in burp trash
-    job: 'rm -rfv {{ burp_trash  }}/* >> {{ burp_logs }}/manual_delete.log'
+    job: 'flock --exclusive {{ burp_trash  }} --command "rm -rfv {{ burp_trash  }}/*" >> {% if burp_manual_delete_logs %}{{ burp_logs }}/manual_delete.log{% else %}/dev/null {% endif %}'
     user: root
     cron_file: manual_delete
     minute: "{{ item.minute }}"
